@@ -1,0 +1,22 @@
+{
+  "DAI": {
+    "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
+    "address": "0x04460b259acdfd4d267a2ef01544e1619abaafa699d2ac00552f3de03dd0fe43",
+    "contract": "MockToken"
+  },
+  "USDT": {
+    "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
+    "address": "0x03c9ab3ed831ec442658d204dc681d68cefc1a145c11c1f77cb04e2b588f3d5a",
+    "contract": "MockToken"
+  },
+  "STRK": {
+    "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
+    "address": "0x013b7ecbd8549f7c91c306b3479bb1e0d6c672cd7c8267c80c8707ff66c35d12",
+    "contract": "MockToken"
+  },
+  "ConstantProductAmm": {
+    "classHash": "0x4bc2b6b125afbc802fc379b118366e64be3d12b5c9c93c3086dd51ef85eb3ca",
+    "address": "0x00eaa19e515f8c6c73142be6d53ffe667f5db81675ef323866f54aee1e154d1b",
+    "contract": "ConstantProductAmm"
+  }
+}

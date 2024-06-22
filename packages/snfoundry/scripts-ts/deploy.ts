@@ -11,7 +11,7 @@ const deployScript = async (): Promise<void> => {
     {
       name: "DAI",
       symbol: "DAI",
-      initial_supply: 1000000000000000000000000n,
+      initial_supply: 1000000000000000000000n,
       recipient: deployer.address,
     },
     "MockToken",
@@ -22,7 +22,7 @@ const deployScript = async (): Promise<void> => {
     {
       name: "USDT",
       symbol: "USDT",
-      initial_supply: 1000000000000000000000000n,
+      initial_supply: 1000000000000000000000n,
       recipient: deployer.address,
     },
     "MockToken",
@@ -33,20 +33,31 @@ const deployScript = async (): Promise<void> => {
     {
       name: "STRK",
       symbol: "STRK",
-      initial_supply: 1000000000000000000000000n,
+      initial_supply: 1000000000000000000000n,
       recipient: deployer.address,
     },
     "MockToken",
     "STRK"
   );
 
-  const staking = await deployContract(
+  const ammNadai = await deployContract(
     {
       token0: dai.address,
       token1: usdt.address,
-      fee: 30,
+      fee: 10,
     },
-    "ConstantProductAmm"
+    "ConstantProductAmm",
+    "NadaiAMM"
+  );
+
+  const ammScaffold = await deployContract(
+    {
+      token0: dai.address,
+      token1: usdt.address,
+      fee: 1,
+    },
+    "ConstantProductAmm",
+    "ScaffoldAMM"
   );
 
 }
