@@ -6,7 +6,8 @@ import { Address } from "~~/components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
-import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWriteContract";
+import { useTransactor } from "~~/hooks/scaffold-stark/useTransactor";
+import { useState } from "react";
 
 // Función para formatear valores en wei a ether
 function formatEther(weiValue: number) {
@@ -14,8 +15,10 @@ function formatEther(weiValue: number) {
   return etherValue.toFixed(1);
 }
 
+
 const Starknet: NextPage = () => {
   const { address: connectedAddress } = useAccount();
+  const transactor = useTransactor();
 
   // Obtener contratos
   const { data: NadaiAMM } = useScaffoldContract({ contractName: "NadaiAMM" });
@@ -45,18 +48,6 @@ const Starknet: NextPage = () => {
     watch: true,
   });
 
-  const { data: totalSupplyScaffold } = useScaffoldReadContract({
-    contractName: "ScaffoldAMM",
-    functionName: "get_total_supply",
-    watch: true,
-  });
-
-  const { data: totalSupplyNadai } = useScaffoldReadContract({
-    contractName: "NadaiAMM",
-    functionName: "get_total_supply",
-    watch: true,
-  });
-
   const { data: balanceReserveScaffold } = useScaffoldReadContract({
     contractName: "ScaffoldAMM",
     functionName: "get_reserves"
@@ -67,41 +58,6 @@ const Starknet: NextPage = () => {
     functionName: "get_reserves"
   });
 
-  // Facuet
-  const { write: faucetUSDT } = useScaffoldWriteContract({
-    contractName: "USDT",
-    functionName: "faucet",
-    args: [connectedAddress, 100000000000000000000]
-  });
-
-  const { write: faucetDAI } = useScaffoldWriteContract({
-    contractName: "DAI",
-    functionName: "faucet",
-    args: [connectedAddress, 100000000000000000000]
-  });
-
-  const { write: faucetSTRK } = useScaffoldWriteContract({
-    contractName: "STRK",
-    functionName: "faucet",
-    args: [connectedAddress, 100000000000000000000]
-  });
-
-  // Multiwrite Approve + add liquidity
-  const { write: MultiApproveAmmScaffold } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("DAI", "approve", [ScaffoldAMM?.address, 100000000000000000000]),
-      createContractCall("USDT", "approve", [ScaffoldAMM?.address, 100000000000000000000]),
-      createContractCall("ScaffoldAMM", "add_liquidity", [100000000000000000000, 100000000000000000000]),
-    ]
-  });
-
-  const { write: MultiApproveAmmNadai } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("DAI", "approve", [NadaiAMM?.address, 100000000000000000000]),
-      createContractCall("USDT", "approve", [NadaiAMM?.address, 100000000000000000000]),
-      createContractCall("NadaiAMM", "add_liquidity", [100000000000000000000, 100000000000000000000]),
-    ]
-  });
 
   // Swap 10 USDT for X DAI
   const { write: SwapAmmScaffoldUSDT } = useScaffoldMultiWriteContract({
@@ -157,40 +113,27 @@ const Starknet: NextPage = () => {
     ]
   });
 
+
+ // Estados para controlar el estado de la transacción
+ const [isTransactionPending, setTransactionPending] = useState(false);
+
+
   // Manejo de eventos de botones
-  const handleFaucetUSDT = () => {
-    if (faucetUSDT) {
-      faucetUSDT();
-    }
-  };
-
-  const handleFaucetDAI = () => {
-    if (faucetDAI) {
-      faucetDAI();
-    }
-  };
-
-  const handleFaucetSTRK = () => {
-    if (faucetSTRK) {
-      faucetSTRK();
-    }
-  };
-
-  const handleAddLiquidityNadai = () => {
-    if (MultiApproveAmmNadai) {
-      MultiApproveAmmNadai();
-    }
-  };
-
-  const handleAddLiquidityScaffold = () => {
-    if (MultiApproveAmmScaffold) {
-      MultiApproveAmmScaffold();
-    }
-  };
-
-  const handleSwapNadaiUSDT = () => {
-    if (SwapAmmNadaiUsdt) {
-      SwapAmmNadaiUsdt();
+  const handleSwapNadaiUSDT = async () => {
+    if (!isTransactionPending && SwapAmmNadaiUsdt) {
+      try {
+        setTransactionPending(true);
+        const tx = async () => {
+          const result = await SwapAmmNadaiUsdt(); // Ejecutar la transacción
+          return result as unknown as string; // Asegurar el resultado
+        };
+        const txHash = await transactor(tx); // Enviar transacción
+        console.log("USDT Transaction Hash:", txHash); // Mostrar hash de la transacción
+      } catch (error) {
+        console.error("USDT Transaction Error:", error); // Manejar errores
+      } finally {
+        setTransactionPending(false); // Finalizar transacción
+      }
     }
   };
 
@@ -218,6 +161,7 @@ const Starknet: NextPage = () => {
     }
   };
 
+
   
   return (
     <div className="flex flex-col items-center pt-10 space-y-6">
@@ -232,12 +176,6 @@ const Starknet: NextPage = () => {
           <p className="text-xl text-blue-900">
             {balanceUSDT ? `${formatEther(Number(balanceUSDT))} USDT` : "0 USDT"}
           </p>
-          <button
-            onClick={handleFaucetUSDT}
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-          >
-            Mint USDT
-          </button>
         </div>
 
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
@@ -245,40 +183,12 @@ const Starknet: NextPage = () => {
           <p className="text-xl text-blue-900">
             {balanceDAI ? `${formatEther(Number(balanceDAI))} DAI` : "0 DAI"}
           </p>
-          <button
-            onClick={handleFaucetDAI}
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-          >
-            Mint DAI
-          </button>
         </div>
 
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-lg font-semibold text-blue-900">STARK Balance</p>
           <p className="text-xl text-blue-900">
             {balanceSTRK ? `${formatEther(Number(balanceSTRK))} STRK` : "0 STRK"}
-          </p>
-          <button
-            onClick={handleFaucetSTRK}
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-          >
-            Mint STRK
-          </button>
-        </div>
-      </div>
-
-      <div className="flex space-x-6">
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <p className="text-lg font-semibold text-blue-900">Total Supply Scaffold:</p>
-          <p className="text-xl text-blue-900">
-            {totalSupplyScaffold ? `${formatEther(Number(totalSupplyScaffold))} Reserves Scaffold` : "0 Reserves"}
-          </p>
-        </div>
-
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <p className="text-lg font-semibold text-blue-900">Total Supply Nadai:</p>
-          <p className="text-xl text-blue-900">
-            {totalSupplyNadai ? `${formatEther(Number(totalSupplyNadai))} Reserves Nadai` : "0 Reserves"}
           </p>
         </div>
       </div>
@@ -301,19 +211,7 @@ const Starknet: NextPage = () => {
 
 
       <div className="grid grid-cols-2 gap-4 mt-8 w-full max-w-md">
-        <button
-          onClick={handleAddLiquidityScaffold}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-        >
-          Add 100 DAI and 100 USDT - Scaffold
-        </button>
-
-        <button
-          onClick={handleAddLiquidityNadai}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-        >
-          Add 100 DAI and 100 USDT - Nadai
-        </button>
+        
 
         <button
           onClick={handleSwapScaffoldUSDT}
@@ -351,6 +249,8 @@ const Starknet: NextPage = () => {
         >
           MultiSwap Choss AMM
         </button>
+
+        
       </div>
     </div>
   );

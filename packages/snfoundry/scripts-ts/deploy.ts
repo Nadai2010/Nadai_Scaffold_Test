@@ -40,6 +40,17 @@ const deployScript = async (): Promise<void> => {
     "STRK"
   );
 
+  await deployContract(
+    {
+      name: "NAI",
+      symbol: "NAI",
+      initial_supply: 1000000000000000000000n,
+      recipient: deployer.address,
+    },
+    "MockToken",
+    "NAI"
+  );
+
   const ammNadai = await deployContract(
     {
       token0: dai.address,
