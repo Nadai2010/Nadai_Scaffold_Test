@@ -29,7 +29,7 @@ const deployScript = async (): Promise<void> => {
     "USDT"
   );
 
-  await deployContract(
+  const strk = await deployContract(
     {
       name: "STRK",
       symbol: "STRK",
@@ -40,7 +40,7 @@ const deployScript = async (): Promise<void> => {
     "STRK"
   );
 
-  await deployContract(
+  const nai = await deployContract(
     {
       name: "NAI",
       symbol: "NAI",
@@ -51,16 +51,6 @@ const deployScript = async (): Promise<void> => {
     "NAI"
   );
 
-  const ammNadai = await deployContract(
-    {
-      token0: dai.address,
-      token1: usdt.address,
-      fee: 10,
-    },
-    "ConstantProductAmm",
-    "NadaiAMM"
-  );
-
   const ammScaffold = await deployContract(
     {
       token0: dai.address,
@@ -69,6 +59,42 @@ const deployScript = async (): Promise<void> => {
     },
     "ConstantProductAmm",
     "ScaffoldAMM"
+  );
+
+  const ammNadai = await deployContract(
+    {
+      token0: nai.address,
+      token1: usdt.address,
+      fee: 1,
+    },
+    "ConstantProductAmm",
+    "NadaiAMM"
+  );
+
+  const ammStarknet = await deployContract(
+    {
+      token0: strk.address,
+      token1: usdt.address,
+      fee: 1,
+    },
+    "ConstantProductAmm",
+    "StarknetAMM"
+  );
+
+  const staking = await deployContract(
+    {
+      staking_token_address: nai.address,
+      reward_token_address: strk.address,
+      owner_address: deployer.address,
+    },
+    "StakingContract",
+  );
+
+  const vault = await deployContract(
+    {
+      token: strk.address,
+    },
+    "SimpleVault",
   );
 
 }

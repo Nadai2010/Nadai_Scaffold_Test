@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     DAI: {
       address:
-        "0x00b280f52053e84b65f657bdfa05e25c7a243dab7a96e70fd58c34f5e8d0daf0",
+        "0x03ea453e18fcbf5050c280a82b9b614bc3aecd1d0c2f39902dbbdd3b95ccab1a",
       abi: [
         {
           type: "impl",
@@ -411,7 +411,7 @@ const deployedContracts = {
     },
     USDT: {
       address:
-        "0x05acc2c8e8aea184060bf934e33d8be6ca25275a2590207dc2f1cd0a113cc470",
+        "0x007c7bc291678af63fea957b037b1ed5fb32b860b6caabf61386fc55a53ea29f",
       abi: [
         {
           type: "impl",
@@ -815,7 +815,7 @@ const deployedContracts = {
     },
     STRK: {
       address:
-        "0x07e08fdbdae4ab585466d0db6c4f8ec0abe9b46197a3f086dfb00115b5a653ce",
+        "0x024ff14a88d9a809be365629a9403eabd47bc2a7e882af635c15ff2cb8a0d499",
       abi: [
         {
           type: "impl",
@@ -1219,7 +1219,7 @@ const deployedContracts = {
     },
     NAI: {
       address:
-        "0x029a22823197047d836e5a0c96a5e0107fe524cfc8431c8a5912fee0b22a9650",
+        "0x04965e900775cf9c50cccfefb9664bd40a04ed55d954592c9f239cac59dd3997",
       abi: [
         {
           type: "impl",
@@ -1621,9 +1621,9 @@ const deployedContracts = {
         },
       ],
     },
-    NadaiAMM: {
+    ScaffoldAMM: {
       address:
-        "0x05e9b62372a06f3383b33613160e757e9b670e7858d81e498448e6bfbf8547f7",
+        "0x05758870da2205d13400c50d60dc40ef4a30b8e2f08530f129ff921e031457be",
       abi: [
         {
           type: "impl",
@@ -1770,9 +1770,9 @@ const deployedContracts = {
         },
       ],
     },
-    ScaffoldAMM: {
+    NadaiAMM: {
       address:
-        "0x063d39aebf6b2a919f3945dbf0509fb9417aefbdaff947f30b03f4f0dd5585be",
+        "0x0460b99848da9784edc6f78f6cda9ef23134ace2ffa78f9a99dd6e9a77f13778",
       abi: [
         {
           type: "impl",
@@ -1914,6 +1914,410 @@ const deployedContracts = {
         {
           type: "event",
           name: "contracts::ConstantProductAmm::ConstantProductAmm::Event",
+          kind: "enum",
+          variants: [],
+        },
+      ],
+    },
+    StarknetAMM: {
+      address:
+        "0x04d53316bb9613b8ca8691a50a9455a50ec9081239ff48012b87e1dc66fefcef",
+      abi: [
+        {
+          type: "impl",
+          name: "ConstantProductAmm",
+          interface_name: "contracts::ConstantProductAmm::IConstantProductAmm",
+        },
+        {
+          type: "struct",
+          name: "core::integer::u256",
+          members: [
+            {
+              name: "low",
+              type: "core::integer::u128",
+            },
+            {
+              name: "high",
+              type: "core::integer::u128",
+            },
+          ],
+        },
+        {
+          type: "interface",
+          name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          items: [
+            {
+              type: "function",
+              name: "swap",
+              inputs: [
+                {
+                  name: "token_in",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+                {
+                  name: "amount_in",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "add_liquidity",
+              inputs: [
+                {
+                  name: "amount0",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "amount1",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "remove_liquidity",
+              inputs: [
+                {
+                  name: "shares",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "(core::integer::u256, core::integer::u256)",
+                },
+              ],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "get_reserves",
+              inputs: [],
+              outputs: [
+                {
+                  type: "(core::integer::u256, core::integer::u256)",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_total_supply",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_balance_of",
+              inputs: [
+                {
+                  name: "owner",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
+          ],
+        },
+        {
+          type: "constructor",
+          name: "constructor",
+          inputs: [
+            {
+              name: "token0",
+              type: "core::starknet::contract_address::ContractAddress",
+            },
+            {
+              name: "token1",
+              type: "core::starknet::contract_address::ContractAddress",
+            },
+            {
+              name: "fee",
+              type: "core::integer::u16",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::ConstantProductAmm::ConstantProductAmm::Event",
+          kind: "enum",
+          variants: [],
+        },
+      ],
+    },
+    StakingContract: {
+      address:
+        "0x04efcf2ed36e778eb9f4b5b233324f1162e0e78a741b40d4145b6f0b611a5ae2",
+      abi: [
+        {
+          type: "impl",
+          name: "StakingContract",
+          interface_name: "contracts::StakingContract::IStakingContract",
+        },
+        {
+          type: "struct",
+          name: "core::integer::u256",
+          members: [
+            {
+              name: "low",
+              type: "core::integer::u128",
+            },
+            {
+              name: "high",
+              type: "core::integer::u128",
+            },
+          ],
+        },
+        {
+          type: "interface",
+          name: "contracts::StakingContract::IStakingContract",
+          items: [
+            {
+              type: "function",
+              name: "set_reward_amount",
+              inputs: [
+                {
+                  name: "amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "set_reward_duration",
+              inputs: [
+                {
+                  name: "duration",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "stake",
+              inputs: [
+                {
+                  name: "amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "withdraw",
+              inputs: [
+                {
+                  name: "amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "get_rewards",
+              inputs: [
+                {
+                  name: "account",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "claim_rewards",
+              inputs: [],
+              outputs: [],
+              state_mutability: "external",
+            },
+          ],
+        },
+        {
+          type: "constructor",
+          name: "constructor",
+          inputs: [
+            {
+              name: "staking_token_address",
+              type: "core::starknet::contract_address::ContractAddress",
+            },
+            {
+              name: "reward_token_address",
+              type: "core::starknet::contract_address::ContractAddress",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::StakingContract::StakingContract::Deposit",
+          kind: "struct",
+          members: [
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "data",
+            },
+            {
+              name: "amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::StakingContract::StakingContract::Withdrawal",
+          kind: "struct",
+          members: [
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "data",
+            },
+            {
+              name: "amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::StakingContract::StakingContract::RewardsFinished",
+          kind: "struct",
+          members: [
+            {
+              name: "msg",
+              type: "core::felt252",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::StakingContract::StakingContract::Event",
+          kind: "enum",
+          variants: [
+            {
+              name: "Deposit",
+              type: "contracts::StakingContract::StakingContract::Deposit",
+              kind: "nested",
+            },
+            {
+              name: "Withdrawal",
+              type: "contracts::StakingContract::StakingContract::Withdrawal",
+              kind: "nested",
+            },
+            {
+              name: "RewardsFinished",
+              type: "contracts::StakingContract::StakingContract::RewardsFinished",
+              kind: "nested",
+            },
+          ],
+        },
+      ],
+    },
+    SimpleVault: {
+      address:
+        "0x0068c04e0fec902af7d175ff6a343fc911810c9dd434b9187084635cf51e1a11",
+      abi: [
+        {
+          type: "impl",
+          name: "SimpleVault",
+          interface_name: "contracts::SimpleVault::ISimpleVault",
+        },
+        {
+          type: "struct",
+          name: "core::integer::u256",
+          members: [
+            {
+              name: "low",
+              type: "core::integer::u128",
+            },
+            {
+              name: "high",
+              type: "core::integer::u128",
+            },
+          ],
+        },
+        {
+          type: "interface",
+          name: "contracts::SimpleVault::ISimpleVault",
+          items: [
+            {
+              type: "function",
+              name: "deposit",
+              inputs: [
+                {
+                  name: "amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "withdraw",
+              inputs: [
+                {
+                  name: "shares",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+          ],
+        },
+        {
+          type: "constructor",
+          name: "constructor",
+          inputs: [
+            {
+              name: "token",
+              type: "core::starknet::contract_address::ContractAddress",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::SimpleVault::SimpleVault::Event",
           kind: "enum",
           variants: [],
         },

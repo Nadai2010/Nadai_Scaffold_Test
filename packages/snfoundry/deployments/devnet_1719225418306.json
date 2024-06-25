@@ -1,0 +1,37 @@
+{
+  "DAI": {
+    "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
+    "address": "0x033ab42d5d2bd1394811997cb1fff283bc391db5275f219dea185b98284fc58a",
+    "contract": "MockToken"
+  },
+  "USDT": {
+    "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
+    "address": "0x07229aa57030c801b1a98bb23d417b8b50788e435c1d8cf028cf2e75bb020281",
+    "contract": "MockToken"
+  },
+  "STRK": {
+    "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
+    "address": "0x034dcd2a3a4d4af49a2b630272d3658b8d5d12bc0dac0d2cfe9d44b2f490b41c",
+    "contract": "MockToken"
+  },
+  "NAI": {
+    "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
+    "address": "0x0101982b4bed0f8cc92f3cd65e27f6ce68b7b9bd9f44d9c7e08042ecbdde8b94",
+    "contract": "MockToken"
+  },
+  "NadaiAMM": {
+    "classHash": "0x7104c8d1a53700719f455a16b82567e1d8aa7fa691abf3c25c19bb8181ca72f",
+    "address": "0x067bf777086aed9d7b32b1785ea74faaaa772bc638282c21516df54d9290d038",
+    "contract": "ConstantProductAmm"
+  },
+  "ScaffoldAMM": {
+    "classHash": "0x7104c8d1a53700719f455a16b82567e1d8aa7fa691abf3c25c19bb8181ca72f",
+    "address": "0x012997619e38e462346c095d638532d1ea9cad61c1b908e7a67e3b5660285ee1",
+    "contract": "ConstantProductAmm"
+  },
+  "StakingContract": {
+    "classHash": "0x7891595d7963bc2c20db82fcf5deafba43df8bf2ac6f242d7daa7ad2e97167c",
+    "address": "0x05ce8a2ec1cddfdacf8dce4cc7a8aa2f3b41ddc689b9b6dbe6d21c89dc269aa2",
+    "contract": "StakingContract"
+  }
+}

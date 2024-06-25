@@ -1,47 +1,42 @@
 {
   "DAI": {
     "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
-    "address": "0x03ea453e18fcbf5050c280a82b9b614bc3aecd1d0c2f39902dbbdd3b95ccab1a",
+    "address": "0x017f6ee300156a5968f40d771a17428f61ddbb73aa18fda9ca7cd62e476a0ca9",
     "contract": "MockToken"
   },
   "USDT": {
     "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
-    "address": "0x007c7bc291678af63fea957b037b1ed5fb32b860b6caabf61386fc55a53ea29f",
+    "address": "0x04e27aa9ca6c53aa96672a6bcb9bb438662d3c55069da5129c28e44338f82c94",
     "contract": "MockToken"
   },
   "STRK": {
     "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
-    "address": "0x024ff14a88d9a809be365629a9403eabd47bc2a7e882af635c15ff2cb8a0d499",
+    "address": "0x048a3af1e7a7df6492e1b4fc5f8704a6e7d4ec00364813f67260a00eb19b3e9e",
     "contract": "MockToken"
   },
   "NAI": {
     "classHash": "0x5be7477e2a278597de75b104f26cc5b90bcc7316f9c0b39c259f25ecc052775",
-    "address": "0x04965e900775cf9c50cccfefb9664bd40a04ed55d954592c9f239cac59dd3997",
+    "address": "0x003e3a256cf8efa30ec2a339d97c31611936d8430074596427eff004ba44434f",
     "contract": "MockToken"
-  },
-  "ScaffoldAMM": {
-    "classHash": "0x4bc2b6b125afbc802fc379b118366e64be3d12b5c9c93c3086dd51ef85eb3ca",
-    "address": "0x05758870da2205d13400c50d60dc40ef4a30b8e2f08530f129ff921e031457be",
-    "contract": "ConstantProductAmm"
   },
   "NadaiAMM": {
     "classHash": "0x4bc2b6b125afbc802fc379b118366e64be3d12b5c9c93c3086dd51ef85eb3ca",
-    "address": "0x0460b99848da9784edc6f78f6cda9ef23134ace2ffa78f9a99dd6e9a77f13778",
+    "address": "0x069e5ddc9514dbb21247eefdba9c1739e2f1b968bb2114d4cc108008a0d722a5",
     "contract": "ConstantProductAmm"
   },
-  "StarknetAMM": {
+  "ScaffoldAMM": {
     "classHash": "0x4bc2b6b125afbc802fc379b118366e64be3d12b5c9c93c3086dd51ef85eb3ca",
-    "address": "0x04d53316bb9613b8ca8691a50a9455a50ec9081239ff48012b87e1dc66fefcef",
+    "address": "0x01ebb03057e9cdf0d35126ec261efa187d9098ac5ee53dde688bd0fce74b6d93",
     "contract": "ConstantProductAmm"
   },
   "StakingContract": {
     "classHash": "0x7891595d7963bc2c20db82fcf5deafba43df8bf2ac6f242d7daa7ad2e97167c",
-    "address": "0x04efcf2ed36e778eb9f4b5b233324f1162e0e78a741b40d4145b6f0b611a5ae2",
+    "address": "0x06bcc6284419dc3e87d1bd7c56661977f5d21b5fb7bcd0dd387d48a1236e21da",
     "contract": "StakingContract"
   },
   "SimpleVault": {
     "classHash": "0xd1814a55a6ee00bc718d258f782295981dcf51a31ad5e3685f4964c7293d87",
-    "address": "0x0068c04e0fec902af7d175ff6a343fc911810c9dd434b9187084635cf51e1a11",
+    "address": "0x00d6b57981b83b0d1dff1da648926a125514920f2260d703e306701abbf38c68",
     "contract": "SimpleVault"
   }
 }
