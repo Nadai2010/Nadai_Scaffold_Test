@@ -413,6 +413,8 @@ const Starknet: NextPage = () => {
 
       {/* Total Supply */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
+
+        {/* Scaffold Add and Remove Liquidity */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -424,14 +426,60 @@ const Starknet: NextPage = () => {
             </div>
             <div className="text-l text-blue-900">
               {totalSupplyScaffold ? formatEther(Number(totalSupplyScaffold)) : '0'}
-              &nbsp;LPS  | &nbsp;
+              &nbsp;LPS | &nbsp;
               {balanceScaffoldAccount ? formatEther(Number(balanceScaffoldAccount)) : '0'}
               &nbsp;LPS
             </div>
           </div>
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow mb-2 sm:mb-0">
+              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
+                Add Liquidity for Scaffold AMM
+              </label>
+              <input
+                type="number"
+                name="liquidityAmount"
+                id="liquidityAmount"
+                value={liquidityAmount}
+                onChange={(e) => setLiquidityAmount(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount"
+              />
+            </div>
+            <button
+              onClick={handleAddLiquidityScaffold}
+              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              style={{ minWidth: '130px' }}
+            >
+              Add Liquidity
+            </button>
+          </div>
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow">
+              <label htmlFor="removeAmount" className="block text-sm font-medium text-gray-700">
+                Remove Liquidity for Scaffold AMM
+              </label>
+              <input
+                type="number"
+                name="removeAmount"
+                id="removeAmount"
+                value={removeAmount}
+                onChange={(e) => setRemoveAmount(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount"
+              />
+            </div>
+            <button
+              onClick={handleRemoveAllLiquidityScaffoldOnly}
+              className="bg-red-600 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              style={{ minWidth: '130px' }}
+            >
+              Remove Liquidity
+            </button>
+          </div>
         </div>
 
-
+        {/* Nadai Add and Remove Liquidity */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -448,8 +496,59 @@ const Starknet: NextPage = () => {
               &nbsp;LPN
             </div>
           </div>
+
+          {/* Add Liquidity Nadai */}
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow">
+              <label htmlFor="liquidityAmount2" className="block text-sm font-medium text-gray-700 mb-1">
+                Add Liquidity Amount for Nadai AMM
+              </label>
+              <input
+                type="number"
+                name="liquidityAmount2"
+                id="liquidityAmount2"
+                value={liquidityAmount2}
+                onChange={(e) => setLiquidityAmount2(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount"
+              />
+            </div>
+            <button
+              onClick={handleAddLiquidityNadai}
+              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              style={{ minWidth: '130px' }}
+            >
+              Add Liquidity
+            </button>
+          </div>
+
+          {/* Remove Liquidity Nadai */}
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow">
+              <label htmlFor="removeAmount2" className="block text-sm font-medium text-gray-700 mb-1">
+                Remove Liquidity Amount for Nadai AMM
+              </label>
+              <input
+                type="number"
+                name="removeAmount2"
+                id="removeAmount2"
+                value={removeAmount2}
+                onChange={(e) => setRemoveAmount2(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount"
+              />
+            </div>
+            <button
+              onClick={handleRemoveAllLiquidityNadaiOnly}
+              className="bg-red-600 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              style={{ minWidth: '130px' }}
+            >
+              Remove Liquidity
+            </button>
+          </div>
         </div>
 
+        {/* Starknet Add and Remove Liquidit */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -466,141 +565,62 @@ const Starknet: NextPage = () => {
               &nbsp;LPN
             </div>
           </div>
+
+          {/* Add Liquidity Starknet */}
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow">
+              <label htmlFor="liquidityAmount3" className="block text-sm font-medium text-gray-700 mb-1">
+                Add Liquidity for Starknet AMM
+              </label>
+              <input
+                type="number"
+                name="liquidityAmount3"
+                id="liquidityAmount3"
+                value={liquidityAmount3}
+                onChange={(e) => setLiquidityAmount3(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount"
+              />
+            </div>
+            <button
+              onClick={handleAddLiquidityStarknet}
+              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              style={{ minWidth: '130px' }}
+            >
+              Add Liquidity
+            </button>
+          </div>
+
+          {/* Remove Liquidity Starknet */}
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow">
+              <label htmlFor="removeAmount3" className="block text-sm font-medium text-gray-700 mb-1">
+                Remove Liquidity for Starknet AMM
+              </label>
+              <input
+                type="number"
+                name="removeAmount3"
+                id="removeAmount3"
+                value={removeAmount3}
+                onChange={(e) => setRemoveAmount3(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount"
+              />
+            </div>
+            <button
+              onClick={handleRemoveAllLiquidityStarknetOnly}
+              className="bg-red-600 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+            >
+              Remove Liquidity
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Add and Remove Liquidity */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        {/* Add Liquidity Scaffold */}
-        <div className="bg-white p-4 rounded-lg shadow-md w-full">
-          <div className="mb-4">
-            <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
-              Add Liquidity Amount for Scaffold AMM
-            </label>
-            <input
-              type="number"
-              name="liquidityAmount"
-              id="liquidityAmount"
-              value={liquidityAmount}
-              onChange={(e) => setLiquidityAmount(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          </div>
-          <button
-            onClick={handleAddLiquidityScaffold}
-            className="w-full bg-blue-900 text-white py-2 px-4 rounded-md text-sm mt-2"
-          >
-            Add Liquidity
-          </button>
-          <div className="mt-4">
-            <label htmlFor="removeAmount" className="block text-sm font-medium text-gray-700">
-              Remove Liquidity Amount for Scaffold AMM
-            </label>
-            <input
-              type="number"
-              name="removeAmount"
-              id="removeAmount"
-              value={removeAmount}
-              onChange={(e) => setRemoveAmount(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-            <button
-              onClick={handleRemoveAllLiquidityScaffoldOnly}
-              className="w-full bg-red-600 text-white py-2 px-4 rounded-md text-sm mt-2"
-            >
-              Remove Liquidity
-            </button>
-          </div>
-        </div>
-
-        {/* Add Liquidity Nadai */}
-        <div className="bg-white p-4 rounded-lg shadow-md w-full">
-          <div className="mb-4">
-            <label htmlFor="liquidityAmount2" className="block text-sm font-medium text-gray-700">
-              Add Liquidity Amount for Nadai AMM
-            </label>
-            <input
-              type="number"
-              name="liquidityAmount2"
-              id="liquidityAmount2"
-              value={liquidityAmount2}
-              onChange={(e) => setLiquidityAmount2(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          </div>
-          <button
-            onClick={handleAddLiquidityNadai}
-            className="w-full bg-blue-900 text-white py-2 px-4 rounded-md text-sm mt-2"
-          >
-            Add Liquidity
-          </button>
-          <div className="mt-4">
-            <label htmlFor="removeAmount2" className="block text-sm font-medium text-gray-700">
-              Remove Liquidity Amount for Nadai AMM
-            </label>
-            <input
-              type="number"
-              name="removeAmount2"
-              id="removeAmount2"
-              value={removeAmount2}
-              onChange={(e) => setRemoveAmount2(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-            <button
-              onClick={handleRemoveAllLiquidityNadaiOnly}
-              className="w-full bg-red-600 text-white py-2 px-4 rounded-md text-sm mt-2"
-            >
-              Remove Liquidity
-            </button>
-          </div>
-        </div>
-
-        {/* Add Liquidity Starknet */}
-        <div className="bg-white p-4 rounded-lg shadow-md w-full">
-          <div className="mb-4">
-            <label htmlFor="liquidityAmount3" className="block text-sm font-medium text-gray-700">
-              Add Liquidity Amount for Starknet AMM
-            </label>
-            <input
-              type="number"
-              name="liquidityAmount3"
-              id="liquidityAmount3"
-              value={liquidityAmount3}
-              onChange={(e) => setLiquidityAmount3(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          </div>
-          <button
-            onClick={handleAddLiquidityStarknet}
-            className="w-full bg-blue-900 text-white py-2 px-4 rounded-md text-sm mt-2"
-          >
-            Add Liquidity
-          </button>
-          <div className="mt-4">
-            <label htmlFor="removeAmount3" className="block text-sm font-medium text-gray-700">
-              Remove Liquidity Amount for Starknet AMM
-            </label>
-            <input
-              type="number"
-              name="removeAmount3"
-              id="removeAmount3"
-              value={removeAmount3}
-              onChange={(e) => setRemoveAmount3(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-            <button
-              onClick={handleRemoveAllLiquidityStarknetOnly}
-              className="w-full bg-red-600 text-white py-2 px-4 rounded-md text-sm mt-2"
-            >
-              Remove Liquidity
-            </button>
-          </div>
-        </div>
-
-
-        {/* Remove All AMMs */}
-        <div>
-          <h3 className="text-lg font-medium mb-2">All AMMs</h3>
+      {/* Remove All AMMs */}
+      <div className="flex items-center justify-center">
+        <div className="text-center">
+          <h3 className="text-lg font-medium mb-2">Remove All AMMs</h3>
           <button
             onClick={handleRemoveLiquidityAllAMM}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
@@ -610,9 +630,6 @@ const Starknet: NextPage = () => {
           </button>
         </div>
       </div>
-
-
-
     </div>
 
   );
