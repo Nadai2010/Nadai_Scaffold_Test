@@ -7,7 +7,6 @@ import { Address } from "~~/components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
-import { useTransactor } from "~~/hooks/scaffold-stark/useTransactor";
 import { useState } from "react";
 import { getAllContracts } from '~~/utils/scaffold-stark/contractsData';
 
@@ -22,10 +21,15 @@ function formatEther(weiValue: number) {
   return etherValue.toFixed(1);
 }
 
+// Función para convertir valores en ether a wei
+function toWei(etherValue: number) {
+  return etherValue * 1e18;
+}
+
+
 
 const Starknet: NextPage = () => {
   const { address: connectedAddress } = useAccount();
-  const transactor = useTransactor();
   const contractsData = getAllContracts(); // Obtén los contratos desde la configuración
 
 
@@ -35,6 +39,9 @@ const Starknet: NextPage = () => {
   const daiContractAddress = contractsData.DAI?.address; // Dirección del contrato DAI desde la configuración
   const strkContractAddress = contractsData.STRK?.address; // Dirección del contrato STRK desde la configuración
   const naiContractAddress = contractsData.NAI?.address; // Dirección del contrato STRK desde la configuración
+  const [liquidityAmount, setLiquidityAmount] = useState("");
+  const [liquidityAmount2, setLiquidityAmount2] = useState("");
+  const [liquidityAmount3, setLiquidityAmount3] = useState("");
 
   // Obtener contratos
   const { data: NadaiAMM } = useScaffoldContract({ contractName: "NadaiAMM" });
@@ -67,7 +74,7 @@ const Starknet: NextPage = () => {
     watch: true,
   });
 
-    // Total 
+
   const { data: balanceNAI } = useScaffoldReadContract({
     contractName: "NAI",
     functionName: "balanceOf",
@@ -75,6 +82,7 @@ const Starknet: NextPage = () => {
     watch: true,
   });
 
+  //Balance Reserves
   const { data: balanceReserveScaffold } = useScaffoldReadContract({
     contractName: "ScaffoldAMM",
     functionName: "get_reserves"
@@ -94,40 +102,27 @@ const Starknet: NextPage = () => {
   // Swap 10 USDT for X DAI
   const { writeAsync: SwapAmmScaffoldUSDT } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("USDT", "approve", [ScaffoldAMM?.address, 100000000000000000000]),
-      createContractCall("ScaffoldAMM", "swap", [contractUsdt?.address, 10000000000000000000]),
+      createContractCall("USDT", "approve", [ScaffoldAMM?.address, toWei(Number(liquidityAmount))]),
+      createContractCall("ScaffoldAMM", "swap", [contractUsdt?.address, toWei(Number(liquidityAmount))]),
     ]
   });
 
   const { writeAsync: SwapAmmNadaiUsdt } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("USDT", "approve", [NadaiAMM?.address, 100000000000000000000]),
-      createContractCall("NadaiAMM", "swap", [contractUsdt?.address, 10000000000000000000]),
+      createContractCall("USDT", "approve", [NadaiAMM?.address, toWei(Number(liquidityAmount2))]),
+      createContractCall("NadaiAMM", "swap", [contractUsdt?.address, toWei(Number(liquidityAmount2))]),
     ]
   });
 
-  const { writeAsync: MultiSwapAmmNadai } = useScaffoldMultiWriteContract({
+  const { writeAsync: SwapAmmStarknetUsdt } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("DAI", "approve", [NadaiAMM?.address, 100000000000000000000]),
-      createContractCall("USDT", "approve", [NadaiAMM?.address, 100000000000000000000]),
-      createContractCall("NadaiAMM", "swap", [contractDai?.address, 10000000000000000000]),
-      createContractCall("NadaiAMM", "swap", [contractUsdt?.address, 20000000000000000000]),
-      createContractCall("NadaiAMM", "swap", [contractDai?.address, 10000000000000000000]),
-      createContractCall("NadaiAMM", "swap", [contractUsdt?.address, 20000000000000000000]),
+      createContractCall("USDT", "approve", [StarknetAMM?.address, toWei(Number(liquidityAmount3))]),
+      createContractCall("StarknetAMM", "swap", [contractUsdt?.address, toWei(Number(liquidityAmount3))]),
     ]
   });
 
-  const { writeAsync: MultiSwapAmmScaffold } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("DAI", "approve", [ScaffoldAMM?.address, 100000000000000000000]),
-      createContractCall("USDT", "approve", [ScaffoldAMM?.address, 100000000000000000000]),
-      createContractCall("ScaffoldAMM", "swap", [contractDai?.address, 10000000000000000000]),
-      createContractCall("ScaffoldAMM", "swap", [contractUsdt?.address, 20000000000000000000]),
-      createContractCall("ScaffoldAMM", "swap", [contractDai?.address, 10000000000000000000]),
-      createContractCall("ScaffoldAMM", "swap", [contractUsdt?.address, 20000000000000000000]),
-    ]
-  });
 
+  // MultiWrite Cross Swap in 3 AMM
   const { writeAsync: MultiSwapAmmScaffoldALL } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("DAI", "approve", [ScaffoldAMM?.address, 100000000000000000000]),
@@ -145,16 +140,12 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && SwapAmmScaffoldUSDT) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await SwapAmmScaffoldUSDT(); // Ejecutar la transacción
-          return result as string; // Asegurar el resultado
-        };
-        const txHash = await transactor(tx); // Enviar transacción
-        console.log("Scaffold - USDT Transaction Hash:", txHash); // Mostrar hash de la transacción
+        const result = await SwapAmmScaffoldUSDT();
+        console.log("Scaffold - USDT Transaction Hash:", result);
+        setTransactionPending(false);
       } catch (error) {
-        console.error("Scaffold - USDT Transaction Error:", error); // Manejar errores
-      } finally {
-        setTransactionPending(false); // Finalizar transacción
+        console.error("Scaffold - USDT Transaction Error:", error);
+        setTransactionPending(false);
       }
     }
   };
@@ -163,69 +154,44 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && SwapAmmNadaiUsdt) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await SwapAmmNadaiUsdt(); // Ejecutar la transacción
-          return result as string; // Asegurar el resultado
-        };
-        const txHash = await transactor(tx); // Enviar transacción
-        console.log("Nadai - USDT Transaction Hash:", txHash); // Mostrar hash de la transacción
+        const result = await SwapAmmNadaiUsdt();
+        console.log("Nadai - USDT Transaction Hash:", result);
+        setTransactionPending(false);
       } catch (error) {
-        console.error("Nadai - USDT Transaction Error:", error); // Manejar errores
+        console.error("Nadai - USDT Transaction Error:", error);
       } finally {
-        setTransactionPending(false); // Finalizar transacción
+        setTransactionPending(false);
       }
     }
   };
 
-  const handleMultiSwapScaffold = async () => {
-    if (!isTransactionPending && MultiSwapAmmScaffold) {
+  const handleSwapStarknetUSDT = async () => {
+    if (!isTransactionPending && SwapAmmStarknetUsdt) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await MultiSwapAmmScaffold(); return result as string; // Asegurar el resultado
-        };
-        const txHash = await transactor(tx); // Enviar transacción
-        console.log("MultiSwap Scaffold - Transaction Hash:", txHash); // Mostrar hash de la transacción
+        const result = await SwapAmmStarknetUsdt();
+        console.log("Nadai - USDT Transaction Hash:", result);
+        setTransactionPending(false);
       } catch (error) {
-        console.error("MultiSwap Scaffold -  Transaction Error:", error); // Manejar errores
+        console.error("Nadai - USDT Transaction Error:", error);
       } finally {
-        setTransactionPending(false); // Finalizar transacción
+        setTransactionPending(false);
       }
     }
   };
 
-  const handleMultiSwapNadai = async () => {
-    if (!isTransactionPending && MultiSwapAmmNadai) {
-      try {
-        setTransactionPending(true);
-        const tx = async () => {
-          const result = await MultiSwapAmmNadai(); // Ejecutar la transacción
-          return result as string; // Asegurar el resultado
-        };
-        const txHash = await transactor(tx); // Enviar transacción
-        console.log("MultiSwap Nadai - Transaction Hash:", txHash); // Mostrar hash de la transacción
-      } catch (error) {
-        console.error("MultiSwap Nadai -  Transaction Error:", error); // Manejar errores
-      } finally {
-        setTransactionPending(false); // Finalizar transacción
-      }
-    }
-  };
 
-  const handleMultiSwapScaffoldNadai = async () => {
+  const handleMultiSwapAll = async () => {
     if (!isTransactionPending && MultiSwapAmmScaffoldALL) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await MultiSwapAmmScaffoldALL();; // Ejecutar la transacción
-          return result as string; // Asegurar el resultado
-        };
-        const txHash = await transactor(tx); // Enviar transacción
-        console.log("MultiSwap Nadai - Transaction Hash:", txHash); // Mostrar hash de la transacción
+        const result = await MultiSwapAmmScaffoldALL();
+        console.log("MultiSwap Nadai - Transaction Hash:", result);
+        setTransactionPending(false);
       } catch (error) {
-        console.error("MultiSwap Nadai -  Transaction Error:", error); // Manejar errores
+        console.error("MultiSwap Nadai -  Transaction Error:", error);
       } finally {
-        setTransactionPending(false); // Finalizar transacción
+        setTransactionPending(false);
       }
     }
   };
@@ -313,67 +279,142 @@ const Starknet: NextPage = () => {
         </div>
       </div>
 
-      {/* Swap Scaffold */}
-      <div className="flex flex-wrap items-center justify-center gap-6">
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md w-full max-w-md">
-          <p className="text-lg font-semibold text-blue-900">Total Reserves Scaffold:</p>
-          <p className="text-xl text-blue-900">
-            {balanceReserveScaffold ? `${formatEther(Number((balanceReserveScaffold as any)[1]))} USDT / ${formatEther(Number((balanceReserveScaffold as any)[0]))} DAI` : "0 USDT / 0 DAI"}
-          </p>
-          <div className="mt-4 flex flex-col space-y-2">
-            <button
-              onClick={handleSwapScaffoldUSDT}
-              disabled={isTransactionPending}
-              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-            >
-              {isTransactionPending ? 'Swap 10 USDT...' : 'Swap 10 USDT'}
-            </button>
+      {/* Swap AMMs */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
 
-            <button
-              onClick={handleMultiSwapScaffold}
-              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-            >
-              {isTransactionPending ? 'MultiSwap 10 USDT...' : 'MultiSwap 10 USDT'}
-            </button>
-          </div>
-        </div>
-
-        {/* Swap Nadai */}
-        <div className="flex flex-wrap items-center justify-center gap-6">
-          <div className="bg-gray-100 p-4 rounded-lg shadow-md w-full max-w-md">
-            <p className="text-lg font-semibold text-blue-900">Total Reserves Nadai:</p>
-            <p className="text-xl text-blue-900">
-              {balanceReserveNadai ? `${formatEther(Number((balanceReserveNadai as any)[1]))} USDT / ${formatEther(Number((balanceReserveNadai as any)[0]))} DAI` : "0 USDT / 0 DAI"}
-            </p>
-            <div className="mt-4 flex flex-col space-y-2">
-              <button
-
-                onClick={handleSwapNadaiUSDT}
-                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-              >
-                {isTransactionPending ? 'Swap 10 USDT...' : 'Swap 10 USDT'}
-              </button>
-
-              <button
-                onClick={handleMultiSwapNadai}
-                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-              >
-                {isTransactionPending ? 'MultiSwap 10 USDT...' : 'MultiSwap 10 USDT'}
-              </button>
-
-
+        {/* Scaffold Reserves */}
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
+              <img src={daiLogo.src} alt="DAI Icon" className="w-8 h-8" />
+              <div className="text-l font-semibold text-blue-900">
+                Total Reserve Scaffold
+              </div>
+            </div>
+            <div className="text-l text-blue-900">
+              {balanceReserveScaffold ? `${formatEther(Number((balanceReserveScaffold as any)[1]))} USDT / ${formatEther(Number((balanceReserveScaffold as any)[0]))} DAI` : "0 USDT / 0 DAI"}
             </div>
           </div>
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow mb-2 sm:mb-0">
+              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
+                Swap USDT/DAI
+              </label>
+              <input
+                type="number"
+                name="liquidityAmount"
+                id="liquidityAmount"
+                value={liquidityAmount}
+                onChange={(e) => setLiquidityAmount(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount USDT"
+              />
+            </div>
+            <button
+              onClick={handleSwapScaffoldUSDT}
+              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              style={{ minWidth: '130px' }}
+            >
+              Swap
+            </button>
+          </div>
         </div>
-        <button
-          onClick={handleMultiSwapScaffoldNadai}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-        >
-          MultiSwap Choss AMM
-        </button>
 
+
+        {/* Nadai Reserves */}
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
+              <img src={naiLogo.src} alt="DAI Icon" className="w-8 h-8" />
+              <div className="text-l font-semibold text-blue-900">
+                Total Reserve Nadai
+              </div>
+            </div>
+            <div className="text-l text-blue-900">
+              {balanceReserveNadai ? `${formatEther(Number((balanceReserveNadai as any)[1]))} USDT / ${formatEther(Number((balanceReserveNadai as any)[0]))} NAI` : "0 USDT / 0 NAI"}
+            </div>
+          </div>
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow mb-2 sm:mb-0">
+              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
+                Swap USDT/NAI
+              </label>
+              <input
+                type="number"
+                name="liquidityAmount"
+                id="liquidityAmount"
+                value={liquidityAmount2}
+                onChange={(e) => setLiquidityAmount2(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount USDT"
+              />
+            </div>
+            <button
+              onClick={handleSwapNadaiUSDT}
+              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              style={{ minWidth: '130px' }}
+            >
+              Swap
+            </button>
+          </div>
+        </div>
+
+        {/* Starknet Reserves */}
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
+              <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8" />
+              <div className="text-l font-semibold text-blue-900">
+                Total Reserve Starknet
+              </div>
+            </div>
+            <div className="text-l text-blue-900">
+              {balanceReserveStarknet ? `${formatEther(Number((balanceReserveStarknet as any)[1]))} USDT / ${formatEther(Number((balanceReserveStarknet as any)[0]))} STRK` : "0 USDT / 0 STRK"}
+            </div>
+          </div>
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="sm:flex-grow mb-2 sm:mb-0">
+              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
+                Swap USDT/STRK
+              </label>
+              <input
+                type="number"
+                name="liquidityAmount"
+                id="liquidityAmount"
+                value={liquidityAmount3}
+                onChange={(e) => setLiquidityAmount3(e.target.value)}
+                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Enter amount USDT"
+              />
+            </div>
+            <button
+              onClick={handleSwapStarknetUSDT}
+              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              style={{ minWidth: '130px' }}
+            >
+              Swap
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Remove All AMMs */}
+      <div className="flex items-center justify-center">
+        <div className="text-center">
+          <h3 className="text-lg font-medium mb-2">Multi Swap in All AMMs</h3>
+          <button
+            onClick={handleMultiSwapAll}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+          >
+            Swaps ALL - CLICK
+          </button>
+        </div>
       </div>
     </div>
+
   );
 };
 

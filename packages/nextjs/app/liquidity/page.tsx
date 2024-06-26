@@ -6,14 +6,13 @@ import { Address } from "~~/components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
-import { useTransactor } from '~~/hooks/scaffold-stark/useTransactor';
 import { getAllContracts } from '~~/utils/scaffold-stark/contractsData';
 
 import usdtLogo from '/public/logo-usdt.svg';
 import daiLogo from '/public/logo-dai.svg';
 import strkLogo from '/public/logo-starknet.svg';
 import naiLogo from '/public/logo-nai.png';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Función para formatear valores en wei a ether
 function formatEther(weiValue: number) {
@@ -26,9 +25,10 @@ function toWei(etherValue: number) {
   return etherValue * 1e18;
 }
 
+
+
 const Starknet: NextPage = () => {
   const { address: connectedAddress } = useAccount();
-  const transactor = useTransactor();
   const contractsData = getAllContracts(); // Obtén los contratos desde la configuración
 
   // Estados para controlar el estado de la transacción y los valores de input
@@ -39,6 +39,9 @@ const Starknet: NextPage = () => {
   const [removeAmount, setRemoveAmount] = useState("");
   const [removeAmount2, setRemoveAmount2] = useState("");
   const [removeAmount3, setRemoveAmount3] = useState("");
+  const [balanceScaffoldAccount, setBalanceScaffoldAccount] = useState<string>("");
+  const [balanceNaiAccount, setBalanceNaiAccount] = useState<string>("");
+  const [balanceStarknetAccount, setBalanceStarknetAccount] = useState<string>("");
 
   const usdtContractAddress = contractsData.USDT?.address; // Dirección del contrato USDT desde la configuración
   const daiContractAddress = contractsData.DAI?.address; // Dirección del contrato DAI desde la configuración
@@ -80,26 +83,47 @@ const Starknet: NextPage = () => {
   });
 
   //Balance Account
-  const { data: balanceScaffoldAccount } = useScaffoldReadContract({
+  const { data: scaffoldAccountData } = useScaffoldReadContract({
     contractName: "ScaffoldAMM",
     functionName: "get_balance_of",
     args: [connectedAddress ?? ''],
     watch: true,
   });
 
-  const { data: balanceNaiAccount } = useScaffoldReadContract({
+  const { data: naiAccountData } = useScaffoldReadContract({
     contractName: "NadaiAMM",
     functionName: 'get_balance_of',
     args: [connectedAddress ?? ''],
     watch: true,
   });
 
-  const { data: balanceStarknetAccount } = useScaffoldReadContract({
+  const { data: starknetAccountData } = useScaffoldReadContract({
     contractName: "StarknetAMM",
     functionName: 'get_balance_of',
     args: [connectedAddress ?? ''],
     watch: true,
   });
+
+
+  useEffect(() => {
+    if (scaffoldAccountData !== undefined) {
+      setBalanceScaffoldAccount(scaffoldAccountData.toString());
+    } else {
+      setBalanceScaffoldAccount("");
+    }
+
+    if (naiAccountData !== undefined) {
+      setBalanceNaiAccount(naiAccountData.toString());
+    } else {
+      setBalanceNaiAccount("");
+    }
+
+    if (starknetAccountData !== undefined) {
+      setBalanceStarknetAccount(starknetAccountData.toString());
+    } else {
+      setBalanceStarknetAccount("");
+    }
+  }, [scaffoldAccountData, naiAccountData, starknetAccountData]);
 
   // Total Supply
   const { data: totalSupplyScaffold } = useScaffoldReadContract({
@@ -167,9 +191,9 @@ const Starknet: NextPage = () => {
   // Withdraw ALL
   const { writeAsync: removeLiquidityAllAMM } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("ScaffoldAMM", "remove_liquidity", [toWei(Number(balanceScaffoldAccount))]),
-      createContractCall("NadaiAMM", "remove_liquidity", [toWei(Number(balanceNaiAccount))]),
-      createContractCall("StarknetAMM", "remove_liquidity", [toWei(Number(balanceStarknetAccount))]),
+      createContractCall("ScaffoldAMM", "remove_liquidity", [Number(balanceScaffoldAccount)]), // Convertir a número si es necesario
+      createContractCall("NadaiAMM", "remove_liquidity", [Number(balanceNaiAccount)]), // Convertir a número si es necesario
+      createContractCall("StarknetAMM", "remove_liquidity", [Number(balanceStarknetAccount)]), // Convertir a número si es necesario
     ]
   });
 
@@ -179,12 +203,9 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && MultiApproveAmmScaffold) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await MultiApproveAmmScaffold();
-          return result as string;
-        };
-        const txHash = await transactor(tx);
-        console.log('Add Liquidity ScaffoldAMM Transaction Hash:', txHash);
+        const result = await MultiApproveAmmScaffold();
+        console.log('Add Liquidity ScaffoldAMM Transaction Hash:', result);
+        setTransactionPending(false);
       } catch (error) {
         console.error('Add Liquidity ScaffoldAMM Transaction Error:', error);
       } finally {
@@ -197,12 +218,9 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && MultiApproveAmmNadai) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await MultiApproveAmmNadai();
-          return result as string;
-        };
-        const txHash = await transactor(tx);
-        console.log('Add Liquidity NadaiAMM Transaction Hash:', txHash);
+        const result = await MultiApproveAmmNadai();
+        console.log('Add Liquidity NadaiAMM Transaction Hash:', result);
+        setTransactionPending(false);
       } catch (error) {
         console.error('Add Liquidity NadaiAMM Transaction Error:', error);
       } finally {
@@ -215,12 +233,9 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && MultiApproveAmmStarknet) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await MultiApproveAmmStarknet();
-          return result as string;
-        };
-        const txHash = await transactor(tx);
-        console.log('Add Liquidity StraknetAMM Transaction Hash:', txHash);
+        const result = await MultiApproveAmmStarknet();
+        console.log('Add Liquidity StraknetAMM Transaction Hash:', result);
+        setTransactionPending(false);
       } catch (error) {
         console.error('Add Liquidity StraknetAMM Transaction Error:', error);
       } finally {
@@ -235,12 +250,9 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && removeLiquidityScaffold) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await removeLiquidityScaffold();
-          return result as string;
-        };
-        const txHash = await transactor(tx);
-        console.log('Remove All Liquidity ScaffoldAMM Transaction Hash:', txHash);
+        const result = await removeLiquidityScaffold();
+        console.log('Remove All Liquidity ScaffoldAMM Transaction Hash:', result);
+        setTransactionPending(false);
       } catch (error) {
         console.error('Remove All Liquidity ScaffoldAMM Transaction Error:', error);
       } finally {
@@ -253,12 +265,9 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && removeLiquidityNadai) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await removeLiquidityNadai();
-          return result as string;
-        };
-        const txHash = await transactor(tx);
-        console.log('Remove All Liquidity NadaiAMM Transaction Hash:', txHash);
+        const result = await removeLiquidityNadai();
+        console.log('Remove All Liquidity NadaiAMM Transaction Hash:', result);
+        setTransactionPending(false);
       } catch (error) {
         console.error('Remove All Liquidity NadaiAMM Transaction Error:', error);
       } finally {
@@ -271,50 +280,39 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && removeLiquidityStarknet) {
       try {
         setTransactionPending(true);
-        const tx = async () => {
-          const result = await removeLiquidityStarknet();
-          return result as string;
-        };
-        const txHash = await transactor(tx);
-        console.log('Remove All Liquidity StarknetAMM Transaction Hash:', txHash);
+        const result = await removeLiquidityStarknet();
+        console.log('Remove All Liquidity StarknetAMM Transaction Result:', result);
+
+        setTransactionPending(false);
       } catch (error) {
         console.error('Remove All Liquidity StarknetAMM Transaction Error:', error);
-      } finally {
         setTransactionPending(false);
       }
     }
   };
 
-  // TODO //
-  //
-  //
+
+  // Remove ALL Liquidity 3 AMM
   const handleRemoveLiquidityAllAMM = async () => {
     console.log("Balance Scaffold Account:", balanceScaffoldAccount);
     console.log("Balance Nai Account:", balanceNaiAccount);
     console.log("Balance Starknet Account:", balanceStarknetAccount);
 
-    if (!isTransactionPending && removeLiquidityScaffold && removeLiquidityNadai && removeLiquidityStarknet) {
+    if (!isTransactionPending && removeLiquidityAllAMM) {
       try {
         setTransactionPending(true);
 
-        // Función para ejecutar cada transacción de retirada de liquidez de forma secuencial
         const executeTransactions = async () => {
           try {
-            const txHashScaffold = await removeLiquidityScaffold();
-            console.log('Remove Liquidity ScaffoldAMM Transaction Hash:', txHashScaffold);
-            const txHashNadai = await removeLiquidityNadai();
-            console.log('Remove Liquidity NadaiAMM Transaction Hash:', txHashNadai);
-            const txHashStarknet = await removeLiquidityStarknet();
-            console.log('Remove Liquidity StarknetAMM Transaction Hash:', txHashStarknet);
-
-            return [txHashScaffold, txHashNadai, txHashStarknet];
+            const txHashAll = await removeLiquidityAllAMM();
+            console.log('Remove Liquidity ScaffoldAMM Transaction Hash:', txHashAll);
+            return [txHashAll];
           } catch (error) {
             console.error('Error executing remove liquidity transactions:', error);
-            throw error; // Re-lanza el error para que pueda ser capturado externamente
+            throw error;
           }
         };
 
-        // Ejecutar las transacciones y obtener los hashes de las transacciones
         const transactionHashes = await executeTransactions();
         console.log('All remove liquidity transactions completed successfully:', transactionHashes);
       } catch (error) {
@@ -324,10 +322,6 @@ const Starknet: NextPage = () => {
       }
     }
   };
-  //
-
-
-
 
 
   return (
@@ -624,7 +618,7 @@ const Starknet: NextPage = () => {
           <button
             onClick={handleRemoveLiquidityAllAMM}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-            disabled={isTransactionPending}
+
           >
             Remove Liquidity from All AMMs
           </button>
