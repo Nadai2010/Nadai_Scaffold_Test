@@ -11,7 +11,7 @@ pub trait IConstantProductAmm<TContractState> {
 }
 
 #[starknet::contract]
-mod ConstantProductAmm {
+mod ConstantProductAmm2 {
     use core::traits::Into;
     use openzeppelin::token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
     use starknet::{

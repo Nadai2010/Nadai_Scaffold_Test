@@ -13,6 +13,7 @@ import daiLogo from '/public/logo-dai.svg';
 import strkLogo from '/public/logo-starknet.svg';
 import naiLogo from '/public/logo-nai.png';
 import { useEffect, useState } from "react";
+import { parseEther } from "ethers";
 
 // Función para formatear valores en wei a ether
 function formatEther(weiValue: number) {
@@ -144,20 +145,39 @@ const Starknet: NextPage = () => {
     watch: true,
   });
 
-  // Multiwrite Approve + add liquidity
-  const { writeAsync: MultiApproveAmmScaffold } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("DAI", "approve", [ScaffoldAMM?.address, toWei(Number(liquidityAmount))]),
-      createContractCall("USDT", "approve", [ScaffoldAMM?.address, toWei(Number(liquidityAmount))]),
-      createContractCall("ScaffoldAMM", "add_liquidity", [toWei(Number(liquidityAmount)), toWei(Number(liquidityAmount))]),
-    ]
+  const {data : amount1 } = useScaffoldReadContract({
+    contractName: "ScaffoldAMM",
+    functionName: "get_amount1_out",
+    args: [liquidityAmount ? parseEther(liquidityAmount).toString() as any : "0" as any]
   });
 
+  const {data : amount2 } = useScaffoldReadContract({
+    contractName: "NadaiAMM",
+    functionName: "get_amount1_out",
+    args: [liquidityAmount2 ? parseEther(liquidityAmount2).toString() as any : "0" as any]
+  });
+  
+
+  const {data : amount3 } = useScaffoldReadContract({
+    contractName: "StarknetAMM",
+    functionName: "get_amount1_out",
+    args: [liquidityAmount3 ? parseEther(liquidityAmount3).toString() as any : "0" as any]
+  });
+  
+  
+   // Multiwrite Approve + add liquidity
+   const { writeAsync: MultiApproveAmmScaffold } = useScaffoldMultiWriteContract({
+    calls: [
+      createContractCall("DAI", "approve", [ScaffoldAMM?.address,toWei(Number(liquidityAmount))]),
+      createContractCall("USDT", "approve", [ScaffoldAMM?.address, amount1 as any]),
+      createContractCall("ScaffoldAMM", "add_liquidity", [toWei(Number(liquidityAmount)), amount1 as any]),
+    ]
+  });
   const { writeAsync: MultiApproveAmmNadai } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("NAI", "approve", [NadaiAMM?.address, toWei(Number(liquidityAmount2))]),
       createContractCall("USDT", "approve", [NadaiAMM?.address, toWei(Number(liquidityAmount2))]),
-      createContractCall("NadaiAMM", "add_liquidity", [toWei(Number(liquidityAmount2)), toWei(Number(liquidityAmount2))]),
+      createContractCall("NadaiAMM", "add_liquidity", [toWei(Number(liquidityAmount2)), amount2 as any]),
     ]
   });
 
@@ -165,7 +185,7 @@ const Starknet: NextPage = () => {
     calls: [
       createContractCall("STRK", "approve", [StarknetAMM?.address, toWei(Number(liquidityAmount3))]),
       createContractCall("USDT", "approve", [StarknetAMM?.address, toWei(Number(liquidityAmount3))]),
-      createContractCall("StarknetAMM", "add_liquidity", [toWei(Number(liquidityAmount3)), toWei(Number(liquidityAmount3))]),
+      createContractCall("StarknetAMM", "add_liquidity", [toWei(Number(liquidityAmount3)), amount3 as any]),
     ]
   });
 

@@ -7,13 +7,7 @@ const deployScript = async (): Promise<void> => {
   //   "YourContract2",
   // );
 
-  const random = await deployContract(
-    {
-      randomness_contract_address: "0x60c69136b39319547a4df303b6b3a26fab8b2d78de90b6bd215ce82e9cb515c",
-    },
-    "SimpleVault",
-  );
-  
+
 
   const dai = await deployContract(
     {
@@ -65,7 +59,7 @@ const deployScript = async (): Promise<void> => {
       token1: usdt.address,
       fee: 1,
     },
-    "ConstantProductAmm",
+    "ConstantProductAmm2",
     "ScaffoldAMM"
   );
 
@@ -75,7 +69,7 @@ const deployScript = async (): Promise<void> => {
       token1: usdt.address,
       fee: 1,
     },
-    "ConstantProductAmm",
+    "ConstantProductAmm2",
     "NadaiAMM"
   );
 
@@ -85,7 +79,7 @@ const deployScript = async (): Promise<void> => {
       token1: usdt.address,
       fee: 1,
     },
-    "ConstantProductAmm",
+    "ConstantProductAmm2",
     "StarknetAMM"
   );
 

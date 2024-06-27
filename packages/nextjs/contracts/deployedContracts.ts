@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     DAI: {
       address:
-        "0x00a0f508e362eb3215c49a8b1918d9a215ae8c0677b118f7d7143b45e40ff385",
+        "0x05b245bdc8597b1f88c48a397d36d8568b1648d5a406581bb5f6c56380de5aff",
       abi: [
         {
           type: "impl",
@@ -411,7 +411,7 @@ const deployedContracts = {
     },
     USDT: {
       address:
-        "0x060ccea853cd48b59edc804412adc25593f23f4dda5be9183e116424d79461e5",
+        "0x077578b7a2911980a0036e4faa719b971a4916c39f7885a0aa8ac849f6a9249c",
       abi: [
         {
           type: "impl",
@@ -815,7 +815,7 @@ const deployedContracts = {
     },
     STRK: {
       address:
-        "0x0754685cf44c61f81aca7018c52651f2d28d98a22348f6bf742b5960f541ca88",
+        "0x07b48da2e0e25d0750187e1f279bd020e994e30cc31486628fb25438da2f45f0",
       abi: [
         {
           type: "impl",
@@ -1219,7 +1219,7 @@ const deployedContracts = {
     },
     NAI: {
       address:
-        "0x023b3563401a1ad76ca47f5960dc69c7cf646d9cb0e3ea215b6549ae68347eb4",
+        "0x00b9f4d4fb4621eea20742b78ae55804da2396bc08a3bc1f3c02540767a8929e",
       abi: [
         {
           type: "impl",
@@ -1623,12 +1623,12 @@ const deployedContracts = {
     },
     ScaffoldAMM: {
       address:
-        "0x018f9a88522dd948851b5bb8fbc737f3d6d75acf93cde7a80d95c1157c836bf1",
+        "0x020eae18ae132a88505e8a20adc4b5b40c4f1b796c5b08a185fcb821579c65e5",
       abi: [
         {
           type: "impl",
           name: "ConstantProductAmm",
-          interface_name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          interface_name: "contracts::ConstantProductAmm2::IConstantProductAmm",
         },
         {
           type: "struct",
@@ -1646,7 +1646,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          name: "contracts::ConstantProductAmm2::IConstantProductAmm",
           items: [
             {
               type: "function",
@@ -1742,6 +1742,22 @@ const deployedContracts = {
               ],
               state_mutability: "view",
             },
+            {
+              type: "function",
+              name: "get_amount1_out",
+              inputs: [
+                {
+                  name: "amount0",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
           ],
         },
         {
@@ -1764,7 +1780,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "contracts::ConstantProductAmm::ConstantProductAmm::Event",
+          name: "contracts::ConstantProductAmm2::ConstantProductAmm2::Event",
           kind: "enum",
           variants: [],
         },
@@ -1772,12 +1788,12 @@ const deployedContracts = {
     },
     NadaiAMM: {
       address:
-        "0x03be133f8c61cc7925ecf50640c5b940663214110f6d331b2b7b3051e8b12c8f",
+        "0x031ea170e4a4e39a0b86256b764af966135d27f3d0ad2e6c4cd3caa6235de8db",
       abi: [
         {
           type: "impl",
           name: "ConstantProductAmm",
-          interface_name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          interface_name: "contracts::ConstantProductAmm2::IConstantProductAmm",
         },
         {
           type: "struct",
@@ -1795,7 +1811,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          name: "contracts::ConstantProductAmm2::IConstantProductAmm",
           items: [
             {
               type: "function",
@@ -1891,6 +1907,22 @@ const deployedContracts = {
               ],
               state_mutability: "view",
             },
+            {
+              type: "function",
+              name: "get_amount1_out",
+              inputs: [
+                {
+                  name: "amount0",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
           ],
         },
         {
@@ -1913,7 +1945,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "contracts::ConstantProductAmm::ConstantProductAmm::Event",
+          name: "contracts::ConstantProductAmm2::ConstantProductAmm2::Event",
           kind: "enum",
           variants: [],
         },
@@ -1921,12 +1953,12 @@ const deployedContracts = {
     },
     StarknetAMM: {
       address:
-        "0x0077d6f8c9ebb8ec25334d7a1112eb819f6eee92f42254b7c64ba76a9043382f",
+        "0x00b1a3fb4bbbc563446f8ccede9d61a0d22aed0f6c2db41d92c8bd886db05b91",
       abi: [
         {
           type: "impl",
           name: "ConstantProductAmm",
-          interface_name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          interface_name: "contracts::ConstantProductAmm2::IConstantProductAmm",
         },
         {
           type: "struct",
@@ -1944,7 +1976,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          name: "contracts::ConstantProductAmm2::IConstantProductAmm",
           items: [
             {
               type: "function",
@@ -2040,6 +2072,22 @@ const deployedContracts = {
               ],
               state_mutability: "view",
             },
+            {
+              type: "function",
+              name: "get_amount1_out",
+              inputs: [
+                {
+                  name: "amount0",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
           ],
         },
         {
@@ -2062,7 +2110,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "contracts::ConstantProductAmm::ConstantProductAmm::Event",
+          name: "contracts::ConstantProductAmm2::ConstantProductAmm2::Event",
           kind: "enum",
           variants: [],
         },
@@ -2070,7 +2118,7 @@ const deployedContracts = {
     },
     StakingContract: {
       address:
-        "0x0206b47052bc55788471f51d250244c42b1d619cf3cb5ae3ab3772bb0d4b278c",
+        "0x03688e7b99c465408a37ceb3fba5ae88f839792f27bc73b1594107bd9b5e8147",
       abi: [
         {
           type: "impl",
@@ -2254,7 +2302,7 @@ const deployedContracts = {
     },
     SimpleVault: {
       address:
-        "0x013b14567a25f9a1736e83b8376daae514f58192c778d2684820a6514849968a",
+        "0x07cc8e3f0a19c6ad0daa5d07443826e13c1c75f0693e90647ea03e59a87dee7a",
       abi: [
         {
           type: "impl",
@@ -3948,7 +3996,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ConstantProductAmm",
-          interface_name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          interface_name: "contracts::ConstantProductAmm2::IConstantProductAmm",
         },
         {
           type: "struct",
@@ -3966,7 +4014,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          name: "contracts::ConstantProductAmm2::IConstantProductAmm",
           items: [
             {
               type: "function",
@@ -4062,6 +4110,22 @@ const deployedContracts = {
               ],
               state_mutability: "view",
             },
+            {
+              type: "function",
+              name: "get_amount1_out",
+              inputs: [
+                {
+                  name: "amount0",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
           ],
         },
         {
@@ -4084,7 +4148,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "contracts::ConstantProductAmm::ConstantProductAmm::Event",
+          name: "contracts::ConstantProductAmm2::ConstantProductAmm::Event",
           kind: "enum",
           variants: [],
         },
@@ -4097,7 +4161,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ConstantProductAmm",
-          interface_name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          interface_name: "contracts::ConstantProductAmm2::IConstantProductAmm",
         },
         {
           type: "struct",
@@ -4115,7 +4179,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "contracts::ConstantProductAmm::IConstantProductAmm",
+          name: "contracts::ConstantProductAmm2::IConstantProductAmm",
           items: [
             {
               type: "function",
@@ -4211,6 +4275,22 @@ const deployedContracts = {
               ],
               state_mutability: "view",
             },
+            {
+              type: "function",
+              name: "get_amount1_out",
+              inputs: [
+                {
+                  name: "amount0",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
           ],
         },
         {
@@ -4233,7 +4313,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "contracts::ConstantProductAmm::ConstantProductAmm::Event",
+          name: "contracts::ConstantProductAmm2::ConstantProductAmm::Event",
           kind: "enum",
           variants: [],
         },
