@@ -176,7 +176,7 @@ const Starknet: NextPage = () => {
   const { writeAsync: MultiApproveAmmNadai } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("NAI", "approve", [NadaiAMM?.address, toWei(Number(liquidityAmount2))]),
-      createContractCall("USDT", "approve", [NadaiAMM?.address, toWei(Number(liquidityAmount2))]),
+      createContractCall("USDT", "approve", [NadaiAMM?.address, amount2 as any]),
       createContractCall("NadaiAMM", "add_liquidity", [toWei(Number(liquidityAmount2)), amount2 as any]),
     ]
   });
@@ -184,7 +184,7 @@ const Starknet: NextPage = () => {
   const { writeAsync: MultiApproveAmmStarknet } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("STRK", "approve", [StarknetAMM?.address, toWei(Number(liquidityAmount3))]),
-      createContractCall("USDT", "approve", [StarknetAMM?.address, toWei(Number(liquidityAmount3))]),
+      createContractCall("USDT", "approve", [StarknetAMM?.address, amount3 as any]),
       createContractCall("StarknetAMM", "add_liquidity", [toWei(Number(liquidityAmount3)), amount3 as any]),
     ]
   });
