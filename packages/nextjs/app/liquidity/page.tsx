@@ -418,8 +418,8 @@ const Starknet: NextPage = () => {
                 Scaffold Total Supply
               </div>
             </div>
-            <div className="text-l text-blue-900">
-              {totalSupplyScaffold ? formatEther(Number(totalSupplyScaffold)) : '0'}
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
+             {totalSupplyScaffold ? formatEther(Number(totalSupplyScaffold)) : '0'}
               &nbsp;LPS | &nbsp;
               {balanceScaffoldAccount ? formatEther(Number(balanceScaffoldAccount)) : '0'}
               &nbsp;LPS
@@ -483,8 +483,8 @@ const Starknet: NextPage = () => {
                 Nadai Total Supply
               </div>
             </div>
-            <div className="text-l text-blue-900">
-              {totalSupplyNadai ? formatEther(Number(totalSupplyNadai)) : '0'}
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
+                        {totalSupplyNadai ? formatEther(Number(totalSupplyNadai)) : '0'}
               &nbsp;LPN | &nbsp;
               {balanceNaiAccount ? formatEther(Number(balanceNaiAccount)) : '0'}
               &nbsp;LPN
@@ -552,8 +552,8 @@ const Starknet: NextPage = () => {
                 Starknet Total Supply
               </div>
             </div>
-            <div className="text-l text-blue-900">
-              {totalSupplyStarknet ? formatEther(Number(totalSupplyStarknet)) : '0'}
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
+            {totalSupplyStarknet ? formatEther(Number(totalSupplyStarknet)) : '0'}
               &nbsp;LPS | &nbsp;
               {balanceStarknetAccount ? formatEther(Number(balanceStarknetAccount)) : '0'}
               &nbsp;LPN
@@ -611,21 +611,32 @@ const Starknet: NextPage = () => {
         </div>
       </div>
 
-      {/* Remove All AMMs */}
-      <div className="flex items-center justify-center">
-        <div className="text-center">
-          <h3 className="text-lg font-medium mb-2">Remove All AMMs</h3>
-          <button
-            onClick={handleRemoveLiquidityAllAMM}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-
-          >
-            Remove Liquidity from All AMMs
-          </button>
+  {/* Bloque Multi Remove All AMMs */}
+  <div className="flex items-center justify-center">
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md border border-gray-300 mb-6">
+          <div className="flex items-center justify-center mb-4">
+            <div className="text-center">
+              <h3 className="text-lg font-medium text-blue-900 mb-2">Multi Remove LPs in All AMMs</h3>
+              <button
+                onClick={handleRemoveLiquidityAllAMM}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+              >
+                Multi Remove ALL - CLICK
+              </button>
+            </div>
+          </div>
+          {/* Powered by Starknet */}
+          <div className="flex items-center justify-center">
+            <div className="text-center">
+              <h3 className="text-lg font-medium text-blue-900 mb-2">
+                <span className="inline-block align-middle">Powered by</span>{' '}
+                <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8 inline-block align-middle" />
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
   );
 };
 

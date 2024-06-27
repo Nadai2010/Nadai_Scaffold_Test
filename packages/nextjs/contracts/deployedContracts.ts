@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     DAI: {
       address:
-        "0x00d1ba61e8a71f8cb035c225ac25f13978f0addad90c873382f340c3d94e5ed6",
+        "0x00a0f508e362eb3215c49a8b1918d9a215ae8c0677b118f7d7143b45e40ff385",
       abi: [
         {
           type: "impl",
@@ -411,7 +411,7 @@ const deployedContracts = {
     },
     USDT: {
       address:
-        "0x02a673898ffa7235a281dec27384de3d885e55b539a8628aaf8d37859a8c70a8",
+        "0x060ccea853cd48b59edc804412adc25593f23f4dda5be9183e116424d79461e5",
       abi: [
         {
           type: "impl",
@@ -815,7 +815,7 @@ const deployedContracts = {
     },
     STRK: {
       address:
-        "0x062389055c33cc41f0133c72154fabd6beed073efc9f07661074fb070ed94926",
+        "0x0754685cf44c61f81aca7018c52651f2d28d98a22348f6bf742b5960f541ca88",
       abi: [
         {
           type: "impl",
@@ -1219,7 +1219,7 @@ const deployedContracts = {
     },
     NAI: {
       address:
-        "0x034b2d8997c4e19a73260ae7ba6502cc80ceb0720cec2833530f185d89a49d03",
+        "0x023b3563401a1ad76ca47f5960dc69c7cf646d9cb0e3ea215b6549ae68347eb4",
       abi: [
         {
           type: "impl",
@@ -1623,7 +1623,7 @@ const deployedContracts = {
     },
     ScaffoldAMM: {
       address:
-        "0x05ef12d5aee6e49644e95046f889b88b238104379394207944a726f21f71521c",
+        "0x018f9a88522dd948851b5bb8fbc737f3d6d75acf93cde7a80d95c1157c836bf1",
       abi: [
         {
           type: "impl",
@@ -1772,7 +1772,7 @@ const deployedContracts = {
     },
     NadaiAMM: {
       address:
-        "0x030e8c9a55c80f01f5a039dea4e63d4a9e78ea5c4ce42e407a5a0a55bc0f71f9",
+        "0x03be133f8c61cc7925ecf50640c5b940663214110f6d331b2b7b3051e8b12c8f",
       abi: [
         {
           type: "impl",
@@ -1921,7 +1921,7 @@ const deployedContracts = {
     },
     StarknetAMM: {
       address:
-        "0x03eb606b6ace5218241f9db675745346b0a23391e49e2ec5247c78e977358d40",
+        "0x0077d6f8c9ebb8ec25334d7a1112eb819f6eee92f42254b7c64ba76a9043382f",
       abi: [
         {
           type: "impl",
@@ -2070,7 +2070,7 @@ const deployedContracts = {
     },
     StakingContract: {
       address:
-        "0x075eb72a41add94956ace0d97be6bb182fc2087d8245301440805c552a441e1f",
+        "0x0206b47052bc55788471f51d250244c42b1d619cf3cb5ae3ab3772bb0d4b278c",
       abi: [
         {
           type: "impl",
@@ -2254,7 +2254,7 @@ const deployedContracts = {
     },
     SimpleVault: {
       address:
-        "0x02b45ace0702e74f0387a299822c8e78706d5b0d1ff6b5872dac8a1804d26f3d",
+        "0x013b14567a25f9a1736e83b8376daae514f58192c778d2684820a6514849968a",
       abi: [
         {
           type: "impl",

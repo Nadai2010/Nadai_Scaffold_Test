@@ -283,22 +283,31 @@ const Starknet: NextPage = () => {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
 
         {/* Scaffold Reserves */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md border border-gray-300 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-3">
               <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
               <img src={daiLogo.src} alt="DAI Icon" className="w-8 h-8" />
-              <div className="text-l font-semibold text-blue-900">
+              <div className="text-xl font-semibold text-blue-900">
                 Total Reserve Scaffold
               </div>
             </div>
-            <div className="text-l text-blue-900">
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
               {balanceReserveScaffold ? `${formatEther(Number((balanceReserveScaffold as any)[1]))} USDT / ${formatEther(Number((balanceReserveScaffold as any)[0]))} DAI` : "0 USDT / 0 DAI"}
+            </div>
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
+              {balanceReserveScaffold && Number((balanceReserveScaffold as any)[0]) !== 0 ? (
+                `Ratio ${Number((balanceReserveScaffold as any)[1]) !== 0 ? (Number((balanceReserveScaffold as any)[1]) / Number((balanceReserveScaffold as any)[0])).toFixed(2) : "Indefinido"}`
+              ) : (
+                "Ratio"
+              )}
             </div>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700 mb-1">
                 Swap USDT/DAI
               </label>
               <input
@@ -313,7 +322,7 @@ const Starknet: NextPage = () => {
             </div>
             <button
               onClick={handleSwapScaffoldUSDT}
-              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
               style={{ minWidth: '130px' }}
             >
               Swap
@@ -321,24 +330,32 @@ const Starknet: NextPage = () => {
           </div>
         </div>
 
-
         {/* Nadai Reserves */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md border border-gray-300 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-3">
               <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
-              <img src={naiLogo.src} alt="DAI Icon" className="w-8 h-8" />
-              <div className="text-l font-semibold text-blue-900">
+              <img src={naiLogo.src} alt="NAI Icon" className="w-8 h-8" />
+              <div className="text-xl font-semibold text-blue-900">
                 Total Reserve Nadai
               </div>
             </div>
-            <div className="text-l text-blue-900">
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
               {balanceReserveNadai ? `${formatEther(Number((balanceReserveNadai as any)[1]))} USDT / ${formatEther(Number((balanceReserveNadai as any)[0]))} NAI` : "0 USDT / 0 NAI"}
+            </div>
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
+              {balanceReserveNadai && Number((balanceReserveNadai as any)[0]) !== 0 ? (
+                `Ratio ${Number((balanceReserveNadai as any)[1]) !== 0 ? (Number((balanceReserveNadai as any)[1]) / Number((balanceReserveNadai as any)[0])).toFixed(2) : "Indefinido"}`
+              ) : (
+                "Ratio"
+              )}
             </div>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700 mb-1">
                 Swap USDT/NAI
               </label>
               <input
@@ -353,7 +370,7 @@ const Starknet: NextPage = () => {
             </div>
             <button
               onClick={handleSwapNadaiUSDT}
-              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
               style={{ minWidth: '130px' }}
             >
               Swap
@@ -362,22 +379,31 @@ const Starknet: NextPage = () => {
         </div>
 
         {/* Starknet Reserves */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md border border-gray-300 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-3">
               <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
               <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8" />
-              <div className="text-l font-semibold text-blue-900">
+              <div className="text-xl font-semibold text-blue-900">
                 Total Reserve Starknet
               </div>
             </div>
-            <div className="text-l text-blue-900">
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
               {balanceReserveStarknet ? `${formatEther(Number((balanceReserveStarknet as any)[1]))} USDT / ${formatEther(Number((balanceReserveStarknet as any)[0]))} STRK` : "0 USDT / 0 STRK"}
+            </div>
+            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
+              {balanceReserveStarknet && Number((balanceReserveStarknet as any)[0]) !== 0 ? (
+                `Ratio ${Number((balanceReserveStarknet as any)[1]) !== 0 ? (Number((balanceReserveStarknet as any)[1]) / Number((balanceReserveStarknet as any)[0])).toFixed(2) : "Indefinido"}`
+              ) : (
+                "Ratio"
+              )}
             </div>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700 mb-1">
                 Swap USDT/STRK
               </label>
               <input
@@ -392,7 +418,7 @@ const Starknet: NextPage = () => {
             </div>
             <button
               onClick={handleSwapStarknetUSDT}
-              className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
+              className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
               style={{ minWidth: '130px' }}
             >
               Swap
@@ -401,20 +427,32 @@ const Starknet: NextPage = () => {
         </div>
       </div>
 
-      {/* Remove All AMMs */}
-      <div className="flex items-center justify-center">
-        <div className="text-center">
-          <h3 className="text-lg font-medium mb-2">Multi Swap in All AMMs</h3>
-          <button
-            onClick={handleMultiSwapAll}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-          >
-            Swaps ALL - CLICK
-          </button>
+       {/* Bloque Multi Swap All AMMs  */}
+       <div className="flex items-center justify-center">
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md border border-gray-300 mb-6">
+          <div className="flex items-center justify-center mb-4">
+            <div className="text-center">
+              <h3 className="text-lg font-medium text-blue-900 mb-2">Multi Swap in All AMMs</h3>
+              <button
+                onClick={handleMultiSwapAll}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+              >
+                Multi Swaps ALL - CLICK
+              </button>
+            </div>
+          </div>
+          {/* Powered by Starknet */}
+          <div className="flex items-center justify-center">
+            <div className="text-center">
+              <h3 className="text-lg font-medium text-blue-900 mb-2">
+                <span className="inline-block align-middle">Powered by</span>{' '}
+                <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8 inline-block align-middle" />
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
   );
 };
 

@@ -95,12 +95,9 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && faucetUSDT) {
       try {
         setTransactionPending(true); // Inicia la transacción
-        const tx = async () => {
-          const result = await faucetUSDT();
-          return result as string; // Asegura que el resultado sea del tipo esperado
-        };
-        const txHash = await transactor(tx);
-        console.log('USDT Transaction Hash:', txHash);
+        const result = await faucetUSDT();
+        console.log('USDT Transaction Hash:', result);
+        setTransactionPending(false); // Finaliza la transacción
       } catch (error) {
         console.error('USDT Transaction Error:', error);
       } finally {
@@ -113,12 +110,8 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && faucetDAI) {
       try {
         setTransactionPending(true); // Inicia la transacción
-        const tx = async () => {
-          const result = await faucetDAI();
-          return result as string; // Asegura que el resultado sea del tipo esperado
-        };
-        const txHash = await transactor(tx);
-        console.log('DAI Transaction Hash:', txHash);
+        const result = await faucetDAI();
+        console.log('DAI Transaction Hash:', result);
       } catch (error) {
         console.error('DAI Transaction Error:', error);
       } finally {
@@ -131,12 +124,9 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && faucetSTRK) {
       try {
         setTransactionPending(true); // Inicia la transacción
-        const tx = async () => {
-          const result = await faucetSTRK();
-          return result as string; // Asegura que el resultado sea del tipo esperado
-        };
-        const txHash = await transactor(tx);
-        console.log('STRK Transaction Hash:', txHash);
+        const result = await faucetSTRK();
+        console.log('STRK Transaction Hash:', result);
+        setTransactionPending(false);
       } catch (error) {
         console.error('STRK Transaction Error:', error);
       } finally {
@@ -149,12 +139,8 @@ const Starknet: NextPage = () => {
     if (!isTransactionPending && faucetNAI) {
       try {
         setTransactionPending(true); // Inicia la transacción
-        const tx = async () => {
-          const result = await faucetNAI();
-          return result as string; // Asegura que el resultado sea del tipo esperado
-        };
-        const txHash = await transactor(tx);
-        console.log('STRK Transaction Hash:', txHash);
+        const result = await faucetNAI();
+        console.log('STRK Transaction Hash:', result);
       } catch (error) {
         console.error('STRK Transaction Error:', error);
       } finally {
@@ -169,7 +155,7 @@ const Starknet: NextPage = () => {
         <p className="text-3xl font-semibold">Token Portfolio</p>
       </div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-      
+
         {/* USDT */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
@@ -251,8 +237,8 @@ const Starknet: NextPage = () => {
           </div>
         </div>
 
-          {/* NAI */}
-          <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+        {/* NAI */}
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 text-blue-900">
               <img src={naiLogo.src} alt="NAI Icon" className="w-8 h-8" />

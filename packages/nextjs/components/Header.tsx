@@ -4,7 +4,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon, MoonIcon, WalletIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BugAntIcon, CircleStackIcon, WalletIcon, ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-stark";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
 import { FaucetButton } from "~~/components/scaffold-stark/FaucetButton";
@@ -25,12 +25,12 @@ export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Liquidity",
     href: "/liquidity",
-    icon: <MoonIcon className="h-4 w-4" />,
+    icon: <CircleStackIcon className="h-4 w-4" />,
   },
   {
     label: "Swap",
     href: "/swap",
-    icon: <MoonIcon className="h-4 w-4" />,
+    icon: <ArrowsUpDownIcon className="h-4 w-4" />,
   },
   {
     label: "Debug Contracts",
