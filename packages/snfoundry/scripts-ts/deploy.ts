@@ -8,6 +8,12 @@ const deployScript = async (): Promise<void> => {
   // );
 
 
+  const pragma = await deployContract(
+    {
+      pragma_contract: "0x36031daa264c24520b11d93af622c848b2499b66b41d611bac95e13cfca131a",
+    },
+    "PriceFeedExample",
+  );
 
   const dai = await deployContract(
     {

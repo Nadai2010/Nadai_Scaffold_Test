@@ -33,6 +33,16 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <ArrowsUpDownIcon className="h-4 w-4" />,
   },
   {
+    label: "Staking",
+    href: "/staking",
+    icon: <ArrowsUpDownIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Price",
+    href: "/price",
+    icon: <ArrowsUpDownIcon className="h-4 w-4" />,
+  },
+  {
     label: "Debug Contracts",
     href: "/debug",
     icon: <BugAntIcon className="h-4 w-4" />,

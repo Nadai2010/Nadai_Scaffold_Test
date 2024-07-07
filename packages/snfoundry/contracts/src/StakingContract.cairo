@@ -7,6 +7,7 @@ pub trait IStakingContract<TContractState> {
     fn stake(ref self: TContractState, amount: u256);
     fn withdraw(ref self: TContractState, amount: u256);
     fn get_rewards(self: @TContractState, account: ContractAddress) -> u256;
+    fn get_stake(self: @TContractState, account: ContractAddress) -> u256;
     fn claim_rewards(ref self: TContractState);
 }
 
@@ -168,6 +169,10 @@ pub mod StakingContract {
 
         fn get_rewards(self: @ContractState, account: ContractAddress) -> u256 {
             self.unclaimed_rewards.read(account) + self.compute_new_rewards(account)
+        }
+
+        fn get_stake(self: @ContractState, account: ContractAddress) -> u256 {
+            self.total_supply.read()
         }
 
         fn claim_rewards(ref self: ContractState) {
