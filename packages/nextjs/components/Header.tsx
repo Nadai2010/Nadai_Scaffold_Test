@@ -38,8 +38,13 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <ArrowsUpDownIcon className="h-4 w-4" />,
   },
   {
-    label: "Price",
-    href: "/price",
+    label: "Pragma",
+    href: "/pragma",
+    icon: <ArrowsUpDownIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Chainlink",
+    href: "/chainlink",
     icon: <ArrowsUpDownIcon className="h-4 w-4" />,
   },
   {

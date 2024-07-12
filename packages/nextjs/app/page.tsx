@@ -16,6 +16,7 @@ import usdtLogo from '/public/logo-usdt.svg';
 import daiLogo from '/public/logo-dai.svg';
 import strkLogo from '/public/logo-starknet.svg';
 import naiLogo from '/public/logo-nai.png';
+import { createContractCall, useScaffoldMultiWriteContract } from '~~/hooks/scaffold-stark/useScaffoldMultiWriteContract';
 
 
 // Función para formatear valores en wei a ether
@@ -90,6 +91,15 @@ const Starknet: NextPage = () => {
     args: [connectedAddress, 100000000000000000000],
   });
 
+  const { writeAsync: faucetALL } = useScaffoldMultiWriteContract({
+    calls: [
+      createContractCall("USDT", "faucet", [connectedAddress, 1000000000000000000000]),
+      createContractCall("DAI", "faucet", [connectedAddress, 1000000000000000000000]),
+      createContractCall("STRK", "faucet", [connectedAddress, 1000000000000000000000]),
+      createContractCall("NAI", "faucet", [connectedAddress, 1000000000000000000000]),
+    ]
+  });
+
   // Manejo de eventos de botones
   const handleFaucetUSDT = async () => {
     if (!isTransactionPending && faucetUSDT) {
@@ -148,6 +158,21 @@ const Starknet: NextPage = () => {
       }
     }
   };
+
+  const handleFaucetALL = async () => {
+    if (!isTransactionPending && faucetALL) {
+      try {
+        setTransactionPending(true); // Inicia la transacción
+        const result = await faucetALL();
+        console.log('ALL Tokens Mints Transaction Hash:', result);
+      } catch (error) {
+        console.error('ALL Tokens Mints Transaction Error:', error);
+      } finally {
+        setTransactionPending(false); // Finaliza la transacción
+      }
+    }
+  };
+
 
   return (
     <div className="container mx-auto mt-10 px-4">
@@ -261,6 +286,29 @@ const Starknet: NextPage = () => {
             >
               {isTransactionPending ? 'Minting...' : 'Mint NAI'}
             </button>
+          </div>
+        </div>
+
+        {/* ALL TOKEN */}
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 text-blue-900">
+              <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
+              <img src={daiLogo.src} alt="DAI Icon" className="w-8 h-8" />
+              <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8" />
+              <img src={naiLogo.src} alt="NAI Icon" className="w-8 h-8" />
+
+              <div className="flex items-right justify-between mt-1">
+                {/* Botón a la derecha */}
+                <button
+                  onClick={handleFaucetALL}
+                  disabled={isTransactionPending}
+                  className="px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                >
+                  {isTransactionPending ? 'Minting...' : 'Mint ALL Tokens'}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

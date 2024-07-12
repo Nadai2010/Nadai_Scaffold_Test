@@ -13,8 +13,8 @@ let deployments = {};
 
 const { provider, deployer }: Network = networks[networkName];
 const deployContract = async (
-  constructorArgs: RawArgs,
   contractName: string,
+  constructorArgs: RawArgs,
   exportContractName?: string,
   options?: {
     maxFee: bigint;
@@ -54,7 +54,7 @@ const deployContract = async (
   const constructorCalldata = constructorArgs
     ? contractCalldata.compile("constructor", constructorArgs)
     : [];
-  console.log("Deploying Contract ", contractName);
+  console.log("Deploying Contract", contractName);
 
   let totalFee: bigint = 0n;
 
@@ -113,7 +113,7 @@ const deployContract = async (
   } catch (e) {
     console.log("Error", e);
   }
-  console.log("Deployed contract ", contractName, " at: ", contractAddress);
+  console.log("Deployed contract", contractName, "at:", contractAddress);
 
   let finalContractName = exportContractName || contractName;
 
