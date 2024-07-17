@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     PriceFeedExample: {
       address:
-        "0x03f06811c5a08038fd628bae9afdb082912e06f29016b54c4d930c3773c59fcb",
+        "0x0661101c453d3e3b8426fc588d88a16290a6a2079a1e06542b68469a622bae90",
       abi: [
         {
           type: "impl",
@@ -84,7 +84,7 @@ const deployedContracts = {
     },
     DAI: {
       address:
-        "0x02d76f1e9520376d0f79e1d307dfaefa1cac0fda9dd1d8eb298e2f3304d98378",
+        "0x017009d6ecfe3aa825c5205a8909220eadc632eaba91be40a341eba213e7416b",
       abi: [
         {
           type: "impl",
@@ -488,7 +488,7 @@ const deployedContracts = {
     },
     USDT: {
       address:
-        "0x011bd018f200b7bc49ba940fd698d95bbffbac41ea272d07413f6bf4368052f3",
+        "0x02924ed7c7c8410d98f04e7a4ce43e8d0f0c815e993136b88bbb8a3169313bc3",
       abi: [
         {
           type: "impl",
@@ -892,7 +892,7 @@ const deployedContracts = {
     },
     STRK: {
       address:
-        "0x01227b325a943e6e3e895c470f089d90a86d66c4d433fe20c3acf93c53c404ca",
+        "0x01bfb00ebbbaba98d2274f6315f9d0b01a416fc68395ff3b168352f8c3bf8648",
       abi: [
         {
           type: "impl",
@@ -1296,7 +1296,7 @@ const deployedContracts = {
     },
     NAI: {
       address:
-        "0x01fc793e0eb96aa9be767b206c966d7f360af6fe6f245b2b87a79ceefc681961",
+        "0x04024446e590d1af7e2b7aeb63200458a8eb0f248fe17a2fb7316c3a7c3dc44c",
       abi: [
         {
           type: "impl",
@@ -1700,7 +1700,7 @@ const deployedContracts = {
     },
     ScaffoldAMM: {
       address:
-        "0x049e9eb1600df4088e9eae9af4f7e85cebc107a125e9de6041b3a07ab033ed6d",
+        "0x0199b2fe13bdfef8ecdc9f00ccfe715757b72d8ef9a4fbda3dfcb4a8f6d9708e",
       abi: [
         {
           type: "impl",
@@ -1865,7 +1865,7 @@ const deployedContracts = {
     },
     NadaiAMM: {
       address:
-        "0x0566b3a4d485bf630f6599eb7705bf690eb5bc2e984389a75273f3b3b468ad54",
+        "0x0366c5dff565850883096bc9585196f3960c42a1eddedcbcd39a62231d5d3c1c",
       abi: [
         {
           type: "impl",
@@ -2030,7 +2030,7 @@ const deployedContracts = {
     },
     StarknetAMM: {
       address:
-        "0x0436a07be034c207846a27945df46596bfff0eade188fac40fbe39048d57eb7e",
+        "0x03cb0012af5cdd11b8c74110547dd4e6082a0280b8e166f7f3f3cc7121294edc",
       abi: [
         {
           type: "impl",
@@ -2195,7 +2195,7 @@ const deployedContracts = {
     },
     StakingContract: {
       address:
-        "0x0243812c2815ae82f5a6770038c05529b43c62e8529b612f1afaca1200ec66df",
+        "0x04a553f05859d202458fee343eda173a496bfbaefa889f67064aa3e6e39604d1",
       abi: [
         {
           type: "impl",
@@ -2395,7 +2395,7 @@ const deployedContracts = {
     },
     SimpleVault: {
       address:
-        "0x0768fbc309752c405e23a62e9a1e696eefdda30ec53c62ba57cf70f081c7687d",
+        "0x025909af3c5341c5b26cc990126eb6be2950849c39dbfd46384357eebde45e45",
       abi: [
         {
           type: "impl",
@@ -2543,395 +2543,6 @@ const deployedContracts = {
         },
       ],
     },
-    ChainlinkSTRK: {
-      address: "0x00a5db422ee7c28beead49303646e44ef9cbb8364eeba4d8af9ac06a3b556937",
-      abi: [
-        {
-          type: "impl",
-          name: "AggregatorProxyImpl",
-          interface_name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-        },
-        {
-          type: "interface",
-          name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-          items: [
-            {
-              type: "function",
-              name: "latest_round_data",
-              inputs: [],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "round_data",
-              inputs: [
-                {
-                  name: "round_id",
-                  type: "core::felt252",
-                },
-              ],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "description",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::felt252",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "decimals",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u8",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "latest_answer",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u128",
-                },
-              ],
-              state_mutability: "view",
-            },
-          ],
-        },
-        {
-          type: "constructor",
-          name: "constructor",
-          inputs: [
-            {
-              name: "owner",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "address",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-          ],
-        },
-        {
-          type: "event",
-          name: "chainlink::ocr2::aggregator_proxy::Event",
-          kind: "enum",
-          variants: [
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AddedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::RemovedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlEnabled",
-              members: [],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlDisabled",
-              members: [],
-            },
-          ],
-        },
-      ],
-    },
-    ChainlinkLINK: {
-      address: "0x044e29893a7bd694e8335919ce1daaf99128e0295daad7852e59b0791cc3468e",
-      abi: [
-        {
-          type: "impl",
-          name: "AggregatorProxyImpl",
-          interface_name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-        },
-        {
-          type: "interface",
-          name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-          items: [
-            {
-              type: "function",
-              name: "latest_round_data",
-              inputs: [],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "round_data",
-              inputs: [
-                {
-                  name: "round_id",
-                  type: "core::felt252",
-                },
-              ],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "description",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::felt252",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "decimals",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u8",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "latest_answer",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u128",
-                },
-              ],
-              state_mutability: "view",
-            },
-          ],
-        },
-        {
-          type: "constructor",
-          name: "constructor",
-          inputs: [
-            {
-              name: "owner",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "address",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-          ],
-        },
-        {
-          type: "event",
-          name: "chainlink::ocr2::aggregator_proxy::Event",
-          kind: "enum",
-          variants: [
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AddedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::RemovedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlEnabled",
-              members: [],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlDisabled",
-              members: [],
-            },
-          ],
-        },
-      ],
-    },
-
-    ChainlinkBTC: {
-      address: "0x00258b8f498b767c200577227e3e9f009c9b0fe7f6a3c8c2c24efd588c54747a",
-      abi: [
-        {
-          type: "impl",
-          name: "AggregatorProxyImpl",
-          interface_name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-        },
-        {
-          type: "interface",
-          name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-          items: [
-            {
-              type: "function",
-              name: "latest_round_data",
-              inputs: [],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "round_data",
-              inputs: [
-                {
-                  name: "round_id",
-                  type: "core::felt252",
-                },
-              ],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "description",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::felt252",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "decimals",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u8",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "latest_answer",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u128",
-                },
-              ],
-              state_mutability: "view",
-            },
-          ],
-        },
-        {
-          type: "constructor",
-          name: "constructor",
-          inputs: [
-            {
-              name: "owner",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "address",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-          ],
-        },
-        {
-          type: "event",
-          name: "chainlink::ocr2::aggregator_proxy::Event",
-          kind: "enum",
-          variants: [
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AddedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::RemovedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlEnabled",
-              members: [],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlDisabled",
-              members: [],
-            },
-          ],
-        },
-      ],
-    },
-
     DAI: {
       address:
         "0x01ce0ef1cc8371397b6fbd0c30bfba425c71443161fcff7c71a1d67bf448c8d4",

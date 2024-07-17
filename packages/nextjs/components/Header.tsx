@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,6 +8,10 @@ import { Bars3Icon, BugAntIcon, CircleStackIcon, WalletIcon, ArrowsUpDownIcon } 
 import { useOutsideClick } from "~~/hooks/scaffold-stark";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
 import { FaucetButton } from "~~/components/scaffold-stark/FaucetButton";
+import { useTheme } from "next-themes";
+import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
+import { devnet } from "@starknet-react/chains";
+import { SwitchTheme } from "./SwitchTheme";
 
 type HeaderMenuLink = {
   label: string;
@@ -57,6 +61,13 @@ export const menuLinks: HeaderMenuLink[] = [
 
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
+  const { theme } = useTheme();
+  const [isDark, setIsDark] = useState(false);
+
+
+  useEffect(() => {
+    setIsDark(theme === "dark");
+  }, [theme])
 
   return (
     <>
@@ -91,9 +102,11 @@ export const Header = () => {
     burgerMenuRef,
     useCallback(() => setIsDrawerOpen(false), []),
   );
+  const { targetNetwork } = useTargetNetwork();
+  const isLocalNetwork = targetNetwork.id === devnet.id;
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 shadow-md shadow-secondary px-0 sm:px-2">
+    <div className="sticky lg:static top-0 navbar min-h-0 flex-shrink-0 justify-between z-20 px-0 sm:px-2">
       <div className="navbar-start w-auto lg:w-1/2">
         <div className="lg:hidden dropdown" ref={burgerMenuRef}>
           <label
