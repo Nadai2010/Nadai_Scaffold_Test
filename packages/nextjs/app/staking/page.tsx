@@ -1,16 +1,19 @@
-"use client"
+"use client";
 
 import type { NextPage } from "next";
-import { createContractCall, useScaffoldMultiWriteContract } from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
+import {
+  createContractCall,
+  useScaffoldMultiWriteContract,
+} from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
 import { Address } from "~~/components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
 import { useState } from "react";
-import { getAllContracts } from '~~/utils/scaffold-stark/contractsData';
+import { getAllContracts } from "~~/utils/scaffold-stark/contractsData";
 
-import strkLogo from '/public/logo-starknet.svg';
-import naiLogo from '/public/logo-nai.png';
+import strkLogo from "/public/logo-starknet.svg";
+import naiLogo from "/public/logo-nai.png";
 import { useScaffoldContract } from "~~/hooks/scaffold-stark/useScaffoldContract";
 
 // Función para formatear valores en wei a ether
@@ -24,11 +27,9 @@ function toWei(etherValue: number) {
   return etherValue * 1e18;
 }
 
-
 const Starknet: NextPage = () => {
   const { address: connectedAddress } = useAccount();
   const contractsData = getAllContracts(); // Obtén los contratos desde la configuración
-
 
   // Estados para controlar el estado de la transacción
   const strkContractAddress = contractsData.STRK?.address; // Dirección del contrato STRK desde la configuración
@@ -42,7 +43,7 @@ const Starknet: NextPage = () => {
 
   // Obtener contratos
   const { data: StakingContract } = useScaffoldContract({
-    contractName: "StakingContract"
+    contractName: "StakingContract",
   });
 
   // Leer datos de contratos
@@ -67,7 +68,6 @@ const Starknet: NextPage = () => {
     watch: true,
   });
 
-
   const { data: balanceNAI } = useScaffoldReadContract({
     contractName: "NAI",
     functionName: "balanceOf",
@@ -82,30 +82,37 @@ const Starknet: NextPage = () => {
     args: [connectedAddress ?? ""],
   });
 
-
-
   // Write datos en Contratos
   const { writeAsync: StakeRewards } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("StakingContract", "set_reward_amount", [toWei(Number(rewardAmount))]),
-      createContractCall("StakingContract", "set_reward_duration", [toWei(Number(durationAmount))]),
-    ]
+      createContractCall("StakingContract", "set_reward_amount", [
+        toWei(Number(rewardAmount)),
+      ]),
+      createContractCall("StakingContract", "set_reward_duration", [
+        toWei(Number(durationAmount)),
+      ]),
+    ],
   });
-
 
   const { writeAsync: Stake } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("NAI", "approve", [StakingContract?.address, toWei(Number(stakeAmount))]),
-      createContractCall("StakingContract", "stake", [toWei(Number(stakeAmount))]),
-    ]
+      createContractCall("NAI", "approve", [
+        StakingContract?.address,
+        toWei(Number(stakeAmount)),
+      ]),
+      createContractCall("StakingContract", "stake", [
+        toWei(Number(stakeAmount)),
+      ]),
+    ],
   });
 
   const { writeAsync: withdrawStake } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("StakingContract", "withdraw", [toWei(Number(withAmount))]),
-    ]
+      createContractCall("StakingContract", "withdraw", [
+        toWei(Number(withAmount)),
+      ]),
+    ],
   });
-
 
   // Manejo de eventos de botones
   const handleRewardStake = async () => {
@@ -116,7 +123,10 @@ const Starknet: NextPage = () => {
         console.log("Set Reward Amount & Duration - Transaction Hash:", result);
         setTransactionPending(false);
       } catch (error) {
-        console.error("Set Reward Amount & Duration - Transaction Hash:", error);
+        console.error(
+          "Set Reward Amount & Duration - Transaction Hash:",
+          error,
+        );
         setTransactionPending(false);
       }
     }
@@ -150,7 +160,6 @@ const Starknet: NextPage = () => {
     }
   };
 
-
   return (
     <div className="container mx-auto mt-10 px-4">
       <div className="text-center mb-8">
@@ -159,7 +168,6 @@ const Starknet: NextPage = () => {
 
       {/* Balances */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-4 mb-8">
-
         {/* STRK */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
@@ -168,7 +176,9 @@ const Starknet: NextPage = () => {
               <p className="font-medium">STRK</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceSTRK ? `${formatEther(Number(balanceSTRK))} STRK` : '0 STRK'}
+              {balanceSTRK
+                ? `${formatEther(Number(balanceSTRK))} STRK`
+                : "0 STRK"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -186,7 +196,7 @@ const Starknet: NextPage = () => {
               <p className="font-medium">NAI</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceNAI ? `${formatEther(Number(balanceNAI))} NAI` : '0 NAI'}
+              {balanceNAI ? `${formatEther(Number(balanceNAI))} NAI` : "0 NAI"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -199,25 +209,27 @@ const Starknet: NextPage = () => {
 
       {/* Staking */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
-
         {/* Staking Reserves */}
         <div className="bg-gray-100 p-6 rounded-lg shadow-md border border-gray-300 mb-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
               <img src={naiLogo.src} alt="USDT Icon" className="w-8 h-8" />
-              <div className="text-xl font-semibold text-blue-900">
-                Staking
-              </div>
+              <div className="text-xl font-semibold text-blue-900">Staking</div>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-              {balanceStaking ? `${formatEther(Number(balanceStaking))} STRK` : '0 STRK'}
+              {balanceStaking
+                ? `${formatEther(Number(balanceStaking))} STRK`
+                : "0 STRK"}
             </div>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="liquidityAmount"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Stake
               </label>
               <input
@@ -233,7 +245,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleStake}
               className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Stake
             </button>
@@ -241,7 +253,10 @@ const Starknet: NextPage = () => {
 
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="liquidityAmount"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Withdraw
               </label>
               <input
@@ -257,7 +272,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleWith}
               className="bg-red-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Withdraw
             </button>
@@ -265,8 +280,6 @@ const Starknet: NextPage = () => {
         </div>
       </div>
     </div>
-
-
   );
 };
 

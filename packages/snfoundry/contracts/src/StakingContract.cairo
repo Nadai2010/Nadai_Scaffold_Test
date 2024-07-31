@@ -23,11 +23,11 @@ mod Errors {
 
 #[starknet::contract]
 pub mod StakingContract {
+    use core::num::traits::Zero;
     use core::starknet::event::EventEmitter;
     use core::traits::Into;
-    use core::num::traits::Zero;
-    use starknet::{ContractAddress, get_caller_address, get_block_timestamp, get_contract_address};
     use openzeppelin::token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
+    use starknet::{ContractAddress, get_caller_address, get_block_timestamp, get_contract_address};
 
     #[storage]
     struct Storage {

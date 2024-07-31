@@ -25,8 +25,8 @@ pub trait ISimpleVault<TContractState> {
 
 #[starknet::contract]
 pub mod SimpleVault {
-    use super::{IERC20Dispatcher, IERC20DispatcherTrait};
     use starknet::{ContractAddress, get_caller_address, get_contract_address};
+    use super::{IERC20Dispatcher, IERC20DispatcherTrait};
 
     #[storage]
     struct Storage {

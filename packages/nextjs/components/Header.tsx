@@ -4,7 +4,13 @@ import React, { useCallback, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon, CircleStackIcon, WalletIcon, ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  BugAntIcon,
+  CircleStackIcon,
+  WalletIcon,
+  ArrowsUpDownIcon,
+} from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-stark";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
 import { FaucetButton } from "~~/components/scaffold-stark/FaucetButton";
@@ -56,7 +62,6 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/debug",
     icon: <BugAntIcon className="h-4 w-4" />,
   },
-
 ];
 
 export const HeaderMenuLinks = () => {
@@ -64,10 +69,9 @@ export const HeaderMenuLinks = () => {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(false);
 
-
   useEffect(() => {
     setIsDark(theme === "dark");
-  }, [theme])
+  }, [theme]);
 
   return (
     <>

@@ -1,17 +1,20 @@
-"use client"
+"use client";
 import { NextPage } from "next";
 import { useScaffoldContract } from "~~/hooks/scaffold-stark/useScaffoldContract";
-import { createContractCall, useScaffoldMultiWriteContract } from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
+import {
+  createContractCall,
+  useScaffoldMultiWriteContract,
+} from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
 import { Address } from "~~/components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
-import { getAllContracts } from '~~/utils/scaffold-stark/contractsData';
+import { getAllContracts } from "~~/utils/scaffold-stark/contractsData";
 
-import usdtLogo from '/public/logo-usdt.svg';
-import daiLogo from '/public/logo-dai.svg';
-import strkLogo from '/public/logo-starknet.svg';
-import naiLogo from '/public/logo-nai.png';
+import usdtLogo from "/public/logo-usdt.svg";
+import daiLogo from "/public/logo-dai.svg";
+import strkLogo from "/public/logo-starknet.svg";
+import naiLogo from "/public/logo-nai.png";
 import { useEffect, useState } from "react";
 import { parseEther } from "ethers";
 
@@ -26,8 +29,6 @@ function toWei(etherValue: number) {
   return etherValue * 1e18;
 }
 
-
-
 const Starknet: NextPage = () => {
   const { address: connectedAddress } = useAccount();
   const contractsData = getAllContracts(); // Obtén los contratos desde la configuración
@@ -40,9 +41,11 @@ const Starknet: NextPage = () => {
   const [removeAmount, setRemoveAmount] = useState("");
   const [removeAmount2, setRemoveAmount2] = useState("");
   const [removeAmount3, setRemoveAmount3] = useState("");
-  const [balanceScaffoldAccount, setBalanceScaffoldAccount] = useState<string>("");
+  const [balanceScaffoldAccount, setBalanceScaffoldAccount] =
+    useState<string>("");
   const [balanceNaiAccount, setBalanceNaiAccount] = useState<string>("");
-  const [balanceStarknetAccount, setBalanceStarknetAccount] = useState<string>("");
+  const [balanceStarknetAccount, setBalanceStarknetAccount] =
+    useState<string>("");
 
   const usdtContractAddress = contractsData.USDT?.address; // Dirección del contrato USDT desde la configuración
   const daiContractAddress = contractsData.DAI?.address; // Dirección del contrato DAI desde la configuración
@@ -51,8 +54,12 @@ const Starknet: NextPage = () => {
 
   // Obtener contratos
   const { data: NadaiAMM } = useScaffoldContract({ contractName: "NadaiAMM" });
-  const { data: ScaffoldAMM } = useScaffoldContract({ contractName: "ScaffoldAMM" });
-  const { data: StarknetAMM } = useScaffoldContract({ contractName: "StarknetAMM" });
+  const { data: ScaffoldAMM } = useScaffoldContract({
+    contractName: "ScaffoldAMM",
+  });
+  const { data: StarknetAMM } = useScaffoldContract({
+    contractName: "StarknetAMM",
+  });
 
   // Leer datos de contratos
   const { data: balanceDAI } = useScaffoldReadContract({
@@ -79,7 +86,7 @@ const Starknet: NextPage = () => {
   const { data: balanceNAI } = useScaffoldReadContract({
     contractName: "NAI",
     functionName: "balanceOf",
-    args: [connectedAddress ?? ''],
+    args: [connectedAddress ?? ""],
     watch: true,
   });
 
@@ -87,24 +94,23 @@ const Starknet: NextPage = () => {
   const { data: scaffoldAccountData } = useScaffoldReadContract({
     contractName: "ScaffoldAMM",
     functionName: "get_balance_of",
-    args: [connectedAddress ?? ''],
+    args: [connectedAddress ?? ""],
     watch: true,
   });
 
   const { data: naiAccountData } = useScaffoldReadContract({
     contractName: "NadaiAMM",
-    functionName: 'get_balance_of',
-    args: [connectedAddress ?? ''],
+    functionName: "get_balance_of",
+    args: [connectedAddress ?? ""],
     watch: true,
   });
 
   const { data: starknetAccountData } = useScaffoldReadContract({
     contractName: "StarknetAMM",
-    functionName: 'get_balance_of',
-    args: [connectedAddress ?? ''],
+    functionName: "get_balance_of",
+    args: [connectedAddress ?? ""],
     watch: true,
   });
-
 
   useEffect(() => {
     if (scaffoldAccountData !== undefined) {
@@ -145,78 +151,134 @@ const Starknet: NextPage = () => {
     watch: true,
   });
 
-  const {data : amount1 } = useScaffoldReadContract({
+  const { data: amount1 } = useScaffoldReadContract({
     contractName: "ScaffoldAMM",
     functionName: "get_amount1_out",
-    args: [liquidityAmount ? parseEther(liquidityAmount).toString() as any : "0" as any]
+    args: [
+      liquidityAmount
+        ? (parseEther(liquidityAmount).toString() as any)
+        : ("0" as any),
+    ],
   });
 
-  const {data : amount2 } = useScaffoldReadContract({
+  const { data: amount2 } = useScaffoldReadContract({
     contractName: "NadaiAMM",
     functionName: "get_amount1_out",
-    args: [liquidityAmount2 ? parseEther(liquidityAmount2).toString() as any : "0" as any]
+    args: [
+      liquidityAmount2
+        ? (parseEther(liquidityAmount2).toString() as any)
+        : ("0" as any),
+    ],
   });
-  
 
-  const {data : amount3 } = useScaffoldReadContract({
+  const { data: amount3 } = useScaffoldReadContract({
     contractName: "StarknetAMM",
     functionName: "get_amount1_out",
-    args: [liquidityAmount3 ? parseEther(liquidityAmount3).toString() as any : "0" as any]
+    args: [
+      liquidityAmount3
+        ? (parseEther(liquidityAmount3).toString() as any)
+        : ("0" as any),
+    ],
   });
-  
-  
-   // Multiwrite Approve + add liquidity
-   const { writeAsync: MultiApproveAmmScaffold } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("DAI", "approve", [ScaffoldAMM?.address,toWei(Number(liquidityAmount))]),
-      createContractCall("USDT", "approve", [ScaffoldAMM?.address, amount1 as any]),
-      createContractCall("ScaffoldAMM", "add_liquidity", [toWei(Number(liquidityAmount)), amount1 as any]),
-    ]
-  });
+
+  // Multiwrite Approve + add liquidity
+  const { writeAsync: MultiApproveAmmScaffold } = useScaffoldMultiWriteContract(
+    {
+      calls: [
+        createContractCall("DAI", "approve", [
+          ScaffoldAMM?.address,
+          toWei(Number(liquidityAmount)),
+        ]),
+        createContractCall("USDT", "approve", [
+          ScaffoldAMM?.address,
+          amount1 as any,
+        ]),
+        createContractCall("ScaffoldAMM", "add_liquidity", [
+          toWei(Number(liquidityAmount)),
+          amount1 as any,
+        ]),
+      ],
+    },
+  );
   const { writeAsync: MultiApproveAmmNadai } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("NAI", "approve", [NadaiAMM?.address, toWei(Number(liquidityAmount2))]),
-      createContractCall("USDT", "approve", [NadaiAMM?.address, amount2 as any]),
-      createContractCall("NadaiAMM", "add_liquidity", [toWei(Number(liquidityAmount2)), amount2 as any]),
-    ]
+      createContractCall("NAI", "approve", [
+        NadaiAMM?.address,
+        toWei(Number(liquidityAmount2)),
+      ]),
+      createContractCall("USDT", "approve", [
+        NadaiAMM?.address,
+        amount2 as any,
+      ]),
+      createContractCall("NadaiAMM", "add_liquidity", [
+        toWei(Number(liquidityAmount2)),
+        amount2 as any,
+      ]),
+    ],
   });
 
-  const { writeAsync: MultiApproveAmmStarknet } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("STRK", "approve", [StarknetAMM?.address, toWei(Number(liquidityAmount3))]),
-      createContractCall("USDT", "approve", [StarknetAMM?.address, amount3 as any]),
-      createContractCall("StarknetAMM", "add_liquidity", [toWei(Number(liquidityAmount3)), amount3 as any]),
-    ]
-  });
+  const { writeAsync: MultiApproveAmmStarknet } = useScaffoldMultiWriteContract(
+    {
+      calls: [
+        createContractCall("STRK", "approve", [
+          StarknetAMM?.address,
+          toWei(Number(liquidityAmount3)),
+        ]),
+        createContractCall("USDT", "approve", [
+          StarknetAMM?.address,
+          amount3 as any,
+        ]),
+        createContractCall("StarknetAMM", "add_liquidity", [
+          toWei(Number(liquidityAmount3)),
+          amount3 as any,
+        ]),
+      ],
+    },
+  );
 
   // Withdraw
-  const { writeAsync: removeLiquidityScaffold } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("ScaffoldAMM", "remove_liquidity", [toWei(Number(removeAmount))]),
-    ]
-  });
+  const { writeAsync: removeLiquidityScaffold } = useScaffoldMultiWriteContract(
+    {
+      calls: [
+        createContractCall("ScaffoldAMM", "remove_liquidity", [
+          toWei(Number(removeAmount)),
+        ]),
+      ],
+    },
+  );
 
   const { writeAsync: removeLiquidityNadai } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("NadaiAMM", "remove_liquidity", [toWei(Number(removeAmount2))]),
-    ]
+      createContractCall("NadaiAMM", "remove_liquidity", [
+        toWei(Number(removeAmount2)),
+      ]),
+    ],
   });
 
-  const { writeAsync: removeLiquidityStarknet } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("StarknetAMM", "remove_liquidity", [toWei(Number(removeAmount3))]),
-    ]
-  });
+  const { writeAsync: removeLiquidityStarknet } = useScaffoldMultiWriteContract(
+    {
+      calls: [
+        createContractCall("StarknetAMM", "remove_liquidity", [
+          toWei(Number(removeAmount3)),
+        ]),
+      ],
+    },
+  );
 
   // Withdraw ALL
   const { writeAsync: removeLiquidityAllAMM } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("ScaffoldAMM", "remove_liquidity", [Number(balanceScaffoldAccount)]), // Convertir a número si es necesario
-      createContractCall("NadaiAMM", "remove_liquidity", [Number(balanceNaiAccount)]), // Convertir a número si es necesario
-      createContractCall("StarknetAMM", "remove_liquidity", [Number(balanceStarknetAccount)]), // Convertir a número si es necesario
-    ]
+      createContractCall("ScaffoldAMM", "remove_liquidity", [
+        Number(balanceScaffoldAccount),
+      ]), // Convertir a número si es necesario
+      createContractCall("NadaiAMM", "remove_liquidity", [
+        Number(balanceNaiAccount),
+      ]), // Convertir a número si es necesario
+      createContractCall("StarknetAMM", "remove_liquidity", [
+        Number(balanceStarknetAccount),
+      ]), // Convertir a número si es necesario
+    ],
   });
-
 
   // Funciones para manejar las transacciones
   const handleAddLiquidityScaffold = async () => {
@@ -224,10 +286,10 @@ const Starknet: NextPage = () => {
       try {
         setTransactionPending(true);
         const result = await MultiApproveAmmScaffold();
-        console.log('Add Liquidity ScaffoldAMM Transaction Hash:', result);
+        console.log("Add Liquidity ScaffoldAMM Transaction Hash:", result);
         setTransactionPending(false);
       } catch (error) {
-        console.error('Add Liquidity ScaffoldAMM Transaction Error:', error);
+        console.error("Add Liquidity ScaffoldAMM Transaction Error:", error);
       } finally {
         setTransactionPending(false);
       }
@@ -239,10 +301,10 @@ const Starknet: NextPage = () => {
       try {
         setTransactionPending(true);
         const result = await MultiApproveAmmNadai();
-        console.log('Add Liquidity NadaiAMM Transaction Hash:', result);
+        console.log("Add Liquidity NadaiAMM Transaction Hash:", result);
         setTransactionPending(false);
       } catch (error) {
-        console.error('Add Liquidity NadaiAMM Transaction Error:', error);
+        console.error("Add Liquidity NadaiAMM Transaction Error:", error);
       } finally {
         setTransactionPending(false);
       }
@@ -254,27 +316,31 @@ const Starknet: NextPage = () => {
       try {
         setTransactionPending(true);
         const result = await MultiApproveAmmStarknet();
-        console.log('Add Liquidity StraknetAMM Transaction Hash:', result);
+        console.log("Add Liquidity StraknetAMM Transaction Hash:", result);
         setTransactionPending(false);
       } catch (error) {
-        console.error('Add Liquidity StraknetAMM Transaction Error:', error);
+        console.error("Add Liquidity StraknetAMM Transaction Error:", error);
       } finally {
         setTransactionPending(false);
       }
     }
   };
 
-
-
   const handleRemoveAllLiquidityScaffoldOnly = async () => {
     if (!isTransactionPending && removeLiquidityScaffold) {
       try {
         setTransactionPending(true);
         const result = await removeLiquidityScaffold();
-        console.log('Remove All Liquidity ScaffoldAMM Transaction Hash:', result);
+        console.log(
+          "Remove All Liquidity ScaffoldAMM Transaction Hash:",
+          result,
+        );
         setTransactionPending(false);
       } catch (error) {
-        console.error('Remove All Liquidity ScaffoldAMM Transaction Error:', error);
+        console.error(
+          "Remove All Liquidity ScaffoldAMM Transaction Error:",
+          error,
+        );
       } finally {
         setTransactionPending(false);
       }
@@ -286,10 +352,13 @@ const Starknet: NextPage = () => {
       try {
         setTransactionPending(true);
         const result = await removeLiquidityNadai();
-        console.log('Remove All Liquidity NadaiAMM Transaction Hash:', result);
+        console.log("Remove All Liquidity NadaiAMM Transaction Hash:", result);
         setTransactionPending(false);
       } catch (error) {
-        console.error('Remove All Liquidity NadaiAMM Transaction Error:', error);
+        console.error(
+          "Remove All Liquidity NadaiAMM Transaction Error:",
+          error,
+        );
       } finally {
         setTransactionPending(false);
       }
@@ -301,16 +370,21 @@ const Starknet: NextPage = () => {
       try {
         setTransactionPending(true);
         const result = await removeLiquidityStarknet();
-        console.log('Remove All Liquidity StarknetAMM Transaction Result:', result);
+        console.log(
+          "Remove All Liquidity StarknetAMM Transaction Result:",
+          result,
+        );
 
         setTransactionPending(false);
       } catch (error) {
-        console.error('Remove All Liquidity StarknetAMM Transaction Error:', error);
+        console.error(
+          "Remove All Liquidity StarknetAMM Transaction Error:",
+          error,
+        );
         setTransactionPending(false);
       }
     }
   };
-
 
   // Remove ALL Liquidity 3 AMM
   const handleRemoveLiquidityAllAMM = async () => {
@@ -325,24 +399,32 @@ const Starknet: NextPage = () => {
         const executeTransactions = async () => {
           try {
             const txHashAll = await removeLiquidityAllAMM();
-            console.log('Remove Liquidity ScaffoldAMM Transaction Hash:', txHashAll);
+            console.log(
+              "Remove Liquidity ScaffoldAMM Transaction Hash:",
+              txHashAll,
+            );
             return [txHashAll];
           } catch (error) {
-            console.error('Error executing remove liquidity transactions:', error);
+            console.error(
+              "Error executing remove liquidity transactions:",
+              error,
+            );
             throw error;
           }
         };
 
         const transactionHashes = await executeTransactions();
-        console.log('All remove liquidity transactions completed successfully:', transactionHashes);
+        console.log(
+          "All remove liquidity transactions completed successfully:",
+          transactionHashes,
+        );
       } catch (error) {
-        console.error('Error handling remove liquidity transactions:', error);
+        console.error("Error handling remove liquidity transactions:", error);
       } finally {
         setTransactionPending(false);
       }
     }
   };
-
 
   return (
     <div className="container mx-auto mt-10 px-4">
@@ -360,7 +442,9 @@ const Starknet: NextPage = () => {
               <p className="font-medium">USDT</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceUSDT ? `${formatEther(Number(balanceUSDT))} USDT` : '0 USDT'}
+              {balanceUSDT
+                ? `${formatEther(Number(balanceUSDT))} USDT`
+                : "0 USDT"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -378,7 +462,7 @@ const Starknet: NextPage = () => {
               <p className="font-medium">DAI</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceDAI ? `${formatEther(Number(balanceDAI))} DAI` : '0 DAI'}
+              {balanceDAI ? `${formatEther(Number(balanceDAI))} DAI` : "0 DAI"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -396,7 +480,9 @@ const Starknet: NextPage = () => {
               <p className="font-medium">STRK</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceSTRK ? `${formatEther(Number(balanceSTRK))} STRK` : '0 STRK'}
+              {balanceSTRK
+                ? `${formatEther(Number(balanceSTRK))} STRK`
+                : "0 STRK"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -414,7 +500,7 @@ const Starknet: NextPage = () => {
               <p className="font-medium">NAI</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceNAI ? `${formatEther(Number(balanceNAI))} NAI` : '0 NAI'}
+              {balanceNAI ? `${formatEther(Number(balanceNAI))} NAI` : "0 NAI"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -427,7 +513,6 @@ const Starknet: NextPage = () => {
 
       {/* Total Supply */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
-
         {/* Scaffold Add and Remove Liquidity */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
@@ -439,15 +524,22 @@ const Starknet: NextPage = () => {
               </div>
             </div>
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-             {totalSupplyScaffold ? formatEther(Number(totalSupplyScaffold)) : '0'}
+              {totalSupplyScaffold
+                ? formatEther(Number(totalSupplyScaffold))
+                : "0"}
               &nbsp;LPS | &nbsp;
-              {balanceScaffoldAccount ? formatEther(Number(balanceScaffoldAccount)) : '0'}
+              {balanceScaffoldAccount
+                ? formatEther(Number(balanceScaffoldAccount))
+                : "0"}
               &nbsp;LPS
             </div>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="liquidityAmount"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Add Liquidity for Scaffold AMM
               </label>
               <input
@@ -463,14 +555,17 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleAddLiquidityScaffold}
               className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Add Liquidity
             </button>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow">
-              <label htmlFor="removeAmount" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="removeAmount"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Remove Liquidity for Scaffold AMM
               </label>
               <input
@@ -486,7 +581,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleRemoveAllLiquidityScaffoldOnly}
               className="bg-red-600 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Remove Liquidity
             </button>
@@ -504,9 +599,9 @@ const Starknet: NextPage = () => {
               </div>
             </div>
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-                        {totalSupplyNadai ? formatEther(Number(totalSupplyNadai)) : '0'}
+              {totalSupplyNadai ? formatEther(Number(totalSupplyNadai)) : "0"}
               &nbsp;LPN | &nbsp;
-              {balanceNaiAccount ? formatEther(Number(balanceNaiAccount)) : '0'}
+              {balanceNaiAccount ? formatEther(Number(balanceNaiAccount)) : "0"}
               &nbsp;LPN
             </div>
           </div>
@@ -514,7 +609,10 @@ const Starknet: NextPage = () => {
           {/* Add Liquidity Nadai */}
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow">
-              <label htmlFor="liquidityAmount2" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="liquidityAmount2"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Add Liquidity Amount for Nadai AMM
               </label>
               <input
@@ -530,7 +628,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleAddLiquidityNadai}
               className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Add Liquidity
             </button>
@@ -539,7 +637,10 @@ const Starknet: NextPage = () => {
           {/* Remove Liquidity Nadai */}
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow">
-              <label htmlFor="removeAmount2" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="removeAmount2"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Remove Liquidity Amount for Nadai AMM
               </label>
               <input
@@ -555,7 +656,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleRemoveAllLiquidityNadaiOnly}
               className="bg-red-600 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Remove Liquidity
             </button>
@@ -573,9 +674,13 @@ const Starknet: NextPage = () => {
               </div>
             </div>
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-            {totalSupplyStarknet ? formatEther(Number(totalSupplyStarknet)) : '0'}
+              {totalSupplyStarknet
+                ? formatEther(Number(totalSupplyStarknet))
+                : "0"}
               &nbsp;LPS | &nbsp;
-              {balanceStarknetAccount ? formatEther(Number(balanceStarknetAccount)) : '0'}
+              {balanceStarknetAccount
+                ? formatEther(Number(balanceStarknetAccount))
+                : "0"}
               &nbsp;LPN
             </div>
           </div>
@@ -583,7 +688,10 @@ const Starknet: NextPage = () => {
           {/* Add Liquidity Starknet */}
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow">
-              <label htmlFor="liquidityAmount3" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="liquidityAmount3"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Add Liquidity for Starknet AMM
               </label>
               <input
@@ -599,7 +707,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleAddLiquidityStarknet}
               className="bg-blue-900 text-white py-2 px-3 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-2"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Add Liquidity
             </button>
@@ -608,7 +716,10 @@ const Starknet: NextPage = () => {
           {/* Remove Liquidity Starknet */}
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow">
-              <label htmlFor="removeAmount3" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="removeAmount3"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Remove Liquidity for Starknet AMM
               </label>
               <input
@@ -631,12 +742,14 @@ const Starknet: NextPage = () => {
         </div>
       </div>
 
-  {/* Bloque Multi Remove All AMMs */}
-  <div className="flex items-center justify-center">
+      {/* Bloque Multi Remove All AMMs */}
+      <div className="flex items-center justify-center">
         <div className="bg-gray-100 p-4 rounded-lg shadow-md border border-gray-300 mb-6">
           <div className="flex items-center justify-center mb-4">
             <div className="text-center">
-              <h3 className="text-lg font-medium text-blue-900 mb-2">Multi Remove LPs in All AMMs</h3>
+              <h3 className="text-lg font-medium text-blue-900 mb-2">
+                Multi Remove LPs in All AMMs
+              </h3>
               <button
                 onClick={handleRemoveLiquidityAllAMM}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
@@ -649,8 +762,12 @@ const Starknet: NextPage = () => {
           <div className="flex items-center justify-center">
             <div className="text-center">
               <h3 className="text-lg font-medium text-blue-900 mb-2">
-                <span className="inline-block align-middle">Powered by</span>{' '}
-                <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8 inline-block align-middle" />
+                <span className="inline-block align-middle">Powered by</span>{" "}
+                <img
+                  src={strkLogo.src}
+                  alt="STRK Icon"
+                  className="w-8 h-8 inline-block align-middle"
+                />
               </h3>
             </div>
           </div>
@@ -661,5 +778,3 @@ const Starknet: NextPage = () => {
 };
 
 export default Starknet;
-
-

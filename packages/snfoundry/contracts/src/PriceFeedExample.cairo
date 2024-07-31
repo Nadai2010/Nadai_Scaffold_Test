@@ -10,12 +10,12 @@ pub trait IPriceFeedExample<TContractState> {
 
 #[starknet::contract]
 mod PriceFeedExample {
-    use super::{ContractAddress, IPriceFeedExample};
+    use openzeppelin::token::erc20::interface::{ERC20ABIDispatcher, ERC20ABIDispatcherTrait};
     use pragma_lib::abi::{IPragmaABIDispatcher, IPragmaABIDispatcherTrait};
     use pragma_lib::types::{AggregationMode, DataType, PragmaPricesResponse};
-    use openzeppelin::token::erc20::interface::{ERC20ABIDispatcher, ERC20ABIDispatcherTrait};
     use starknet::contract_address::contract_address_const;
     use starknet::get_caller_address;
+    use super::{ContractAddress, IPriceFeedExample};
 
     const EIGHT_DECIMAL_FACTOR: u256 = 100000000;
     const ETH_USD_KEY: felt252 = 19514442401534788; // felt252 conversion of "ETH/USD"

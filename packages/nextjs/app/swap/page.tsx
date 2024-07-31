@@ -1,19 +1,22 @@
-"use client"
+"use client";
 
 import type { NextPage } from "next";
 import { useScaffoldContract } from "~~/hooks/scaffold-stark/useScaffoldContract";
-import { createContractCall, useScaffoldMultiWriteContract } from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
+import {
+  createContractCall,
+  useScaffoldMultiWriteContract,
+} from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
 import { Address } from "~~/components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
 import { useState } from "react";
-import { getAllContracts } from '~~/utils/scaffold-stark/contractsData';
+import { getAllContracts } from "~~/utils/scaffold-stark/contractsData";
 
-import usdtLogo from '/public/logo-usdt.svg';
-import daiLogo from '/public/logo-dai.svg';
-import strkLogo from '/public/logo-starknet.svg';
-import naiLogo from '/public/logo-nai.png';
+import usdtLogo from "/public/logo-usdt.svg";
+import daiLogo from "/public/logo-dai.svg";
+import strkLogo from "/public/logo-starknet.svg";
+import naiLogo from "/public/logo-nai.png";
 
 // Función para formatear valores en wei a ether
 function formatEther(weiValue: number) {
@@ -26,12 +29,9 @@ function toWei(etherValue: number) {
   return etherValue * 1e18;
 }
 
-
-
 const Starknet: NextPage = () => {
   const { address: connectedAddress } = useAccount();
   const contractsData = getAllContracts(); // Obtén los contratos desde la configuración
-
 
   // Estados para controlar el estado de la transacción
   const [isTransactionPending, setTransactionPending] = useState(false);
@@ -45,8 +45,12 @@ const Starknet: NextPage = () => {
 
   // Obtener contratos
   const { data: NadaiAMM } = useScaffoldContract({ contractName: "NadaiAMM" });
-  const { data: ScaffoldAMM } = useScaffoldContract({ contractName: "ScaffoldAMM" });
-  const { data: StarknetAMM } = useScaffoldContract({ contractName: "StarknetAMM" });
+  const { data: ScaffoldAMM } = useScaffoldContract({
+    contractName: "ScaffoldAMM",
+  });
+  const { data: StarknetAMM } = useScaffoldContract({
+    contractName: "StarknetAMM",
+  });
   const { data: contractDai } = useScaffoldContract({ contractName: "DAI" });
   const { data: contractUsdt } = useScaffoldContract({ contractName: "USDT" });
   const { data: contractNai } = useScaffoldContract({ contractName: "NAI" });
@@ -74,7 +78,6 @@ const Starknet: NextPage = () => {
     watch: true,
   });
 
-
   const { data: balanceNAI } = useScaffoldReadContract({
     contractName: "NAI",
     functionName: "balanceOf",
@@ -85,55 +88,90 @@ const Starknet: NextPage = () => {
   //Balance Reserves
   const { data: balanceReserveScaffold } = useScaffoldReadContract({
     contractName: "ScaffoldAMM",
-    functionName: "get_reserves"
+    functionName: "get_reserves",
   });
 
   const { data: balanceReserveNadai } = useScaffoldReadContract({
     contractName: "NadaiAMM",
-    functionName: "get_reserves"
+    functionName: "get_reserves",
   });
 
   const { data: balanceReserveStarknet } = useScaffoldReadContract({
     contractName: "StarknetAMM",
-    functionName: "get_reserves"
+    functionName: "get_reserves",
   });
-
 
   // Swap 10 USDT for X DAI
   const { writeAsync: SwapAmmScaffoldUSDT } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("USDT", "approve", [ScaffoldAMM?.address, toWei(Number(liquidityAmount))]),
-      createContractCall("ScaffoldAMM", "swap", [contractUsdt?.address, toWei(Number(liquidityAmount))]),
-    ]
+      createContractCall("USDT", "approve", [
+        ScaffoldAMM?.address,
+        toWei(Number(liquidityAmount)),
+      ]),
+      createContractCall("ScaffoldAMM", "swap", [
+        contractUsdt?.address,
+        toWei(Number(liquidityAmount)),
+      ]),
+    ],
   });
 
   const { writeAsync: SwapAmmNadaiUsdt } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("USDT", "approve", [NadaiAMM?.address, toWei(Number(liquidityAmount2))]),
-      createContractCall("NadaiAMM", "swap", [contractUsdt?.address, toWei(Number(liquidityAmount2))]),
-    ]
+      createContractCall("USDT", "approve", [
+        NadaiAMM?.address,
+        toWei(Number(liquidityAmount2)),
+      ]),
+      createContractCall("NadaiAMM", "swap", [
+        contractUsdt?.address,
+        toWei(Number(liquidityAmount2)),
+      ]),
+    ],
   });
 
   const { writeAsync: SwapAmmStarknetUsdt } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("USDT", "approve", [StarknetAMM?.address, toWei(Number(liquidityAmount3))]),
-      createContractCall("StarknetAMM", "swap", [contractUsdt?.address, toWei(Number(liquidityAmount3))]),
-    ]
+      createContractCall("USDT", "approve", [
+        StarknetAMM?.address,
+        toWei(Number(liquidityAmount3)),
+      ]),
+      createContractCall("StarknetAMM", "swap", [
+        contractUsdt?.address,
+        toWei(Number(liquidityAmount3)),
+      ]),
+    ],
   });
-
 
   // MultiWrite Cross Swap in 3 AMM
-  const { writeAsync: MultiSwapAmmScaffoldALL } = useScaffoldMultiWriteContract({
-    calls: [
-      createContractCall("DAI", "approve", [ScaffoldAMM?.address, 100000000000000000000]),
-      createContractCall("USDT", "approve", [NadaiAMM?.address, 100000000000000000000]),
-      createContractCall("USDT", "approve", [StarknetAMM?.address, 100000000000000000000]),
-      createContractCall("ScaffoldAMM", "swap", [contractDai?.address, 10000000000000000000]),
-      createContractCall("NadaiAMM", "swap", [contractUsdt?.address, 10000000000000000000]),
-      createContractCall("StarknetAMM", "swap", [contractUsdt?.address, 10000000000000000000]),
-    ]
-  });
-
+  const { writeAsync: MultiSwapAmmScaffoldALL } = useScaffoldMultiWriteContract(
+    {
+      calls: [
+        createContractCall("DAI", "approve", [
+          ScaffoldAMM?.address,
+          100000000000000000000,
+        ]),
+        createContractCall("USDT", "approve", [
+          NadaiAMM?.address,
+          100000000000000000000,
+        ]),
+        createContractCall("USDT", "approve", [
+          StarknetAMM?.address,
+          100000000000000000000,
+        ]),
+        createContractCall("ScaffoldAMM", "swap", [
+          contractDai?.address,
+          10000000000000000000,
+        ]),
+        createContractCall("NadaiAMM", "swap", [
+          contractUsdt?.address,
+          10000000000000000000,
+        ]),
+        createContractCall("StarknetAMM", "swap", [
+          contractUsdt?.address,
+          10000000000000000000,
+        ]),
+      ],
+    },
+  );
 
   // Manejo de eventos de botones
   const handleSwapScaffoldUSDT = async () => {
@@ -180,7 +218,6 @@ const Starknet: NextPage = () => {
     }
   };
 
-
   const handleMultiSwapAll = async () => {
     if (!isTransactionPending && MultiSwapAmmScaffoldALL) {
       try {
@@ -196,7 +233,6 @@ const Starknet: NextPage = () => {
     }
   };
 
-
   return (
     <div className="container mx-auto mt-10 px-4">
       <div className="text-center mb-8">
@@ -205,7 +241,6 @@ const Starknet: NextPage = () => {
 
       {/* Balances */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-4 mb-8">
-
         {/* USDT */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
@@ -214,7 +249,9 @@ const Starknet: NextPage = () => {
               <p className="font-medium">USDT</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceUSDT ? `${formatEther(Number(balanceUSDT))} USDT` : '0 USDT'}
+              {balanceUSDT
+                ? `${formatEther(Number(balanceUSDT))} USDT`
+                : "0 USDT"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -232,7 +269,7 @@ const Starknet: NextPage = () => {
               <p className="font-medium">DAI</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceDAI ? `${formatEther(Number(balanceDAI))} DAI` : '0 DAI'}
+              {balanceDAI ? `${formatEther(Number(balanceDAI))} DAI` : "0 DAI"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -250,7 +287,9 @@ const Starknet: NextPage = () => {
               <p className="font-medium">STRK</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceSTRK ? `${formatEther(Number(balanceSTRK))} STRK` : '0 STRK'}
+              {balanceSTRK
+                ? `${formatEther(Number(balanceSTRK))} STRK`
+                : "0 STRK"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -268,7 +307,7 @@ const Starknet: NextPage = () => {
               <p className="font-medium">NAI</p>
             </div>
             <p className="text-xl text-blue-900">
-              {balanceNAI ? `${formatEther(Number(balanceNAI))} NAI` : '0 NAI'}
+              {balanceNAI ? `${formatEther(Number(balanceNAI))} NAI` : "0 NAI"}
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
@@ -281,7 +320,6 @@ const Starknet: NextPage = () => {
 
       {/* Swap AMMs */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
-
         {/* Scaffold Reserves */}
         <div className="bg-gray-100 p-6 rounded-lg shadow-md border border-gray-300 mb-6">
           <div className="flex items-center justify-between mb-4">
@@ -295,19 +333,23 @@ const Starknet: NextPage = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-              {balanceReserveScaffold ? `${formatEther(Number((balanceReserveScaffold as any)[1]))} USDT / ${formatEther(Number((balanceReserveScaffold as any)[0]))} DAI` : "0 USDT / 0 DAI"}
+              {balanceReserveScaffold
+                ? `${formatEther(Number((balanceReserveScaffold as any)[1]))} USDT / ${formatEther(Number((balanceReserveScaffold as any)[0]))} DAI`
+                : "0 USDT / 0 DAI"}
             </div>
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-              {balanceReserveScaffold && Number((balanceReserveScaffold as any)[0]) !== 0 ? (
-                `Ratio ${Number((balanceReserveScaffold as any)[1]) !== 0 ? (Number((balanceReserveScaffold as any)[1]) / Number((balanceReserveScaffold as any)[0])).toFixed(2) : "Indefinido"}`
-              ) : (
-                "Ratio"
-              )}
+              {balanceReserveScaffold &&
+              Number((balanceReserveScaffold as any)[0]) !== 0
+                ? `Ratio ${Number((balanceReserveScaffold as any)[1]) !== 0 ? (Number((balanceReserveScaffold as any)[1]) / Number((balanceReserveScaffold as any)[0])).toFixed(2) : "Indefinido"}`
+                : "Ratio"}
             </div>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="liquidityAmount"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Swap USDT/DAI
               </label>
               <input
@@ -323,7 +365,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleSwapScaffoldUSDT}
               className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Swap
             </button>
@@ -343,19 +385,23 @@ const Starknet: NextPage = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-              {balanceReserveNadai ? `${formatEther(Number((balanceReserveNadai as any)[1]))} USDT / ${formatEther(Number((balanceReserveNadai as any)[0]))} NAI` : "0 USDT / 0 NAI"}
+              {balanceReserveNadai
+                ? `${formatEther(Number((balanceReserveNadai as any)[1]))} USDT / ${formatEther(Number((balanceReserveNadai as any)[0]))} NAI`
+                : "0 USDT / 0 NAI"}
             </div>
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-              {balanceReserveNadai && Number((balanceReserveNadai as any)[0]) !== 0 ? (
-                `Ratio ${Number((balanceReserveNadai as any)[1]) !== 0 ? (Number((balanceReserveNadai as any)[1]) / Number((balanceReserveNadai as any)[0])).toFixed(2) : "Indefinido"}`
-              ) : (
-                "Ratio"
-              )}
+              {balanceReserveNadai &&
+              Number((balanceReserveNadai as any)[0]) !== 0
+                ? `Ratio ${Number((balanceReserveNadai as any)[1]) !== 0 ? (Number((balanceReserveNadai as any)[1]) / Number((balanceReserveNadai as any)[0])).toFixed(2) : "Indefinido"}`
+                : "Ratio"}
             </div>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="liquidityAmount"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Swap USDT/NAI
               </label>
               <input
@@ -371,7 +417,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleSwapNadaiUSDT}
               className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Swap
             </button>
@@ -391,19 +437,23 @@ const Starknet: NextPage = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-              {balanceReserveStarknet ? `${formatEther(Number((balanceReserveStarknet as any)[1]))} USDT / ${formatEther(Number((balanceReserveStarknet as any)[0]))} STRK` : "0 USDT / 0 STRK"}
+              {balanceReserveStarknet
+                ? `${formatEther(Number((balanceReserveStarknet as any)[1]))} USDT / ${formatEther(Number((balanceReserveStarknet as any)[0]))} STRK`
+                : "0 USDT / 0 STRK"}
             </div>
             <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-              {balanceReserveStarknet && Number((balanceReserveStarknet as any)[0]) !== 0 ? (
-                `Ratio ${Number((balanceReserveStarknet as any)[1]) !== 0 ? (Number((balanceReserveStarknet as any)[1]) / Number((balanceReserveStarknet as any)[0])).toFixed(2) : "Indefinido"}`
-              ) : (
-                "Ratio"
-              )}
+              {balanceReserveStarknet &&
+              Number((balanceReserveStarknet as any)[0]) !== 0
+                ? `Ratio ${Number((balanceReserveStarknet as any)[1]) !== 0 ? (Number((balanceReserveStarknet as any)[1]) / Number((balanceReserveStarknet as any)[0])).toFixed(2) : "Indefinido"}`
+                : "Ratio"}
             </div>
           </div>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label htmlFor="liquidityAmount" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="liquidityAmount"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Swap USDT/STRK
               </label>
               <input
@@ -419,7 +469,7 @@ const Starknet: NextPage = () => {
             <button
               onClick={handleSwapStarknetUSDT}
               className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
-              style={{ minWidth: '130px' }}
+              style={{ minWidth: "130px" }}
             >
               Swap
             </button>
@@ -427,12 +477,14 @@ const Starknet: NextPage = () => {
         </div>
       </div>
 
-       {/* Bloque Multi Swap All AMMs  */}
-       <div className="flex items-center justify-center">
+      {/* Bloque Multi Swap All AMMs  */}
+      <div className="flex items-center justify-center">
         <div className="bg-gray-100 p-4 rounded-lg shadow-md border border-gray-300 mb-6">
           <div className="flex items-center justify-center mb-4">
             <div className="text-center">
-              <h3 className="text-lg font-medium text-blue-900 mb-2">Multi Swap in All AMMs</h3>
+              <h3 className="text-lg font-medium text-blue-900 mb-2">
+                Multi Swap in All AMMs
+              </h3>
               <button
                 onClick={handleMultiSwapAll}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
@@ -445,8 +497,12 @@ const Starknet: NextPage = () => {
           <div className="flex items-center justify-center">
             <div className="text-center">
               <h3 className="text-lg font-medium text-blue-900 mb-2">
-                <span className="inline-block align-middle">Powered by</span>{' '}
-                <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8 inline-block align-middle" />
+                <span className="inline-block align-middle">Powered by</span>{" "}
+                <img
+                  src={strkLogo.src}
+                  alt="STRK Icon"
+                  className="w-8 h-8 inline-block align-middle"
+                />
               </h3>
             </div>
           </div>
