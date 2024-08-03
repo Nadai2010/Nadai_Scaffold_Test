@@ -2,7 +2,8 @@
 
 <h4 align="center">
   <a href="https://www.docs.scaffoldstark.com/">Documentation</a> |
-  <a href="https://www.scaffoldstark.com/">Website</a>
+  <a href="https://www.scaffoldstark.com/">Website</a> |
+  <a href="https://scaffold-stark-demo.vercel.app/debug">Demo</a>
 </h4>
 
 🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on Starknet blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
@@ -15,7 +16,7 @@
 - 🔥 **Burner Wallet & Prefunded Account**: Quickly test your application with a burner wallet and prefunded accounts.
 - 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with Starknet network.
 
-![Debug Contracts tab](./assests/debug-contracts.png)
+![Debug Contracts tab](https://raw.githubusercontent.com/Quantum3-Labs/scaffold-stark-2/main/packages/nextjs/public/debug-image.png)
 
 ## Requirements
 
@@ -24,75 +25,68 @@ Before you begin, you need to install the following tools:
 - [Node (>= v18.17)](https://nodejs.org/en/download/)
 - Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
 - [Git](https://git-scm.com/downloads)
+- [Rust](https://www.rust-lang.org/tools/install)
+- [asdf](https://asdf-vm.com/guide/getting-started.html)
+- [Cairo 1.0 extension for VSCode](https://marketplace.visualstudio.com/items?itemName=starkware.cairo1)
+
+### Starknet-devnet version
+
+To ensure the proper functioning of scaffold-stark, your local `starknet-devnet` version must be `0.0.4`. To accomplish this, first check your local starknet-devnet version:
+
+```sh
+starknet-devnet --version
+```
+
+If your local starknet-devnet version is not `0.0.4`, you need to install it.
+
+```bash
+cargo install starknet-devnet --version 0.0.4
+```
+
 
 ### Scarb version
 
-To ensure the proper functioning of scaffold-stark, your local `Scarb` version must be `2.5.4`. To accomplish this, first check your local Scarb version:
+To ensure the proper functioning of scaffold-stark, your local `Scarb` version must be `2.6.5`. To accomplish this, first check your local Scarb version:
 
 ```sh
 scarb --version
 ```
 
-If your local Scarb version is not `2.5.4`, you need to install it.
+If your local Scarb version is not `2.6.5`, you need to install it.
 
-<details>
-<summary><b>Scarb Installation Process</b></summary>
-
-To install Scarb, please refer to the [installation instructions](https://docs.swmansion.com/scarb/download).
-We strongly recommend that you install
-Scarb via [asdf](https://docs.swmansion.com/scarb/download.html#install-via-asdf), a CLI tool that can manage
-multiple language runtime versions on a per-project basis.
-This will ensure that the version of Scarb you use to work on a project always matches the one defined in the
-project settings, avoiding problems related to version mismatches.
-
-Please refer to the [asdf documentation](https://asdf-vm.com/guide/getting-started.html) to install all
-prerequisites.
-
-Once you have `asdf` installed locally, you can download Scarb plugin with the following command:
-
-```bash
-asdf plugin add scarb
-```
-
-This will allow you to download specific versions. You can choose the same version as the Dojo's Cairo version, for example, 2.5.4, with the following command:
-
-```bash
-asdf install scarb 2.5.4
-```
-
-and set a global version:
-
-```bash
-asdf global scarb 2.5.4
-```
-
-Otherwise, you can simply run the following command in your terminal, and follow the onscreen instructions. This
-will install the version `2.5.4` of Scarb.
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh -s -- -v 2.5.4
-```
-
-</details>
+- Install Scarb `2.6.5` via `asdf` ([instructions](https://docs.swmansion.com/scarb/download.html#install-via-asdf)).
 
 ### Starknet Foundry version
 
-To ensure the proper functioning of the tests on scaffold-stark, your Starknet Foundry version must be 0.25.0. To accomplish this, first check your Starknet Foundry version:
+To ensure the proper functioning of the tests on scaffold-stark, your Starknet Foundry version must be 0.27.0. To accomplish this, first check your Starknet Foundry version:
 
 ```sh
 snforge --version
 ```
 
-If your Starknet Foundry version is not `0.25.0`, you need to install it.
+If your Starknet Foundry version is not `0.27.0`, you need to install it.
 
-- [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html)
+- Install Starknet Foundry `0.27.0` via `asdf` ([instructions](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html#installation-via-asdf)).
+
+### RPC specific version
+
+To ensure the proper functioning of the scaffold-stark with Testnet or Mainnet, your RPC version must be `0.7.0`. This repository contains a .env.example file, where we provided the default RPC URL for the Starknet Testnet: `RPC_URL_SEPOLIA=https://starknet-sepolia.public.blastapi.io/rpc/v0_7`. Let's verify this RPC version is `0.7.0` by running the following command:
+
+```sh
+curl --location 'https://starknet-sepolia.public.blastapi.io/rpc/v0_7' \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"starknet_specVersion",
+    "id":1
+}'
+```
 
 ## Compatible versions
 
-- Scarb - v2.5.4
-- Snforge - v0.23
-- Cairo - v2.5.4
-- Rpc - v0.5.1
+- Scarb - v2.6.5
+- Snforge - v0.27.0
+- Cairo - v2.6.4
+- Rpc - v0.7.0
 
 ## Quickstart
 
@@ -101,16 +95,16 @@ To get started with Scaffold-Stark 2, follow the steps below:
 1. Clone this repo and install dependencies
 
 ```bash
-git clone https://github.com/Quantum3-Labs/scaffold-stark-2 --recurse-submodules
+git clone https://github.com/Quantum3-Labs/scaffold-stark-2.git
 cd scaffold-stark-2
 yarn install
 ```
 
 2. Prepare your environment variables.
 
-By default Scaffold-Stark 2 takes the first prefunded account from `starknet-devnet` as a deployer address, thus **you can skip this step!**. But if you want use the .env file anyway, you can fill the envs related to devnet with any other predeployed contract address and private key from starknet-devnet.
+By default Scaffold-Stark 2 takes the first prefunded account from `starknet-devnet` as a deployer address, thus **you can skip this step!**. But if you want use the .env file anyway, you can fill the env variables related to devnet with any other predeployed contract address and private key from starknet-devnet.
 
-**Note:** In case you want to deploy on Sepolia, you need to fill the envs related to sepolia testnet with your own contract address and private key.
+> In case you want to deploy on Sepolia, you need to fill the envs related to sepolia testnet with your own contract address and private key.
 
 ```bash
 cp packages/snfoundry/.env.example packages/snfoundry/.env
@@ -118,7 +112,7 @@ cp packages/snfoundry/.env.example packages/snfoundry/.env
 
 3. Run a local network in the first terminal.
 
-**Note:** You can skip this step if you want to use Sepolia Testnet.
+> 💬 Hint: You can skip this step if you plan to use Sepolia Testnet.
 
 ```bash
 yarn chain
@@ -126,23 +120,21 @@ yarn chain
 
 This command starts a local Starknet network using Devnet. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `scaffold.config.ts` for your nextjs app.
 
-**Note:** If you are on sepolia or mainnet, for a better user experience on your app, you can get a dedicated RPC from [Infura dashboard](https://www.infura.io/). A default is provided [here](https://github.com/Quantum3-Labs/scaffold-stark-2/tree/main/packages/nextjs/.env.example), in order to use this, you have to run `cp packages/nextjs/.env.example packages/nextjs/.env.local`
-
+> If you are on sepolia or mainnet, for a better user experience on your app, you can get a dedicated RPC from [Infura dashboard](https://www.infura.io/). A default is provided [here](https://github.com/Quantum3-Labs/scaffold-stark-2/tree/main/packages/nextjs/.env.example), in order to use this, you have to run `cp packages/nextjs/.env.example packages/nextjs/.env.local`
 
 4. On a second terminal, deploy the sample contract:
 
-```
-yarn deploy --network {NETWORK_NAME} // when NETWORK_NAME is not specified, it defaults to "devnet"
+```bash
+yarn deploy
 ```
 
-**Note:** To use sepolia tesnet, you have to set {NETWORK_NAME} to `sepolia`.
-
+> To use `Sepolia` testnet, you input `yarn deploy --network sepolia`.
 
 This command deploys a sample smart contract to the local network. The contract is located in `packages/snfoundry/contracts/src` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/snfoundry/scripts-ts/deploy.ts` to deploy the contract to the network. You can also customize the deploy script.
 
 5. On a third terminal, start your NextJS app:
 
-```
+```bash
 yarn start
 ```
 

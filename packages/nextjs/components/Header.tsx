@@ -5,19 +5,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  ArrowsUpDownIcon,
   Bars3Icon,
   BugAntIcon,
   CircleStackIcon,
   WalletIcon,
-  ArrowsUpDownIcon,
 } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-stark";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
-import { FaucetButton } from "~~/components/scaffold-stark/FaucetButton";
 import { useTheme } from "next-themes";
 import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
 import { devnet } from "@starknet-react/chains";
 import { SwitchTheme } from "./SwitchTheme";
+import { useAccount, useProvider } from "@starknet-react/core";
 
 type HeaderMenuLink = {
   label: string;
@@ -72,7 +72,6 @@ export const HeaderMenuLinks = () => {
   useEffect(() => {
     setIsDark(theme === "dark");
   }, [theme]);
-
   return (
     <>
       {menuLinks.map(({ label, href, icon }) => {
@@ -83,8 +82,10 @@ export const HeaderMenuLinks = () => {
               href={href}
               passHref
               className={`${
-                isActive ? "bg-secondary shadow-md" : ""
-              } hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col`}
+                isActive
+                  ? "!bg-gradient-nav !text-white active:bg-gradient-nav shadow-md "
+                  : ""
+              } py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col hover:bg-gradient-nav hover:text-white`}
             >
               {icon}
               <span>{label}</span>
@@ -109,6 +110,20 @@ export const Header = () => {
   const { targetNetwork } = useTargetNetwork();
   const isLocalNetwork = targetNetwork.id === devnet.id;
 
+  const { provider } = useProvider();
+  const { address, status } = useAccount();
+  const [isDeployed, setIsDeployed] = useState(true);
+
+  useEffect(() => {
+    if (status === "connected" && address) {
+      provider.getContractVersion(address).catch((e) => {
+        if (e.toString().includes("Contract not found")) {
+          setIsDeployed(false);
+        }
+      });
+    }
+  }, [status, address, provider]);
+
   return (
     <div className="sticky lg:static top-0 navbar min-h-0 flex-shrink-0 justify-between z-20 px-0 sm:px-2">
       <div className="navbar-start w-auto lg:w-1/2">
@@ -127,7 +142,7 @@ export const Header = () => {
           {isDrawerOpen && (
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52"
               onClick={() => {
                 setIsDrawerOpen(false);
               }}
@@ -158,9 +173,19 @@ export const Header = () => {
           <HeaderMenuLinks />
         </ul>
       </div>
-      <div className="navbar-end flex-grow mr-4">
+      <div className="navbar-end flex-grow mr-4 gap-4">
+        {status === "connected" && !isDeployed ? (
+          <span className="bg-[#8a45fc] text-[9px] p-1 text-white">
+            Wallet Not Deployed
+          </span>
+        ) : null}
         <CustomConnectButton />
-        <FaucetButton />
+        {/* <FaucetButton /> */}
+        <SwitchTheme
+          className={`pointer-events-auto ${
+            isLocalNetwork ? "self-end md:self-auto" : ""
+          }`}
+        />
       </div>
     </div>
   );

@@ -1,8 +1,11 @@
-mod ConstantProductAmm2;
-mod ERC20;
+mod ConstantProductAmm;
 mod MockToken;
 mod PriceFeedExample;
+mod SimpleVault;
 mod StakingContract;
-// mod TimeLock;
-// mod YourContract2;
+mod YourContract;
 
+#[cfg(test)]
+mod test {
+    mod TestContract;
+}

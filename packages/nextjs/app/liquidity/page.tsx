@@ -17,6 +17,7 @@ import strkLogo from "/public/logo-starknet.svg";
 import naiLogo from "/public/logo-nai.png";
 import { useEffect, useState } from "react";
 import { parseEther } from "ethers";
+import { BlockNumber } from "starknet";
 
 // Función para formatear valores en wei a ether
 function formatEther(weiValue: number) {
@@ -67,6 +68,7 @@ const Starknet: NextPage = () => {
     functionName: "balanceOf",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: balanceUSDT } = useScaffoldReadContract({
@@ -74,6 +76,7 @@ const Starknet: NextPage = () => {
     functionName: "balanceOf",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: balanceSTRK } = useScaffoldReadContract({
@@ -81,6 +84,7 @@ const Starknet: NextPage = () => {
     functionName: "balanceOf",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: balanceNAI } = useScaffoldReadContract({
@@ -88,6 +92,7 @@ const Starknet: NextPage = () => {
     functionName: "balanceOf",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   //Balance Account
@@ -96,6 +101,7 @@ const Starknet: NextPage = () => {
     functionName: "get_balance_of",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: naiAccountData } = useScaffoldReadContract({
@@ -103,6 +109,7 @@ const Starknet: NextPage = () => {
     functionName: "get_balance_of",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: starknetAccountData } = useScaffoldReadContract({
@@ -110,6 +117,7 @@ const Starknet: NextPage = () => {
     functionName: "get_balance_of",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   useEffect(() => {

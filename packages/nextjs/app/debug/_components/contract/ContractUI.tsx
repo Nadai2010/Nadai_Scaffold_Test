@@ -54,12 +54,12 @@ export const ContractUI = ({
     <div
       className={`grid grid-cols-1 lg:grid-cols-6 px-6 lg:px-10 lg:gap-12 w-full max-w-7xl my-0 ${className}`}
     >
-      <div className="col-span-5 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 ">
+      <div className="col-span-5 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
         <div className="col-span-1 flex flex-col">
           <div className="bg-transparent border-gradient rounded-[5px] px-6 lg:px-8 mb-6 space-y-1 py-4">
             <div className="flex">
               <div className="flex flex-col gap-1">
-                <span className="font-bold text-neutral">{contractName}</span>
+                <span className="font-bold">{contractName}</span>
                 <Address address={deployedContractData.address} />
                 <div className="flex gap-1 items-center">
                   <span className="font-bold text-sm">Balance:</span>

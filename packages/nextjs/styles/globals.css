@@ -23,6 +23,14 @@ p {
   margin: 1rem 0;
 }
 
+.btn {
+  @apply shadow-md;
+}
+
+.btn.btn-ghost {
+  @apply shadow-none;
+}
+
 .circle-gradient {
   border-radius: 630px;
   background: #bd93f1;

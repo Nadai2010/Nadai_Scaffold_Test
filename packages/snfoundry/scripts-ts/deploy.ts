@@ -1,104 +1,165 @@
-import { deployContract, deployer, exportDeployments } from "./deploy-contract";
+import {
+  deployContract,
+  executeDeployCalls,
+  exportDeployments,
+  deployer,
+} from "./deploy-contract";
+import { green } from "./helpers/colorize-log";
 
+/**
+ * Deploy a contract using the specified parameters.
+ *
+ * @example (deploy contract with contructorArgs)
+ * const deployScript = async (): Promise<void> => {
+ *   await deployContract(
+ *     {
+ *       contract: "YourContract",
+ *       contractName: "YourContractExportName",
+ *       constructorArgs: {
+ *         owner: deployer.address,
+ *       },
+ *       options: {
+ *         maxFee: BigInt(1000000000000)
+ *       }
+ *     }
+ *   );
+ * };
+ *
+ * @example (deploy contract without contructorArgs)
+ * const deployScript = async (): Promise<void> => {
+ *   await deployContract(
+ *     {
+ *       contract: "YourContract",
+ *       contractName: "YourContractExportName",
+ *       options: {
+ *         maxFee: BigInt(1000000000000)
+ *       }
+ *     }
+ *   );
+ * };
+ *
+ *
+ * @returns {Promise<void>}
+ */
 const deployScript = async (): Promise<void> => {
-  // await deployContract(
-  //   {  },
-  //   "YourContract2",
-  // );
-
-  const pragma = await deployContract("PriceFeedExample", {
-    pragma_contract:
-      "0x36031daa264c24520b11d93af622c848b2499b66b41d611bac95e13cfca131a",
+  await deployContract({
+    contract: "YourContract",
+    constructorArgs: {
+      owner: deployer.address,
+    },
   });
 
-  const dai = await deployContract(
-    "MockToken",
-    {
+  const dai = await deployContract({
+    contract: "MockToken",
+    contractName: "DAI",
+    constructorArgs: {
       name: "DAI",
       symbol: "DAI",
       initial_supply: 1000000000000000000000n,
       recipient: deployer.address,
+      owner: deployer.address,
     },
-    "DAI"
-  );
+  });
 
-  const usdt = await deployContract(
-    "MockToken",
-    {
+  const usdt = await deployContract({
+    contract: "MockToken",
+    contractName: "USDT",
+    constructorArgs: {
       name: "USDT",
       symbol: "USDT",
       initial_supply: 1000000000000000000000n,
       recipient: deployer.address,
+      owner: deployer.address,
     },
-    "USDT"
-  );
+  });
 
-  const strk = await deployContract(
-    "MockToken",
-    {
+  const strk = await deployContract({
+    contract: "MockToken",
+    contractName: "STRK",
+    constructorArgs: {
       name: "STRK",
       symbol: "STRK",
       initial_supply: 1000000000000000000000n,
       recipient: deployer.address,
+      owner: deployer.address,
     },
-    "STRK"
-  );
+  });
 
-  const nai = await deployContract(
-    "MockToken",
-    {
+  const nai = await deployContract({
+    contract: "MockToken",
+    contractName: "NAI",
+    constructorArgs: {
       name: "NAI",
       symbol: "NAI",
       initial_supply: 1000000000000000000000n,
       recipient: deployer.address,
+      owner: deployer.address,
     },
-    "NAI"
-  );
+  });
 
-  const ammScaffold = await deployContract(
-    "ConstantProductAmm2",
-    {
+  const ammScaffold = await deployContract({
+    contract: "ConstantProductAmm",
+    contractName: "ScaffoldAMM",
+    constructorArgs: {
       token0: dai.address,
       token1: usdt.address,
       fee: 1,
     },
-    "ScaffoldAMM"
-  );
+  });
 
-  const ammNadai = await deployContract(
-    "ConstantProductAmm2",
-    {
+  const ammNadai = await deployContract({
+    contract: "ConstantProductAmm",
+    contractName: "NadaiAMM",
+    constructorArgs: {
       token0: nai.address,
       token1: usdt.address,
       fee: 1,
     },
-    "NadaiAMM"
-  );
+  });
 
-  const ammStarknet = await deployContract(
-    "ConstantProductAmm2",
-    {
+  const ammStarknet = await deployContract({
+    contract: "ConstantProductAmm",
+    contractName: "StarknetAMM",
+    constructorArgs: {
       token0: strk.address,
       token1: usdt.address,
       fee: 1,
     },
-    "StarknetAMM"
-  );
-
-  const staking = await deployContract("StakingContract", {
-    staking_token_address: nai.address,
-    reward_token_address: strk.address,
-    owner_address: deployer.address,
   });
 
-  const vault = await deployContract("SimpleVault", {
-    token: strk.address,
+  const staking = await deployContract({
+    contract: "StakingContract",
+    contractName: "Staking",
+    constructorArgs: {
+      staking_token_address: nai.address,
+      reward_token_address: strk.address,
+      owner_address: deployer.address,
+    },
+  });
+
+  const vault = await deployContract({
+    contract: "SimpleVault",
+    contractName: "Vault",
+    constructorArgs: {
+      token: strk.address,
+    },
+  });
+
+  const pragma = await deployContract({
+    contract: "PriceFeedExample",
+    contractName: "PriceFeedExample",
+    constructorArgs: {
+      pragma_contract:
+        "0x36031daa264c24520b11d93af622c848b2499b66b41d611bac95e13cfca131a",
+    },
   });
 };
 
 deployScript()
-  .then(() => {
+  .then(async () => {
+    await executeDeployCalls();
     exportDeployments();
-    console.log("All Setup Done");
+
+    console.log(green("All Setup Done"));
   })
   .catch(console.error);

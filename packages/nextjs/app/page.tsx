@@ -10,6 +10,7 @@ import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWri
 import { Address as AddressType } from "@starknet-react/chains";
 import { useTransactor } from "~~/hooks/scaffold-stark/useTransactor";
 import { getAllContracts } from "~~/utils/scaffold-stark/contractsData";
+import { BlockNumber } from "starknet";
 
 // Importa las imágenes de los logos
 import usdtLogo from "/public/logo-usdt.svg";
@@ -45,6 +46,7 @@ const Starknet: NextPage = () => {
     functionName: "balanceOf",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: balanceUSDT } = useScaffoldReadContract({
@@ -52,6 +54,7 @@ const Starknet: NextPage = () => {
     functionName: "balanceOf",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: balanceSTRK } = useScaffoldReadContract({
@@ -59,6 +62,7 @@ const Starknet: NextPage = () => {
     functionName: "balanceOf",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: balanceNAI } = useScaffoldReadContract({
@@ -66,6 +70,7 @@ const Starknet: NextPage = () => {
     functionName: "balanceOf",
     args: [connectedAddress ?? ""],
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   // Faucet

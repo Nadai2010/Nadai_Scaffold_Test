@@ -8,37 +8,44 @@ pub trait IMockToken<TContractState> {
 #[starknet::contract]
 mod MockToken {
     use openzeppelin::token::erc20::ERC20Component;
+    use openzeppelin::token::erc20::ERC20HooksEmptyImpl;
+    use openzeppelin::upgrades::UpgradeableComponent;
+    use openzeppelin::upgrades::interface::IUpgradeable;
+    use starknet::ClassHash;
     use starknet::ContractAddress;
     use super::IMockToken;
 
     component!(path: ERC20Component, storage: erc20, event: ERC20Event);
+    component!(path: UpgradeableComponent, storage: upgradeable, event: UpgradeableEvent);
 
     #[abi(embed_v0)]
     impl MockTokenImpl of IMockToken<ContractState> {
         fn faucet(ref self: ContractState, recipient: ContractAddress, amount: u256) {
-            self.erc20._mint(recipient, amount);
+            self.erc20.mint(recipient, amount);
         }
     }
 
     #[abi(embed_v0)]
-    impl ERC20Impl = ERC20Component::ERC20Impl<ContractState>;
-    #[abi(embed_v0)]
-    impl ERC20MetadataImpl = ERC20Component::ERC20MetadataImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl ERC20CamelOnlyImpl = ERC20Component::ERC20CamelOnlyImpl<ContractState>;
+    impl ERC20MixinImpl = ERC20Component::ERC20MixinImpl<ContractState>;
+
     impl ERC20InternalImpl = ERC20Component::InternalImpl<ContractState>;
+    impl UpgradeableInternalImpl = UpgradeableComponent::InternalImpl<ContractState>;
 
     #[storage]
     struct Storage {
         #[substorage(v0)]
-        erc20: ERC20Component::Storage
+        erc20: ERC20Component::Storage,
+        #[substorage(v0)]
+        upgradeable: UpgradeableComponent::Storage,
     }
 
     #[event]
     #[derive(Drop, starknet::Event)]
     enum Event {
         #[flat]
-        ERC20Event: ERC20Component::Event
+        ERC20Event: ERC20Component::Event,
+        #[flat]
+        UpgradeableEvent: UpgradeableComponent::Event,
     }
 
     #[constructor]
@@ -47,9 +54,16 @@ mod MockToken {
         name: ByteArray,
         symbol: ByteArray,
         initial_supply: u256,
-        recipient: ContractAddress
+        recipient: ContractAddress,
     ) {
         self.erc20.initializer(name, symbol);
-        self.erc20._mint(recipient, initial_supply);
+        self.erc20.mint(recipient, initial_supply);
+    }
+
+    #[abi(embed_v0)]
+    impl UpgradeableImpl of IUpgradeable<ContractState> {
+        fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
+            self.upgradeable.upgrade(new_class_hash);
+        }
     }
 }
