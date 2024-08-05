@@ -29,7 +29,11 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/",
     icon: <WalletIcon className="h-4 w-4" />,
   },
-
+  {
+    label: "NFT",
+    href: "/nft",
+    icon: <CircleStackIcon className="h-4 w-4" />,
+  },
   {
     label: "Liquidity",
     href: "/liquidity",
@@ -175,7 +179,6 @@ export const Header = () => {
         ) : null}
         <CustomConnectButton />
         {/* <FaucetButton /> */}
-    
       </div>
     </div>
   );

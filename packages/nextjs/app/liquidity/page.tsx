@@ -435,7 +435,10 @@ const Starknet: NextPage = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/background.jpg')" }}>
+    <div
+      className="relative min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/background.jpg')" }}
+    >
       <div className="container mx-auto mt-10 px-4">
         <div className="text-center mb-8">
           <p className="text-3xl font-semibold">Liquidity</p>
@@ -471,7 +474,9 @@ const Starknet: NextPage = () => {
                 <p className="font-medium">DAI</p>
               </div>
               <p className="text-xl text-white-900">
-                {balanceDAI ? `${formatEther(Number(balanceDAI))} DAI` : "0 DAI"}
+                {balanceDAI
+                  ? `${formatEther(Number(balanceDAI))} DAI`
+                  : "0 DAI"}
               </p>
             </div>
             <div className="flex items-center justify-between mt-2">
@@ -509,7 +514,9 @@ const Starknet: NextPage = () => {
                 <p className="font-medium">NAI</p>
               </div>
               <p className="text-xl text-white-900">
-                {balanceNAI ? `${formatEther(Number(balanceNAI))} NAI` : "0 NAI"}
+                {balanceNAI
+                  ? `${formatEther(Number(balanceNAI))} NAI`
+                  : "0 NAI"}
               </p>
             </div>
             <div className="flex items-center justify-between mt-2">
@@ -608,9 +615,11 @@ const Starknet: NextPage = () => {
                 </div>
               </div>
               <div className="text-sm text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-small shadow-sm">
-               {totalSupplyNadai ? formatEther(Number(totalSupplyNadai)) : "0"}
+                {totalSupplyNadai ? formatEther(Number(totalSupplyNadai)) : "0"}
                 &nbsp;LPN | &nbsp;
-                {balanceNaiAccount ? formatEther(Number(balanceNaiAccount)) : "0"}
+                {balanceNaiAccount
+                  ? formatEther(Number(balanceNaiAccount))
+                  : "0"}
                 &nbsp;LPN
               </div>
             </div>
@@ -683,7 +692,7 @@ const Starknet: NextPage = () => {
                 </div>
               </div>
               <div className="text-sm text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-small shadow-sm">
-              {totalSupplyStarknet
+                {totalSupplyStarknet
                   ? formatEther(Number(totalSupplyStarknet))
                   : "0"}
                 &nbsp;LPS | &nbsp;
@@ -753,8 +762,8 @@ const Starknet: NextPage = () => {
 
         {/* Bloque Multi Remove All AMMs */}
         <div className="flex items-center justify-center">
-        <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 text-white p-6 rounded-lg shadow-lg border border-gray-600">
-        <div className="flex items-center justify-center mb-4">
+          <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 text-white p-6 rounded-lg shadow-lg border border-gray-600">
+            <div className="flex items-center justify-center mb-4">
               <div className="text-center">
                 <h3 className="text-lg font-medium text-white-900 mb-2">
                   Multi Remove LPs in All AMMs

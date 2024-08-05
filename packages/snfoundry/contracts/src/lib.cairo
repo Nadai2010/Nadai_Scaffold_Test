@@ -1,6 +1,7 @@
 mod ConstantProductAmm;
 mod MockToken;
 mod PriceFeedExample;
+mod ScaffoldNFT;
 mod SimpleVault;
 mod StakingContract;
 mod YourContract;

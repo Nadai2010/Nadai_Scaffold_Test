@@ -153,6 +153,20 @@ const deployScript = async (): Promise<void> => {
         "0x2a85bd616f912537c50a49a4076db02c00b29b2cdc8a197ce92ed1837fa875b",
     },
   });
+
+  const nft = await deployContract({
+    contract: "ScaffoldNFT",
+    contractName: "ScaffoldNFT",
+    constructorArgs: {
+      name: "ScaffoldNFT",
+      symbol: "SCNFT",
+      base_uri:
+        "https://ipfs.io/ipfs/Qmdof3jrQKwWKGLzT1pykupXFFSXzN7MtB35Nt4k7SiUsZ/",
+      token_ids: [1, 2, 3, 4, 5, 6],
+      recipient: deployer.address,
+      owner: deployer.address,
+    },
+  });
 };
 
 deployScript()
