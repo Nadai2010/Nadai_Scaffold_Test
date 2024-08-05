@@ -13,10 +13,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-stark";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
-import { useTheme } from "next-themes";
 import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
 import { devnet } from "@starknet-react/chains";
-import { SwitchTheme } from "./SwitchTheme";
 import { useAccount, useProvider } from "@starknet-react/core";
 
 type HeaderMenuLink = {
@@ -66,12 +64,8 @@ export const menuLinks: HeaderMenuLink[] = [
 
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
-  const { theme } = useTheme();
   const [isDark, setIsDark] = useState(false);
 
-  useEffect(() => {
-    setIsDark(theme === "dark");
-  }, [theme]);
   return (
     <>
       {menuLinks.map(({ label, href, icon }) => {
@@ -181,11 +175,7 @@ export const Header = () => {
         ) : null}
         <CustomConnectButton />
         {/* <FaucetButton /> */}
-        <SwitchTheme
-          className={`pointer-events-auto ${
-            isLocalNetwork ? "self-end md:self-auto" : ""
-          }`}
-        />
+    
       </div>
     </div>
   );
