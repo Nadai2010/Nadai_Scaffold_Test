@@ -10,6 +10,7 @@ import strkLogo from "/public/logo-starknet.svg";
 import btcLogo from "/public/logo-btc.png";
 import linklogo from "/public/logo-link.png";
 import { useScaffoldContract } from "~~/hooks/scaffold-stark/useScaffoldContract";
+import { BlockNumber } from "starknet";
 
 // Función para formatear valores en unidades menores a un formato decimal
 // Función para formatear valores en unidades menores a un formato decimal y con sufijo "USD"
@@ -45,18 +46,21 @@ const Starknet: NextPage = () => {
     contractName: "ChainlinkBTC",
     functionName: "latest_answer",
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: priceLINK } = useScaffoldReadContract({
     contractName: "ChainlinkLINK",
     functionName: "latest_answer",
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   const { data: priceSTRK } = useScaffoldReadContract({
     contractName: "ChainlinkSTRK",
     functionName: "latest_answer",
     watch: true,
+    blockIdentifier: "pending" as BlockNumber,
   });
 
   return (

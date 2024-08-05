@@ -39,7 +39,7 @@ mod PriceFeedExample {
     impl PriceFeedExampleImpl of IPriceFeedExample<ContractState> {
         fn get_eth_usd_spot_price_median(self: @ContractState) -> u128 {
             let oracle_address: ContractAddress = contract_address_const::<
-                0x36031daa264c24520b11d93af622c848b2499b66b41d611bac95e13cfca131a
+                0x2a85bd616f912537c50a49a4076db02c00b29b2cdc8a197ce92ed1837fa875b
             >();
             let oracle_dispatcher = IPragmaABIDispatcher { contract_address: oracle_address };
             let output: PragmaPricesResponse = oracle_dispatcher
@@ -49,7 +49,7 @@ mod PriceFeedExample {
 
         fn get_btc_usd_spot_price_median(self: @ContractState) -> u128 {
             let oracle_address: ContractAddress = contract_address_const::<
-                0x36031daa264c24520b11d93af622c848b2499b66b41d611bac95e13cfca131a
+                0x2a85bd616f912537c50a49a4076db02c00b29b2cdc8a197ce92ed1837fa875b
             >();
             let oracle_dispatcher = IPragmaABIDispatcher { contract_address: oracle_address };
             let output: PragmaPricesResponse = oracle_dispatcher
@@ -59,7 +59,7 @@ mod PriceFeedExample {
 
         fn get_strk_usd_spot_price_median(self: @ContractState) -> u128 {
             let oracle_address: ContractAddress = contract_address_const::<
-                0x36031daa264c24520b11d93af622c848b2499b66b41d611bac95e13cfca131a
+                0x2a85bd616f912537c50a49a4076db02c00b29b2cdc8a197ce92ed1837fa875b
             >();
             let oracle_dispatcher = IPragmaABIDispatcher { contract_address: oracle_address };
             let output: PragmaPricesResponse = oracle_dispatcher
@@ -69,7 +69,7 @@ mod PriceFeedExample {
 
         fn get_lords_usd_spot_price_median(self: @ContractState) -> u128 {
             let oracle_address: ContractAddress = contract_address_const::<
-                0x36031daa264c24520b11d93af622c848b2499b66b41d611bac95e13cfca131a
+                0x2a85bd616f912537c50a49a4076db02c00b29b2cdc8a197ce92ed1837fa875b
             >();
             let oracle_dispatcher = IPragmaABIDispatcher { contract_address: oracle_address };
             let output: PragmaPricesResponse = oracle_dispatcher
