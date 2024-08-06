@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     YourContract: {
       address:
-        "0x68f41c0b54262a55e04d46e21e5e519dd12536b5e32c675ce26c0a6644fbc01",
+        "0x51f9078010c454c819e3e490360cebb6d5a74e3f414f3c3414b911c657253b0",
       abi: [
         {
           type: "impl",
@@ -261,7 +261,7 @@ const deployedContracts = {
     },
     DAI: {
       address:
-        "0x1a18023658da1fdec9cf0003eea7fd88a79558103d993979fd3e8495566ac31",
+        "0x4986fd6e65555de34594339c21a814a1a6cf41945168a60889f68a2f7fab637",
       abi: [
         {
           type: "impl",
@@ -693,7 +693,7 @@ const deployedContracts = {
     },
     USDT: {
       address:
-        "0x336588e42ab6ba1b8c3d80350aa8dfc62da03184929e47565a018e9cb2fff74",
+        "0x55450649840c8ba882037f4b9e8091806234009957c4b6a40a5b685de614b67",
       abi: [
         {
           type: "impl",
@@ -1125,7 +1125,7 @@ const deployedContracts = {
     },
     STRK: {
       address:
-        "0x5bc9203132b2f587ee33376d4f1d6683ce8d5e33beaf09f5337765b5241f037",
+        "0x49f1e4fdb84831570620bfc83e91233571a3b0b54d20fb1d72bfa081e39083a",
       abi: [
         {
           type: "impl",
@@ -1557,7 +1557,7 @@ const deployedContracts = {
     },
     NAI: {
       address:
-        "0x303ab9aac22f488f17ee6f9473ec6fb4462d175039d71d68eb3bb19672705f6",
+        "0xe53cdd373b272f7bfb8facfeee1bf441c231cc951383afd416173d45abdbef",
       abi: [
         {
           type: "impl",
@@ -1989,7 +1989,7 @@ const deployedContracts = {
     },
     ScaffoldAMM: {
       address:
-        "0x3bc8636950e244da6b98b11b8667ab20756df0e26febbe34a1d6355de361c41",
+        "0x2370758bfd237e200b263ce4c858e66af061bf768570f7df83c6643ab1fc859",
       abi: [
         {
           type: "impl",
@@ -2154,7 +2154,7 @@ const deployedContracts = {
     },
     NadaiAMM: {
       address:
-        "0x6827ea3a72acaf270f1fb07fcef51086436d3d6eec30ba74bab860699c3d4df",
+        "0x5bd1f3b9a05503c73d144b21fb25c07cd02ce02ad60cb316495a2c2ef80145c",
       abi: [
         {
           type: "impl",
@@ -2319,7 +2319,7 @@ const deployedContracts = {
     },
     StarknetAMM: {
       address:
-        "0x559ca9ca46c504019f4cf5e4319def42716e1a78a1ea5b4264f91ddaa1acb53",
+        "0x38e0fa483b5abc77606659d3fe012d332bfa24b461fe40545cf798ae19cbe60",
       abi: [
         {
           type: "impl",
@@ -2484,7 +2484,7 @@ const deployedContracts = {
     },
     Staking: {
       address:
-        "0x35c5d6c1c85ccb194fab23c8965a1efaf04f6ced447add08fe28c73902c69b9",
+        "0x1bd6fe5c27801ab987f92497e1550a54719100ca00ed7e73c6ff8217a77e314",
       abi: [
         {
           type: "impl",
@@ -2684,7 +2684,7 @@ const deployedContracts = {
     },
     Vault: {
       address:
-        "0xd5e803f02ce4b81a45a2f5d6e03453baff2d3db4381388dbc893dc8468b079",
+        "0x884ba64e4a39a3a904a6d27b8025158440227b53762949b195e4a80a60fad7",
       abi: [
         {
           type: "impl",
@@ -2755,7 +2755,7 @@ const deployedContracts = {
     },
     PriceFeedExample: {
       address:
-        "0x3803fc08bbcd0e6c91b863995431f3f6779bf6cd1f4adb96c1a79ead5dca06f",
+        "0x2e6c017ebadc38c7f0c3743b7d1789f74b01a0d1ba83413fb6713b43a0f5b7",
       abi: [
         {
           type: "impl",
@@ -2830,10 +2830,9 @@ const deployedContracts = {
         },
       ],
     },
-
     ScaffoldNFT: {
       address:
-        "0x4f4b84f9a2f1075725c64ce51fe0c03cb74a4708c75f48215178a1fbdd62b74",
+        "0x54871f18fca2e1c1303d3a3d03eedecb2c840571f170632b32648f4b630de81",
       abi: [
         {
           type: "impl",
@@ -2859,6 +2858,11 @@ const deployedContracts = {
           ],
         },
         {
+          type: "impl",
+          name: "ScaffoldNFTImpl",
+          interface_name: "contracts::ScaffoldNFT::IScaffoldNFT",
+        },
+        {
           type: "struct",
           name: "core::integer::u256",
           members: [
@@ -2873,54 +2877,30 @@ const deployedContracts = {
           ],
         },
         {
-          type: "struct",
-          name: "core::array::Span::<core::felt252>",
-          members: [
+          type: "interface",
+          name: "contracts::ScaffoldNFT::IScaffoldNFT",
+          items: [
             {
-              name: "snapshot",
-              type: "@core::array::Array::<core::felt252>",
+              type: "function",
+              name: "mint",
+              inputs: [
+                {
+                  name: "recipient",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+                {
+                  name: "token_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "external",
             },
           ],
-        },
-        {
-          type: "function",
-          name: "safe_mint",
-          inputs: [
-            {
-              name: "recipient",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "token_id",
-              type: "core::integer::u256",
-            },
-            {
-              name: "data",
-              type: "core::array::Span::<core::felt252>",
-            },
-          ],
-          outputs: [],
-          state_mutability: "external",
-        },
-        {
-          type: "function",
-          name: "safeMint",
-          inputs: [
-            {
-              name: "recipient",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "tokenId",
-              type: "core::integer::u256",
-            },
-            {
-              name: "data",
-              type: "core::array::Span::<core::felt252>",
-            },
-          ],
-          outputs: [],
-          state_mutability: "external",
         },
         {
           type: "impl",
@@ -2987,6 +2967,16 @@ const deployedContracts = {
           type: "impl",
           name: "ERC721MixinImpl",
           interface_name: "openzeppelin::token::erc721::interface::ERC721ABI",
+        },
+        {
+          type: "struct",
+          name: "core::array::Span::<core::felt252>",
+          members: [
+            {
+              name: "snapshot",
+              type: "@core::array::Array::<core::felt252>",
+            },
+          ],
         },
         {
           type: "enum",
@@ -3610,7 +3600,7 @@ const deployedContracts = {
   sepolia: {
     YourContract: {
       address:
-        "0x5e644d9793ff55bb20e576cfe77288526e3965e5192cae424e9432580d40660",
+        "0x4f98832e7aeabf667994dd2ef9fe8df177a5c5e0963ffe88046b4ebf95e14d8",
       abi: [
         {
           type: "impl",
@@ -3864,7 +3854,7 @@ const deployedContracts = {
     },
     DAI: {
       address:
-        "0x2cda6f0550799cff8899f687dea29208857f401baa77d5ae6a580b9fae116e6",
+        "0x12938f742a2c1030f7c8bbfac27c2ce289a1ff3fe8080e40830315ab437a7f2",
       abi: [
         {
           type: "impl",
@@ -4296,7 +4286,7 @@ const deployedContracts = {
     },
     USDT: {
       address:
-        "0x1424667a8c79d3134865bee8101ca6c5bed2ac5d6dd0d42242ea18a981c017",
+        "0x50a8147df2a9a151e2461e78b2b873931f84a07e04ff2a0f96aa77640f85786",
       abi: [
         {
           type: "impl",
@@ -4728,7 +4718,7 @@ const deployedContracts = {
     },
     STRK: {
       address:
-        "0x279229e560f586857cd87baa5bc66327b68dd26d91f9045155fa572dcae6735",
+        "0xd2bc130ec6ce18ad83d36f56db6a3515f7667afc209b4f163234833625e62",
       abi: [
         {
           type: "impl",
@@ -5160,7 +5150,7 @@ const deployedContracts = {
     },
     NAI: {
       address:
-        "0xdae381b35e11c3472f5f1fa6dd3e8238bcd8ace49f27c035e906ee1089beb6",
+        "0xa6e8f349bdbbe46f0a9ed757cb74a8f3ab805c4e4702bbeb8627467c05d306",
       abi: [
         {
           type: "impl",
@@ -5592,7 +5582,7 @@ const deployedContracts = {
     },
     ScaffoldAMM: {
       address:
-        "0xbb472937aedc71e1f94084cfa853322be7312c2db4979ff209b14408574b2c",
+        "0xee8e6c8b672d98e1c709f6a48b4ad8d85b7e9c3583614fe38c9d4994c09269",
       abi: [
         {
           type: "impl",
@@ -5757,7 +5747,7 @@ const deployedContracts = {
     },
     NadaiAMM: {
       address:
-        "0x44a89e5ed43c58b919c68db0b65067255fa01cccc7374fbd7fe475a030ac6b7",
+        "0x3e6d9bba0dd2ea812c81d7da5c723ec0228c93da0e66138389512f36d44545e",
       abi: [
         {
           type: "impl",
@@ -5922,7 +5912,7 @@ const deployedContracts = {
     },
     StarknetAMM: {
       address:
-        "0x4a889660401f3dfd0d2973eda0789cee03f29e534ea7d432534065e73cac75b",
+        "0x660559094ad6565262f12685152571ea126d6661fbbe3c7f207c16ead03b98",
       abi: [
         {
           type: "impl",
@@ -6087,7 +6077,7 @@ const deployedContracts = {
     },
     Staking: {
       address:
-        "0x5fb914d0035eaf24542d99c5b21d551c815e333b473e9757eee72d5df136342",
+        "0x6b14e936245023e29182b682ad7d4fbf3d772e252e9f8b8bb9d6484ba8f3b95",
       abi: [
         {
           type: "impl",
@@ -6287,7 +6277,7 @@ const deployedContracts = {
     },
     Vault: {
       address:
-        "0x691efacf47d522d952261117a3a59056454fb037d3dafd4297013a3fbc35f2b",
+        "0x444d82d586299c07ebe08ec17df8e2550ef4c04e1d74986e7b52744313d4ac7",
       abi: [
         {
           type: "impl",
@@ -6826,7 +6816,7 @@ const deployedContracts = {
     },
     ScaffoldNFT: {
       address:
-        "0x738e7c8fbbd96ffa465ee8ee623f8e606241b069b9d8e36862baac80bbe3726",
+        "0x68002284d5b70ea2b502259d3ff430ada6930197ff5559dd74fbc942bc37841",
       abi: [
         {
           type: "impl",
@@ -6852,6 +6842,11 @@ const deployedContracts = {
           ],
         },
         {
+          type: "impl",
+          name: "ScaffoldNFTImpl",
+          interface_name: "contracts::ScaffoldNFT::IScaffoldNFT",
+        },
+        {
           type: "struct",
           name: "core::integer::u256",
           members: [
@@ -6866,54 +6861,30 @@ const deployedContracts = {
           ],
         },
         {
-          type: "struct",
-          name: "core::array::Span::<core::felt252>",
-          members: [
+          type: "interface",
+          name: "contracts::ScaffoldNFT::IScaffoldNFT",
+          items: [
             {
-              name: "snapshot",
-              type: "@core::array::Array::<core::felt252>",
+              type: "function",
+              name: "mint",
+              inputs: [
+                {
+                  name: "recipient",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+                {
+                  name: "token_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "external",
             },
           ],
-        },
-        {
-          type: "function",
-          name: "safe_mint",
-          inputs: [
-            {
-              name: "recipient",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "token_id",
-              type: "core::integer::u256",
-            },
-            {
-              name: "data",
-              type: "core::array::Span::<core::felt252>",
-            },
-          ],
-          outputs: [],
-          state_mutability: "external",
-        },
-        {
-          type: "function",
-          name: "safeMint",
-          inputs: [
-            {
-              name: "recipient",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "tokenId",
-              type: "core::integer::u256",
-            },
-            {
-              name: "data",
-              type: "core::array::Span::<core::felt252>",
-            },
-          ],
-          outputs: [],
-          state_mutability: "external",
         },
         {
           type: "impl",
@@ -6980,6 +6951,16 @@ const deployedContracts = {
           type: "impl",
           name: "ERC721MixinImpl",
           interface_name: "openzeppelin::token::erc721::interface::ERC721ABI",
+        },
+        {
+          type: "struct",
+          name: "core::array::Span::<core::felt252>",
+          members: [
+            {
+              name: "snapshot",
+              type: "@core::array::Array::<core::felt252>",
+            },
+          ],
         },
         {
           type: "enum",

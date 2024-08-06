@@ -162,7 +162,7 @@ const deployScript = async (): Promise<void> => {
       symbol: "SCNFT",
       base_uri:
         "https://ipfs.io/ipfs/Qmdof3jrQKwWKGLzT1pykupXFFSXzN7MtB35Nt4k7SiUsZ/",
-      token_ids: [1, 2, 3, 4, 5, 6],
+      token_ids: [0],
       recipient: deployer.address,
       owner: deployer.address,
     },

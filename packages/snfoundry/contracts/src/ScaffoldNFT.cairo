@@ -1,21 +1,19 @@
-// SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts for Cairo v0.14.0 (presets/erc721.cairo)
+use starknet::ContractAddress;
 
-/// # ERC721 Preset
-///
-/// The upgradeable ERC721 contract offers a batch-mint mechanism that
-/// can only be executed once upon contract construction.
-///
-/// For more complex or custom contracts, use Wizard for Cairo
-/// https://wizard.openzeppelin.com/cairo
+#[starknet::interface]
+pub trait IScaffoldNFT<T> {
+    fn mint(ref self: T, recipient: ContractAddress, token_id: u256) -> u256;
+}
+
 #[starknet::contract]
-pub(crate) mod ScaffoldNFT {
+mod ScaffoldNFT {
     use openzeppelin::access::ownable::OwnableComponent;
     use openzeppelin::introspection::src5::SRC5Component;
     use openzeppelin::token::erc721::{ERC721Component, ERC721HooksEmptyImpl};
     use openzeppelin::upgrades::UpgradeableComponent;
     use openzeppelin::upgrades::interface::IUpgradeable;
     use starknet::{ContractAddress, ClassHash};
+    use super::{IScaffoldNFT};
 
     component!(path: OwnableComponent, storage: ownable, event: OwnableEvent);
     component!(path: ERC721Component, storage: erc721, event: ERC721Event);
@@ -88,6 +86,14 @@ pub(crate) mod ScaffoldNFT {
             self.upgradeable.upgrade(new_class_hash);
         }
     }
+    #[abi(embed_v0)]
+    impl ScaffoldNFTImpl of IScaffoldNFT<ContractState> {
+        fn mint(ref self: ContractState, recipient: ContractAddress, token_id: u256) -> u256 {
+            self.ownable.assert_only_owner();
+            self.erc721.mint(recipient, token_id);
+            token_id
+        }
+    }
 
     #[generate_trait]
     pub(crate) impl InternalImpl of InternalTrait {
@@ -104,26 +110,5 @@ pub(crate) mod ScaffoldNFT {
             }
         }
     }
-
-    #[generate_trait]
-    #[abi(per_item)]
-    impl ExternalImpl of ExternalTrait {
-        #[external(v0)]
-        fn safe_mint(
-            ref self: ContractState,
-            recipient: ContractAddress,
-            token_id: u256,
-            data: Span<felt252>,
-        ) {
-            self.ownable.assert_only_owner();
-            self.erc721.safe_mint(recipient, token_id, data);
-        }
-
-        #[external(v0)]
-        fn safeMint(
-            ref self: ContractState, recipient: ContractAddress, tokenId: u256, data: Span<felt252>,
-        ) {
-            self.safe_mint(recipient, tokenId, data);
-        }
-    }
 }
+
