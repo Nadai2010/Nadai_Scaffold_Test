@@ -161,121 +161,133 @@ const Starknet: NextPage = () => {
   };
 
   return (
-    <div className="container mx-auto mt-10 px-4">
-      <div className="text-center mb-8">
-        <p className="text-3xl font-semibold">Staking</p>
-      </div>
-
-      {/* Balances */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-4 mb-8">
-        {/* STRK */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-blue-900">
-              <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8" />
-              <p className="font-medium">STRK</p>
-            </div>
-            <p className="text-xl text-blue-900">
-              {balanceSTRK
-                ? `${formatEther(Number(balanceSTRK))} STRK`
-                : "0 STRK"}
-            </p>
-          </div>
-          <div className="flex items-center justify-between mt-2">
-            <p className="text-xl text-blue-900">
-              <Address address={strkContractAddress as AddressType} />
-            </p>
-          </div>
+    <div
+      className="relative min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/background.jpg')" }}
+    >
+      <div className="container mx-auto mt-10 px-4">
+        <div className="text-center mb-8">
+          <p className="text-3xl font-semibold">Staking</p>
         </div>
 
-        {/* NAI */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-blue-900">
-              <img src={naiLogo.src} alt="NAI Icon" className="w-8 h-8" />
-              <p className="font-medium">NAI</p>
+        {/* Contenedor para centrar los módulos */}
+        <div className="flex flex-col items-center">
+          {/* Balances */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mb-8">
+            {/* STRK */}
+            <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 text-white p-6 rounded-lg shadow-lg border border-gray-600">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2 text-white-900">
+                  <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8" />
+                  <p className="font-medium">STRK</p>
+                </div>
+                <p className="text-xl text-white-900">
+                  {balanceSTRK
+                    ? `${formatEther(Number(balanceSTRK))} STRK`
+                    : "0 STRK"}
+                </p>
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <p className="text-xl text-blue-400">
+                  <Address address={strkContractAddress as AddressType} />
+                </p>
+              </div>
             </div>
-            <p className="text-xl text-blue-900">
-              {balanceNAI ? `${formatEther(Number(balanceNAI))} NAI` : "0 NAI"}
-            </p>
-          </div>
-          <div className="flex items-center justify-between mt-2">
-            <p className="text-xl text-blue-900">
-              <Address address={naiContractAddress as AddressType} />
-            </p>
-          </div>
-        </div>
-      </div>
 
-      {/* Staking */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
-        {/* Staking Reserves */}
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md border border-gray-300 mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-3">
-              <img src={naiLogo.src} alt="USDT Icon" className="w-8 h-8" />
-              <div className="text-xl font-semibold text-blue-900">Staking</div>
+            {/* NAI */}
+            <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 text-white p-6 rounded-lg shadow-lg border border-gray-600">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2 text-white-900">
+                  <img src={naiLogo.src} alt="NAI Icon" className="w-8 h-8" />
+                  <p className="font-medium">NAI</p>
+                </div>
+                <p className="text-xl text-white-900">
+                  {balanceNAI
+                    ? `${formatEther(Number(balanceNAI))} NAI`
+                    : "0 NAI"}
+                </p>
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <p className="text-xl text-blue-400">
+                  <Address address={naiContractAddress as AddressType} />
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
-            <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
-              {balanceStaking
-                ? `${formatEther(Number(balanceStaking))} STRK`
-                : "0 STRK"}
-            </div>
-          </div>
-          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label
-                htmlFor="liquidityAmount"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Stake
-              </label>
-              <input
-                type="number"
-                name="liquidityAmount"
-                id="liquidityAmount"
-                value={stakeAmount}
-                onChange={(e) => setStakeAmount(e.target.value)}
-                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter amount NAI"
-              />
-            </div>
-            <button
-              onClick={handleStake}
-              className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
-              style={{ minWidth: "130px" }}
-            >
-              Stake
-            </button>
           </div>
 
-          <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div className="sm:flex-grow mb-2 sm:mb-0">
-              <label
-                htmlFor="liquidityAmount"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Withdraw
-              </label>
-              <input
-                type="number"
-                name="liquidityAmount"
-                id="liquidityAmount"
-                value={withAmount}
-                onChange={(e) => setWithAmount(e.target.value)}
-                className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter amount NAI"
-              />
+          {/* Staking */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-1 mb-8">
+            {/* Staking Reserves */}
+            <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 text-white p-6 rounded-lg shadow-lg border border-gray-600">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  <img src={naiLogo.src} alt="USDT Icon" className="w-8 h-8" />
+                  <div className="text-xl font-semibold text-white-900">
+                    Staking
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+                <div className="text-base text-blue-900 bg-blue-50 border border-blue-900 rounded-lg p-2 text-center font-medium shadow-sm">
+                  {balanceStaking
+                    ? `${formatEther(Number(balanceStaking))} STRK`
+                    : "0 STRK"}
+                </div>
+              </div>
+              <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div className="sm:flex-grow mb-2 sm:mb-0">
+                  <label
+                    htmlFor="liquidityAmount"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Stake
+                  </label>
+                  <input
+                    type="number"
+                    name="liquidityAmount"
+                    id="liquidityAmount"
+                    value={stakeAmount}
+                    onChange={(e) => setStakeAmount(e.target.value)}
+                    className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Enter amount NAI"
+                  />
+                </div>
+                <button
+                  onClick={handleStake}
+                  className="bg-blue-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
+                  style={{ minWidth: "130px" }}
+                >
+                  Stake
+                </button>
+              </div>
+
+              <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div className="sm:flex-grow mb-2 sm:mb-0">
+                  <label
+                    htmlFor="liquidityAmount"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Withdraw
+                  </label>
+                  <input
+                    type="number"
+                    name="liquidityAmount"
+                    id="liquidityAmount"
+                    value={withAmount}
+                    onChange={(e) => setWithAmount(e.target.value)}
+                    className="block w-full sm:w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Enter amount NAI"
+                  />
+                </div>
+                <button
+                  onClick={handleWith}
+                  className="bg-red-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
+                  style={{ minWidth: "130px" }}
+                >
+                  Withdraw
+                </button>
+              </div>
             </div>
-            <button
-              onClick={handleWith}
-              className="bg-red-900 text-white py-2 px-4 rounded-md text-sm shadow-md mt-2 sm:mt-6 sm:ml-4"
-              style={{ minWidth: "130px" }}
-            >
-              Withdraw
-            </button>
           </div>
         </div>
       </div>

@@ -610,7 +610,7 @@ const Starknet: NextPage = () => {
               <div className="flex items-center space-x-2">
                 <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
                 <img src={naiLogo.src} alt="NAI Icon" className="w-8 h-8" />
-                <div className="text-sm font-semibold text-white-900">
+                <div className="text-md font-semibold text-white-900">
                   Nadai Total Supply
                 </div>
               </div>
@@ -687,7 +687,7 @@ const Starknet: NextPage = () => {
               <div className="flex items-center space-x-2">
                 <img src={usdtLogo.src} alt="USDT Icon" className="w-8 h-8" />
                 <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8" />
-                <div className="text-sm font-semibold text-white-900">
+                <div className="text-md font-semibold text-white-900">
                   Starknet Total Supply
                 </div>
               </div>

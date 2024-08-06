@@ -64,59 +64,64 @@ const Starknet: NextPage = () => {
   });
 
   return (
-    <div className="container mx-auto mt-10 px-4">
-      <div className="text-center mb-8">
-        <p className="text-3xl font-semibold">Chainlink Price Feed</p>
-      </div>
-
-      {/* Balances */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-4 mb-8">
-        {/* BTC */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-blue-900">
-              <img src={btcLogo.src} alt="NAI Icon" className="w-8 h-8" />
-              <p className="font-medium">BTC</p>
-            </div>
-            <p className="text-xl text-blue-900">
-              {priceBTC !== undefined
-                ? formatUSD(priceBTC.toString(), 11)
-                : "0.000 USD"}
-            </p>
-          </div>
+    <div
+      className="relative min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/background.jpg')" }}
+    >
+      <div className="container mx-auto mt-10 px-4">
+        <div className="text-center mb-8">
+          <p className="text-3xl font-semibold">Price Feed Chainlink</p>
         </div>
 
-        {/* STRK */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-blue-900">
-              <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8" />
-              <p className="font-medium">STRK</p>
+        {/* Balances */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
+          {/* BTC */}
+          <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 text-white p-6 rounded-lg shadow-lg border border-gray-600">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 text-white-900">
+                <img src={btcLogo.src} alt="NAI Icon" className="w-8 h-8" />
+                <p className="font-medium">BTC</p>
+              </div>
+              <p className="text-xl text-white-900">
+                {priceBTC !== undefined
+                  ? formatUSD(priceBTC.toString(), 11)
+                  : "0.000 USD"}
+              </p>
             </div>
-            <p className="text-xl text-blue-900">
-              {priceSTRK !== undefined
-                ? formatUSD(priceSTRK.toString(), 8)
-                : "0.000 USD"}
-            </p>
           </div>
-          <div className="flex items-center justify-between mt-2"></div>
-        </div>
 
-        {/* LORDS */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-blue-900">
-              <img src={linklogo.src} alt="LINK Icon" className="w-8 h-8" />
-              <p className="font-medium">LINK</p>
+          {/* STRK */}
+          <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 text-white p-6 rounded-lg shadow-lg border border-gray-600">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 text-white-900">
+                <img src={strkLogo.src} alt="STRK Icon" className="w-8 h-8" />
+                <p className="font-medium">STRK</p>
+              </div>
+              <p className="text-xl text-white-900">
+                {priceSTRK !== undefined
+                  ? formatUSD(priceSTRK.toString(), 8)
+                  : "0.000 USD"}
+              </p>
             </div>
-            <p className="text-xl text-blue-900">
-              {priceLINK !== undefined
-                ? formatUSD(priceLINK.toString(), 8)
-                : "0.000 USD"}
-            </p>
+            <div className="flex items-center justify-between mt-2"></div>
+          </div>
+
+          {/* LORDS */}
+          <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 text-white p-6 rounded-lg shadow-lg border border-gray-600">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 text-white-900">
+                <img src={linklogo.src} alt="LINK Icon" className="w-8 h-8" />
+                <p className="font-medium">LINK</p>
+              </div>
+              <p className="text-xl text-white-900">
+                {priceLINK !== undefined
+                  ? formatUSD(priceLINK.toString(), 8)
+                  : "0.000 USD"}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </div>{" "}
     </div>
   );
 };
