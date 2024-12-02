@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     YourContract: {
       address:
-        "0x51f9078010c454c819e3e490360cebb6d5a74e3f414f3c3414b911c657253b0",
+        "0x5dcde0a613d236e6e5334e84c99f556f3912ee9191e07e4c4ae4ae2378c7514",
       abi: [
         {
           type: "impl",
@@ -66,7 +66,7 @@ const deployedContracts = {
           items: [
             {
               type: "function",
-              name: "gretting",
+              name: "greeting",
               inputs: [],
               outputs: [
                 {
@@ -77,7 +77,7 @@ const deployedContracts = {
             },
             {
               type: "function",
-              name: "set_gretting",
+              name: "set_greeting",
               inputs: [
                 {
                   name: "new_greeting",
@@ -114,11 +114,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "OwnableImpl",
-          interface_name: "openzeppelin::access::ownable::interface::IOwnable",
+          interface_name: "openzeppelin_access::ownable::interface::IOwnable",
         },
         {
           type: "interface",
-          name: "openzeppelin::access::ownable::interface::IOwnable",
+          name: "openzeppelin_access::ownable::interface::IOwnable",
           items: [
             {
               type: "function",
@@ -164,7 +164,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
           kind: "struct",
           members: [
             {
@@ -181,7 +181,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
           kind: "struct",
           members: [
             {
@@ -198,17 +198,17 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "OwnershipTransferred",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
               kind: "nested",
             },
             {
               name: "OwnershipTransferStarted",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
               kind: "nested",
             },
           ],
@@ -247,7 +247,7 @@ const deployedContracts = {
           variants: [
             {
               name: "OwnableEvent",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
               kind: "flat",
             },
             {
@@ -258,10 +258,12 @@ const deployedContracts = {
           ],
         },
       ],
+      classHash:
+        "0x4839ec6c71bf889a4582f03958fa66ad8425df951e97321fd68464ef409798e",
     },
     DAI: {
       address:
-        "0x4986fd6e65555de34594339c21a814a1a6cf41945168a60889f68a2f7fab637",
+        "0x34a1b461efa9c008b10f75c04ba0951a4a8c473470545850762f1a4d1d3e826",
       abi: [
         {
           type: "impl",
@@ -307,11 +309,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -330,7 +332,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC20MixinImpl",
-          interface_name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          interface_name: "openzeppelin_token::erc20::interface::IERC20Mixin",
         },
         {
           type: "enum",
@@ -366,7 +368,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          name: "openzeppelin_token::erc20::interface::IERC20Mixin",
           items: [
             {
               type: "function",
@@ -589,7 +591,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -611,7 +613,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
           kind: "struct",
           members: [
             {
@@ -633,24 +635,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -662,12 +664,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -679,21 +681,23 @@ const deployedContracts = {
           variants: [
             {
               name: "ERC20Event",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x57741c0bba7fca965165327df5b78fbf00ae62f1da0b32079029a252a3111cc",
     },
     USDT: {
       address:
-        "0x55450649840c8ba882037f4b9e8091806234009957c4b6a40a5b685de614b67",
+        "0x185dcced77757cd63a0c902623a56d7850262ccaa3c19ed6c21ebd54f15ac51",
       abi: [
         {
           type: "impl",
@@ -739,11 +743,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -762,7 +766,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC20MixinImpl",
-          interface_name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          interface_name: "openzeppelin_token::erc20::interface::IERC20Mixin",
         },
         {
           type: "enum",
@@ -798,7 +802,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          name: "openzeppelin_token::erc20::interface::IERC20Mixin",
           items: [
             {
               type: "function",
@@ -1021,7 +1025,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -1043,7 +1047,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
           kind: "struct",
           members: [
             {
@@ -1065,24 +1069,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -1094,12 +1098,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -1111,21 +1115,23 @@ const deployedContracts = {
           variants: [
             {
               name: "ERC20Event",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x57741c0bba7fca965165327df5b78fbf00ae62f1da0b32079029a252a3111cc",
     },
     STRK: {
       address:
-        "0x49f1e4fdb84831570620bfc83e91233571a3b0b54d20fb1d72bfa081e39083a",
+        "0x7add637d015aabacf6d2b8e2fa8b4ef87a9b488459513cfebd564fc50129706",
       abi: [
         {
           type: "impl",
@@ -1171,11 +1177,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -1194,7 +1200,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC20MixinImpl",
-          interface_name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          interface_name: "openzeppelin_token::erc20::interface::IERC20Mixin",
         },
         {
           type: "enum",
@@ -1230,7 +1236,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          name: "openzeppelin_token::erc20::interface::IERC20Mixin",
           items: [
             {
               type: "function",
@@ -1453,7 +1459,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -1475,7 +1481,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
           kind: "struct",
           members: [
             {
@@ -1497,24 +1503,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -1526,12 +1532,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -1543,21 +1549,23 @@ const deployedContracts = {
           variants: [
             {
               name: "ERC20Event",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x57741c0bba7fca965165327df5b78fbf00ae62f1da0b32079029a252a3111cc",
     },
     NAI: {
       address:
-        "0xe53cdd373b272f7bfb8facfeee1bf441c231cc951383afd416173d45abdbef",
+        "0x6433b4249f536e0effffa2d06918f8113d9f220ecfd43a493502b28342e2752",
       abi: [
         {
           type: "impl",
@@ -1603,11 +1611,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -1626,7 +1634,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC20MixinImpl",
-          interface_name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          interface_name: "openzeppelin_token::erc20::interface::IERC20Mixin",
         },
         {
           type: "enum",
@@ -1662,7 +1670,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          name: "openzeppelin_token::erc20::interface::IERC20Mixin",
           items: [
             {
               type: "function",
@@ -1885,7 +1893,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -1907,7 +1915,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
           kind: "struct",
           members: [
             {
@@ -1929,24 +1937,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -1958,12 +1966,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -1975,21 +1983,23 @@ const deployedContracts = {
           variants: [
             {
               name: "ERC20Event",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x57741c0bba7fca965165327df5b78fbf00ae62f1da0b32079029a252a3111cc",
     },
     ScaffoldAMM: {
       address:
-        "0x2370758bfd237e200b263ce4c858e66af061bf768570f7df83c6643ab1fc859",
+        "0x170746457bab0f0a129459f215f4798c83e8586275b856e15a76e2700810cb7",
       abi: [
         {
           type: "impl",
@@ -2151,10 +2161,12 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x70b0729ad0c574602ed24c0f800e3c5e98e2cdf0975f677fc2609d35696b1d8",
     },
     NadaiAMM: {
       address:
-        "0x5bd1f3b9a05503c73d144b21fb25c07cd02ce02ad60cb316495a2c2ef80145c",
+        "0x2b03e4d0fabbc23893c2f7717ce3f9de4f48aef53598625a58b8a53c9bb75cc",
       abi: [
         {
           type: "impl",
@@ -2316,10 +2328,12 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x70b0729ad0c574602ed24c0f800e3c5e98e2cdf0975f677fc2609d35696b1d8",
     },
     StarknetAMM: {
       address:
-        "0x38e0fa483b5abc77606659d3fe012d332bfa24b461fe40545cf798ae19cbe60",
+        "0x25970f0f9ce114cec3e621651781f2cbee52313ad3539807363842be9338522",
       abi: [
         {
           type: "impl",
@@ -2481,10 +2495,12 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x70b0729ad0c574602ed24c0f800e3c5e98e2cdf0975f677fc2609d35696b1d8",
     },
     Staking: {
       address:
-        "0x1bd6fe5c27801ab987f92497e1550a54719100ca00ed7e73c6ff8217a77e314",
+        "0x2b528cbb78f31ae3ba703a07c6b7b8b3bd3c1ae9d229a9629973101a734c8bc",
       abi: [
         {
           type: "impl",
@@ -2681,10 +2697,12 @@ const deployedContracts = {
           ],
         },
       ],
+      classHash:
+        "0x4e88d295a1b41a4d20daf71e2d70dae1592e9fa3ce04d95b24cab18f6c3d6c5",
     },
     Vault: {
       address:
-        "0x884ba64e4a39a3a904a6d27b8025158440227b53762949b195e4a80a60fad7",
+        "0x2d15e9e3e28349f4b58629032007ce63388dc30664e943d80928464cf83a97d",
       abi: [
         {
           type: "impl",
@@ -2752,10 +2770,12 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x13c86279c865cfcd7927ed56878bead3c66aec72ae7f6cb58493cd38f674e50",
     },
     PriceFeedExample: {
       address:
-        "0x2e6c017ebadc38c7f0c3743b7d1789f74b01a0d1ba83413fb6713b43a0f5b7",
+        "0x10fa90c45e7fb07a4e313a2a2e453bb25d8a213b4a0cc7de59a9a83064eda91",
       abi: [
         {
           type: "impl",
@@ -2829,19 +2849,21 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x624fe797b47073c5713ef959b5a878857fabd9020a87c1ff9c839d206b6d030",
     },
     ScaffoldNFT: {
       address:
-        "0x54871f18fca2e1c1303d3a3d03eedecb2c840571f170632b32648f4b630de81",
+        "0x6830df9a54ea34c34c5dcbed95bcd8ed76845dab58a7ffeaea22142f0fd495b",
       abi: [
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -2905,12 +2927,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "OwnableMixinImpl",
-          interface_name:
-            "openzeppelin::access::ownable::interface::OwnableABI",
+          interface_name: "openzeppelin_access::ownable::interface::OwnableABI",
         },
         {
           type: "interface",
-          name: "openzeppelin::access::ownable::interface::OwnableABI",
+          name: "openzeppelin_access::ownable::interface::OwnableABI",
           items: [
             {
               type: "function",
@@ -2966,7 +2987,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC721MixinImpl",
-          interface_name: "openzeppelin::token::erc721::interface::ERC721ABI",
+          interface_name: "openzeppelin_token::erc721::interface::ERC721ABI",
         },
         {
           type: "struct",
@@ -3012,7 +3033,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc721::interface::ERC721ABI",
+          name: "openzeppelin_token::erc721::interface::ERC721ABI",
           items: [
             {
               type: "function",
@@ -3400,7 +3421,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
           kind: "struct",
           members: [
             {
@@ -3417,7 +3438,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
           kind: "struct",
           members: [
             {
@@ -3434,24 +3455,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "OwnershipTransferred",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
               kind: "nested",
             },
             {
               name: "OwnershipTransferStarted",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc721::erc721::ERC721Component::Transfer",
+          name: "openzeppelin_token::erc721::erc721::ERC721Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -3473,7 +3494,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc721::erc721::ERC721Component::Approval",
+          name: "openzeppelin_token::erc721::erc721::ERC721Component::Approval",
           kind: "struct",
           members: [
             {
@@ -3495,7 +3516,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc721::erc721::ERC721Component::ApprovalForAll",
+          name: "openzeppelin_token::erc721::erc721::ERC721Component::ApprovalForAll",
           kind: "struct",
           members: [
             {
@@ -3517,35 +3538,35 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc721::erc721::ERC721Component::Event",
+          name: "openzeppelin_token::erc721::erc721::ERC721Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc721::erc721::ERC721Component::Transfer",
+              type: "openzeppelin_token::erc721::erc721::ERC721Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc721::erc721::ERC721Component::Approval",
+              type: "openzeppelin_token::erc721::erc721::ERC721Component::Approval",
               kind: "nested",
             },
             {
               name: "ApprovalForAll",
-              type: "openzeppelin::token::erc721::erc721::ERC721Component::ApprovalForAll",
+              type: "openzeppelin_token::erc721::erc721::ERC721Component::ApprovalForAll",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::introspection::src5::SRC5Component::Event",
+          name: "openzeppelin_introspection::src5::SRC5Component::Event",
           kind: "enum",
           variants: [],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -3557,12 +3578,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -3574,33 +3595,35 @@ const deployedContracts = {
           variants: [
             {
               name: "OwnableEvent",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
               kind: "flat",
             },
             {
               name: "ERC721Event",
-              type: "openzeppelin::token::erc721::erc721::ERC721Component::Event",
+              type: "openzeppelin_token::erc721::erc721::ERC721Component::Event",
               kind: "flat",
             },
             {
               name: "SRC5Event",
-              type: "openzeppelin::introspection::src5::SRC5Component::Event",
+              type: "openzeppelin_introspection::src5::SRC5Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x623fd21904b69bf3f4c37fa031bb6c67903d430cd81786e28ab721ad9503e96",
     },
   },
   sepolia: {
     YourContract: {
       address:
-        "0x4f98832e7aeabf667994dd2ef9fe8df177a5c5e0963ffe88046b4ebf95e14d8",
+        "0xd3102222556fd1d7f9bd31d0700e6ae0c33b89db6f07bbd60ed74f3d2d5153",
       abi: [
         {
           type: "impl",
@@ -3659,7 +3682,7 @@ const deployedContracts = {
           items: [
             {
               type: "function",
-              name: "gretting",
+              name: "greeting",
               inputs: [],
               outputs: [
                 {
@@ -3670,7 +3693,7 @@ const deployedContracts = {
             },
             {
               type: "function",
-              name: "set_gretting",
+              name: "set_greeting",
               inputs: [
                 {
                   name: "new_greeting",
@@ -3707,11 +3730,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "OwnableImpl",
-          interface_name: "openzeppelin::access::ownable::interface::IOwnable",
+          interface_name: "openzeppelin_access::ownable::interface::IOwnable",
         },
         {
           type: "interface",
-          name: "openzeppelin::access::ownable::interface::IOwnable",
+          name: "openzeppelin_access::ownable::interface::IOwnable",
           items: [
             {
               type: "function",
@@ -3757,7 +3780,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
           kind: "struct",
           members: [
             {
@@ -3774,7 +3797,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
           kind: "struct",
           members: [
             {
@@ -3791,17 +3814,17 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "OwnershipTransferred",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
               kind: "nested",
             },
             {
               name: "OwnershipTransferStarted",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
               kind: "nested",
             },
           ],
@@ -3840,7 +3863,7 @@ const deployedContracts = {
           variants: [
             {
               name: "OwnableEvent",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
               kind: "flat",
             },
             {
@@ -3851,10 +3874,12 @@ const deployedContracts = {
           ],
         },
       ],
+      classHash:
+        "0x4839ec6c71bf889a4582f03958fa66ad8425df951e97321fd68464ef409798e",
     },
     DAI: {
       address:
-        "0x12938f742a2c1030f7c8bbfac27c2ce289a1ff3fe8080e40830315ab437a7f2",
+        "0x5f70e4b6b710c4e08aa0a8de9dc8c7af3ba6c0b171ae6321e18d8c7e71f0fa9",
       abi: [
         {
           type: "impl",
@@ -3900,11 +3925,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -3923,7 +3948,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC20MixinImpl",
-          interface_name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          interface_name: "openzeppelin_token::erc20::interface::IERC20Mixin",
         },
         {
           type: "enum",
@@ -3959,7 +3984,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          name: "openzeppelin_token::erc20::interface::IERC20Mixin",
           items: [
             {
               type: "function",
@@ -4182,7 +4207,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -4204,7 +4229,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
           kind: "struct",
           members: [
             {
@@ -4226,24 +4251,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -4255,12 +4280,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -4272,21 +4297,23 @@ const deployedContracts = {
           variants: [
             {
               name: "ERC20Event",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x57741c0bba7fca965165327df5b78fbf00ae62f1da0b32079029a252a3111cc",
     },
     USDT: {
       address:
-        "0x50a8147df2a9a151e2461e78b2b873931f84a07e04ff2a0f96aa77640f85786",
+        "0x5937804fa418bd0f1dfd91ca28dc06abb7ec7e18d3170c51141a21fea32b05a",
       abi: [
         {
           type: "impl",
@@ -4332,11 +4359,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -4355,7 +4382,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC20MixinImpl",
-          interface_name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          interface_name: "openzeppelin_token::erc20::interface::IERC20Mixin",
         },
         {
           type: "enum",
@@ -4391,7 +4418,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          name: "openzeppelin_token::erc20::interface::IERC20Mixin",
           items: [
             {
               type: "function",
@@ -4614,7 +4641,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -4636,7 +4663,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
           kind: "struct",
           members: [
             {
@@ -4658,24 +4685,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -4687,12 +4714,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -4704,21 +4731,23 @@ const deployedContracts = {
           variants: [
             {
               name: "ERC20Event",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x57741c0bba7fca965165327df5b78fbf00ae62f1da0b32079029a252a3111cc",
     },
     STRK: {
       address:
-        "0xd2bc130ec6ce18ad83d36f56db6a3515f7667afc209b4f163234833625e62",
+        "0x4f97444728507c2b7ca95f127f4f06192d9724796caa2bcf10d314586f3df5c",
       abi: [
         {
           type: "impl",
@@ -4764,11 +4793,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -4787,7 +4816,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC20MixinImpl",
-          interface_name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          interface_name: "openzeppelin_token::erc20::interface::IERC20Mixin",
         },
         {
           type: "enum",
@@ -4823,7 +4852,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          name: "openzeppelin_token::erc20::interface::IERC20Mixin",
           items: [
             {
               type: "function",
@@ -5046,7 +5075,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -5068,7 +5097,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
           kind: "struct",
           members: [
             {
@@ -5090,24 +5119,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -5119,12 +5148,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -5136,21 +5165,23 @@ const deployedContracts = {
           variants: [
             {
               name: "ERC20Event",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x57741c0bba7fca965165327df5b78fbf00ae62f1da0b32079029a252a3111cc",
     },
     NAI: {
       address:
-        "0xa6e8f349bdbbe46f0a9ed757cb74a8f3ab805c4e4702bbeb8627467c05d306",
+        "0x7f461930b1b8cabf780a7388052f9fb07f0c3322e64b96e625bc721e622c156",
       abi: [
         {
           type: "impl",
@@ -5196,11 +5227,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -5219,7 +5250,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC20MixinImpl",
-          interface_name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          interface_name: "openzeppelin_token::erc20::interface::IERC20Mixin",
         },
         {
           type: "enum",
@@ -5255,7 +5286,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc20::interface::ERC20ABI",
+          name: "openzeppelin_token::erc20::interface::IERC20Mixin",
           items: [
             {
               type: "function",
@@ -5478,7 +5509,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -5500,7 +5531,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
           kind: "struct",
           members: [
             {
@@ -5522,24 +5553,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+          name: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Transfer",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Approval",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Approval",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -5551,12 +5582,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -5568,21 +5599,23 @@ const deployedContracts = {
           variants: [
             {
               name: "ERC20Event",
-              type: "openzeppelin::token::erc20::erc20::ERC20Component::Event",
+              type: "openzeppelin_token::erc20::erc20::ERC20Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x57741c0bba7fca965165327df5b78fbf00ae62f1da0b32079029a252a3111cc",
     },
     ScaffoldAMM: {
       address:
-        "0xee8e6c8b672d98e1c709f6a48b4ad8d85b7e9c3583614fe38c9d4994c09269",
+        "0x356a44ccc942a550187412cffa99fae70a8daece1f9d2c446ef269aeaef752a",
       abi: [
         {
           type: "impl",
@@ -5744,10 +5777,12 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x70b0729ad0c574602ed24c0f800e3c5e98e2cdf0975f677fc2609d35696b1d8",
     },
     NadaiAMM: {
       address:
-        "0x3e6d9bba0dd2ea812c81d7da5c723ec0228c93da0e66138389512f36d44545e",
+        "0x51abbd408686a8ffdce7459a9e1d69d31f8de22d0dfbade11d4e56d2aed5032",
       abi: [
         {
           type: "impl",
@@ -5909,10 +5944,12 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x70b0729ad0c574602ed24c0f800e3c5e98e2cdf0975f677fc2609d35696b1d8",
     },
     StarknetAMM: {
       address:
-        "0x660559094ad6565262f12685152571ea126d6661fbbe3c7f207c16ead03b98",
+        "0x7146ef2b81aa62671497c56934019ae9a8541ea878b88eefc7b30d456e49607",
       abi: [
         {
           type: "impl",
@@ -6074,10 +6111,12 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x70b0729ad0c574602ed24c0f800e3c5e98e2cdf0975f677fc2609d35696b1d8",
     },
     Staking: {
       address:
-        "0x6b14e936245023e29182b682ad7d4fbf3d772e252e9f8b8bb9d6484ba8f3b95",
+        "0x12e97da9038b246bfb72fc03a7fbb0b286abca6e3d05c5c9ad03803c3bf6b41",
       abi: [
         {
           type: "impl",
@@ -6274,10 +6313,12 @@ const deployedContracts = {
           ],
         },
       ],
+      classHash:
+        "0x4e88d295a1b41a4d20daf71e2d70dae1592e9fa3ce04d95b24cab18f6c3d6c5",
     },
     Vault: {
       address:
-        "0x444d82d586299c07ebe08ec17df8e2550ef4c04e1d74986e7b52744313d4ac7",
+        "0x106956ebab60581463d2db063ce05139f37442d9725c58d0fb7551e0d461509",
       abi: [
         {
           type: "impl",
@@ -6345,6 +6386,8 @@ const deployedContracts = {
           variants: [],
         },
       ],
+      classHash:
+        "0x13c86279c865cfcd7927ed56878bead3c66aec72ae7f6cb58493cd38f674e50",
     },
     PriceFeedExample: {
       address:
@@ -6422,410 +6465,21 @@ const deployedContracts = {
           variants: [],
         },
       ],
-    },
-    ChainlinkSTRK: {
-      address:
-        "0x00a5db422ee7c28beead49303646e44ef9cbb8364eeba4d8af9ac06a3b556937",
-      abi: [
-        {
-          type: "impl",
-          name: "AggregatorProxyImpl",
-          interface_name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-        },
-        {
-          type: "interface",
-          name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-          items: [
-            {
-              type: "function",
-              name: "latest_round_data",
-              inputs: [],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "round_data",
-              inputs: [
-                {
-                  name: "round_id",
-                  type: "core::felt252",
-                },
-              ],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "description",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::felt252",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "decimals",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u8",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "latest_answer",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u128",
-                },
-              ],
-              state_mutability: "view",
-            },
-          ],
-        },
-        {
-          type: "constructor",
-          name: "constructor",
-          inputs: [
-            {
-              name: "owner",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "address",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-          ],
-        },
-        {
-          type: "event",
-          name: "chainlink::ocr2::aggregator_proxy::Event",
-          kind: "enum",
-          variants: [
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AddedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::RemovedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlEnabled",
-              members: [],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlDisabled",
-              members: [],
-            },
-          ],
-        },
-      ],
-    },
-    ChainlinkLINK: {
-      address:
-        "0x044e29893a7bd694e8335919ce1daaf99128e0295daad7852e59b0791cc3468e",
-      abi: [
-        {
-          type: "impl",
-          name: "AggregatorProxyImpl",
-          interface_name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-        },
-        {
-          type: "interface",
-          name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-          items: [
-            {
-              type: "function",
-              name: "latest_round_data",
-              inputs: [],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "round_data",
-              inputs: [
-                {
-                  name: "round_id",
-                  type: "core::felt252",
-                },
-              ],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "description",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::felt252",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "decimals",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u8",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "latest_answer",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u128",
-                },
-              ],
-              state_mutability: "view",
-            },
-          ],
-        },
-        {
-          type: "constructor",
-          name: "constructor",
-          inputs: [
-            {
-              name: "owner",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "address",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-          ],
-        },
-        {
-          type: "event",
-          name: "chainlink::ocr2::aggregator_proxy::Event",
-          kind: "enum",
-          variants: [
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AddedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::RemovedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlEnabled",
-              members: [],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlDisabled",
-              members: [],
-            },
-          ],
-        },
-      ],
-    },
-
-    ChainlinkBTC: {
-      address:
-        "0x00258b8f498b767c200577227e3e9f009c9b0fe7f6a3c8c2c24efd588c54747a",
-      abi: [
-        {
-          type: "impl",
-          name: "AggregatorProxyImpl",
-          interface_name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-        },
-        {
-          type: "interface",
-          name: "chainlink::ocr2::aggregator_proxy::IAggregatorProxy",
-          items: [
-            {
-              type: "function",
-              name: "latest_round_data",
-              inputs: [],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "round_data",
-              inputs: [
-                {
-                  name: "round_id",
-                  type: "core::felt252",
-                },
-              ],
-              outputs: [
-                {
-                  type: "chainlink::ocr2::aggregator::Round",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "description",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::felt252",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "decimals",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u8",
-                },
-              ],
-              state_mutability: "view",
-            },
-            {
-              type: "function",
-              name: "latest_answer",
-              inputs: [],
-              outputs: [
-                {
-                  type: "core::integer::u128",
-                },
-              ],
-              state_mutability: "view",
-            },
-          ],
-        },
-        {
-          type: "constructor",
-          name: "constructor",
-          inputs: [
-            {
-              name: "owner",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-            {
-              name: "address",
-              type: "core::starknet::contract_address::ContractAddress",
-            },
-          ],
-        },
-        {
-          type: "event",
-          name: "chainlink::ocr2::aggregator_proxy::Event",
-          kind: "enum",
-          variants: [
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AddedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::RemovedAccess",
-              members: [
-                {
-                  kind: "key",
-                  name: "user",
-                  type: "core::starknet::contract_address::ContractAddress",
-                },
-              ],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlEnabled",
-              members: [],
-            },
-            {
-              kind: "struct",
-              name: "chainlink::libraries::access_control::AccessControlComponent::AccessControlDisabled",
-              members: [],
-            },
-          ],
-        },
-      ],
+      classHash:
+        "0x0017345dedd18e2f38d6b62b2aca3091c6e8a0bd5ec49d1906674fe680376106",
     },
     ScaffoldNFT: {
       address:
-        "0x68002284d5b70ea2b502259d3ff430ada6930197ff5559dd74fbc942bc37841",
+        "0x74884d01d23879a3d438918c0840fb5219a52ae51a14da785ab11b90e71119a",
       abi: [
         {
           type: "impl",
           name: "UpgradeableImpl",
-          interface_name: "openzeppelin::upgrades::interface::IUpgradeable",
+          interface_name: "openzeppelin_upgrades::interface::IUpgradeable",
         },
         {
           type: "interface",
-          name: "openzeppelin::upgrades::interface::IUpgradeable",
+          name: "openzeppelin_upgrades::interface::IUpgradeable",
           items: [
             {
               type: "function",
@@ -6889,12 +6543,11 @@ const deployedContracts = {
         {
           type: "impl",
           name: "OwnableMixinImpl",
-          interface_name:
-            "openzeppelin::access::ownable::interface::OwnableABI",
+          interface_name: "openzeppelin_access::ownable::interface::OwnableABI",
         },
         {
           type: "interface",
-          name: "openzeppelin::access::ownable::interface::OwnableABI",
+          name: "openzeppelin_access::ownable::interface::OwnableABI",
           items: [
             {
               type: "function",
@@ -6950,7 +6603,7 @@ const deployedContracts = {
         {
           type: "impl",
           name: "ERC721MixinImpl",
-          interface_name: "openzeppelin::token::erc721::interface::ERC721ABI",
+          interface_name: "openzeppelin_token::erc721::interface::ERC721ABI",
         },
         {
           type: "struct",
@@ -6996,7 +6649,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "openzeppelin::token::erc721::interface::ERC721ABI",
+          name: "openzeppelin_token::erc721::interface::ERC721ABI",
           items: [
             {
               type: "function",
@@ -7384,7 +7037,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
           kind: "struct",
           members: [
             {
@@ -7401,7 +7054,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
           kind: "struct",
           members: [
             {
@@ -7418,24 +7071,24 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "OwnershipTransferred",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
               kind: "nested",
             },
             {
               name: "OwnershipTransferStarted",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc721::erc721::ERC721Component::Transfer",
+          name: "openzeppelin_token::erc721::erc721::ERC721Component::Transfer",
           kind: "struct",
           members: [
             {
@@ -7457,7 +7110,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc721::erc721::ERC721Component::Approval",
+          name: "openzeppelin_token::erc721::erc721::ERC721Component::Approval",
           kind: "struct",
           members: [
             {
@@ -7479,7 +7132,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc721::erc721::ERC721Component::ApprovalForAll",
+          name: "openzeppelin_token::erc721::erc721::ERC721Component::ApprovalForAll",
           kind: "struct",
           members: [
             {
@@ -7501,35 +7154,35 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::token::erc721::erc721::ERC721Component::Event",
+          name: "openzeppelin_token::erc721::erc721::ERC721Component::Event",
           kind: "enum",
           variants: [
             {
               name: "Transfer",
-              type: "openzeppelin::token::erc721::erc721::ERC721Component::Transfer",
+              type: "openzeppelin_token::erc721::erc721::ERC721Component::Transfer",
               kind: "nested",
             },
             {
               name: "Approval",
-              type: "openzeppelin::token::erc721::erc721::ERC721Component::Approval",
+              type: "openzeppelin_token::erc721::erc721::ERC721Component::Approval",
               kind: "nested",
             },
             {
               name: "ApprovalForAll",
-              type: "openzeppelin::token::erc721::erc721::ERC721Component::ApprovalForAll",
+              type: "openzeppelin_token::erc721::erc721::ERC721Component::ApprovalForAll",
               kind: "nested",
             },
           ],
         },
         {
           type: "event",
-          name: "openzeppelin::introspection::src5::SRC5Component::Event",
+          name: "openzeppelin_introspection::src5::SRC5Component::Event",
           kind: "enum",
           variants: [],
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
           kind: "struct",
           members: [
             {
@@ -7541,12 +7194,12 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          name: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
           kind: "enum",
           variants: [
             {
               name: "Upgraded",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Upgraded",
               kind: "nested",
             },
           ],
@@ -7558,27 +7211,29 @@ const deployedContracts = {
           variants: [
             {
               name: "OwnableEvent",
-              type: "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
               kind: "flat",
             },
             {
               name: "ERC721Event",
-              type: "openzeppelin::token::erc721::erc721::ERC721Component::Event",
+              type: "openzeppelin_token::erc721::erc721::ERC721Component::Event",
               kind: "flat",
             },
             {
               name: "SRC5Event",
-              type: "openzeppelin::introspection::src5::SRC5Component::Event",
+              type: "openzeppelin_introspection::src5::SRC5Component::Event",
               kind: "flat",
             },
             {
               name: "UpgradeableEvent",
-              type: "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+              type: "openzeppelin_upgrades::upgradeable::UpgradeableComponent::Event",
               kind: "flat",
             },
           ],
         },
       ],
+      classHash:
+        "0x623fd21904b69bf3f4c37fa031bb6c67903d430cd81786e28ab721ad9503e96",
     },
   },
 } as const;

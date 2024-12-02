@@ -15,7 +15,8 @@ pub trait IConstantProductAmm<TContractState> {
 mod ConstantProductAmm {
     use core::integer::u256_sqrt;
     use core::traits::Into;
-    use openzeppelin::token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
+    use openzeppelin_token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
+    use starknet::storage::Map;
     use starknet::{
         ContractAddress, get_caller_address, get_contract_address, contract_address_const
     };
@@ -27,7 +28,7 @@ mod ConstantProductAmm {
         reserve0: u256,
         reserve1: u256,
         total_supply: u256,
-        balance_of: LegacyMap::<ContractAddress, u256>,
+        balance_of: Map::<ContractAddress, u256>,
         // Fee 0 - 1000 (0% - 100%, 1 decimal places)
         // E.g. 3 = 0.3%
         fee: u16,
@@ -282,7 +283,7 @@ mod ConstantProductAmm {
             self.balance_of.read(owner)
         }
         fn get_amount1_out(self: @ContractState, amount0: u256) -> u256 {
-            // reverse this 
+            // reverse this
             let (reserve0, reserve1): (u256, u256) = (self.reserve0.read(), self.reserve1.read());
             // if (reserve0 > 0 || reserve1 > 0) {
             // }

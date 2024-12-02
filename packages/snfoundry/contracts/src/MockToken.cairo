@@ -7,10 +7,10 @@ pub trait IMockToken<TContractState> {
 
 #[starknet::contract]
 mod MockToken {
-    use openzeppelin::token::erc20::ERC20Component;
-    use openzeppelin::token::erc20::ERC20HooksEmptyImpl;
-    use openzeppelin::upgrades::UpgradeableComponent;
-    use openzeppelin::upgrades::interface::IUpgradeable;
+    use openzeppelin_token::erc20::ERC20Component;
+    use openzeppelin_token::erc20::ERC20HooksEmptyImpl;
+    use openzeppelin_upgrades::UpgradeableComponent;
+    use openzeppelin_upgrades::interface::IUpgradeable;
     use starknet::ClassHash;
     use starknet::ContractAddress;
     use super::IMockToken;

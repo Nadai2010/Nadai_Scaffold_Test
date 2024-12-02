@@ -5,7 +5,7 @@ import {
   createContractCall,
   useScaffoldMultiWriteContract,
 } from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
-import { Address } from "~~/components/scaffold-stark";
+import { Address } from "../components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
@@ -190,25 +190,23 @@ const Starknet: NextPage = () => {
   });
 
   // Multiwrite Approve + add liquidity
-  const { writeAsync: MultiApproveAmmScaffold } = useScaffoldMultiWriteContract(
-    {
-      calls: [
-        createContractCall("DAI", "approve", [
-          ScaffoldAMM?.address,
-          toWei(Number(liquidityAmount)),
-        ]),
-        createContractCall("USDT", "approve", [
-          ScaffoldAMM?.address,
-          amount1 as any,
-        ]),
-        createContractCall("ScaffoldAMM", "add_liquidity", [
-          toWei(Number(liquidityAmount)),
-          amount1 as any,
-        ]),
-      ],
-    },
-  );
-  const { writeAsync: MultiApproveAmmNadai } = useScaffoldMultiWriteContract({
+  const { sendAsync: MultiApproveAmmScaffold } = useScaffoldMultiWriteContract({
+    calls: [
+      createContractCall("DAI", "approve", [
+        ScaffoldAMM?.address,
+        toWei(Number(liquidityAmount)),
+      ]),
+      createContractCall("USDT", "approve", [
+        ScaffoldAMM?.address,
+        amount1 as any,
+      ]),
+      createContractCall("ScaffoldAMM", "add_liquidity", [
+        toWei(Number(liquidityAmount)),
+        amount1 as any,
+      ]),
+    ],
+  });
+  const { sendAsync: MultiApproveAmmNadai } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("NAI", "approve", [
         NadaiAMM?.address,
@@ -225,37 +223,33 @@ const Starknet: NextPage = () => {
     ],
   });
 
-  const { writeAsync: MultiApproveAmmStarknet } = useScaffoldMultiWriteContract(
-    {
-      calls: [
-        createContractCall("STRK", "approve", [
-          StarknetAMM?.address,
-          toWei(Number(liquidityAmount3)),
-        ]),
-        createContractCall("USDT", "approve", [
-          StarknetAMM?.address,
-          amount3 as any,
-        ]),
-        createContractCall("StarknetAMM", "add_liquidity", [
-          toWei(Number(liquidityAmount3)),
-          amount3 as any,
-        ]),
-      ],
-    },
-  );
+  const { sendAsync: MultiApproveAmmStarknet } = useScaffoldMultiWriteContract({
+    calls: [
+      createContractCall("STRK", "approve", [
+        StarknetAMM?.address,
+        toWei(Number(liquidityAmount3)),
+      ]),
+      createContractCall("USDT", "approve", [
+        StarknetAMM?.address,
+        amount3 as any,
+      ]),
+      createContractCall("StarknetAMM", "add_liquidity", [
+        toWei(Number(liquidityAmount3)),
+        amount3 as any,
+      ]),
+    ],
+  });
 
   // Withdraw
-  const { writeAsync: removeLiquidityScaffold } = useScaffoldMultiWriteContract(
-    {
-      calls: [
-        createContractCall("ScaffoldAMM", "remove_liquidity", [
-          toWei(Number(removeAmount)),
-        ]),
-      ],
-    },
-  );
+  const { sendAsync: removeLiquidityScaffold } = useScaffoldMultiWriteContract({
+    calls: [
+      createContractCall("ScaffoldAMM", "remove_liquidity", [
+        toWei(Number(removeAmount)),
+      ]),
+    ],
+  });
 
-  const { writeAsync: removeLiquidityNadai } = useScaffoldMultiWriteContract({
+  const { sendAsync: removeLiquidityNadai } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("NadaiAMM", "remove_liquidity", [
         toWei(Number(removeAmount2)),
@@ -263,18 +257,16 @@ const Starknet: NextPage = () => {
     ],
   });
 
-  const { writeAsync: removeLiquidityStarknet } = useScaffoldMultiWriteContract(
-    {
-      calls: [
-        createContractCall("StarknetAMM", "remove_liquidity", [
-          toWei(Number(removeAmount3)),
-        ]),
-      ],
-    },
-  );
+  const { sendAsync: removeLiquidityStarknet } = useScaffoldMultiWriteContract({
+    calls: [
+      createContractCall("StarknetAMM", "remove_liquidity", [
+        toWei(Number(removeAmount3)),
+      ]),
+    ],
+  });
 
   // Withdraw ALL
-  const { writeAsync: removeLiquidityAllAMM } = useScaffoldMultiWriteContract({
+  const { sendAsync: removeLiquidityAllAMM } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("ScaffoldAMM", "remove_liquidity", [
         Number(balanceScaffoldAccount),

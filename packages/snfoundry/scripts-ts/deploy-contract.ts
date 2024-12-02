@@ -10,12 +10,47 @@ import {
   extractContractHashes,
   DeclareContractPayload,
   UniversalDetails,
+  isSierra,
+  TransactionReceipt,
 } from "starknet";
 import { DeployContractParams, Network } from "./types";
 import { green, red, yellow } from "./helpers/colorize-log";
+import { getTxVersion } from "./helpers/fees";
 
-const argv = yargs(process.argv.slice(2)).argv;
-const networkName: string = argv["network"];
+interface Arguments {
+  network: string;
+  reset: boolean;
+  fee?: string;
+  [x: string]: unknown;
+  _: (string | number)[];
+  $0: string;
+}
+
+const argv = yargs(process.argv.slice(2))
+  .option("network", {
+    type: "string",
+    description: "Specify the network",
+    demandOption: true,
+  })
+  .option("reset", {
+    alias: "nr",
+    type: "boolean",
+    description:
+      "(--no-reset) Do not reset deployments (keep existing deployments)",
+    default: true,
+  })
+  .option("fee", {
+    type: "string",
+    description: "Specify the fee token",
+    demandOption: false,
+    choices: ["eth", "strk"],
+    default: "eth",
+  })
+  .parseSync() as Arguments;
+
+const networkName: string = argv.network;
+const resetDeployments: boolean = argv.reset;
+const feeToken: string = argv.fee;
 
 let deployments = {};
 let deployCalls = [];
@@ -31,7 +66,16 @@ const declareIfNot_NotWait = async (
     await provider.getClassByHash(declareContractPayload.classHash);
   } catch (error) {
     try {
-      const { transaction_hash } = await deployer.declare(payload, options);
+      const isSierraContract = isSierra(payload.contract);
+      const txVersion = await getTxVersion(
+        networks[networkName],
+        feeToken,
+        isSierraContract
+      );
+      const { transaction_hash } = await deployer.declare(payload, {
+        ...options,
+        version: txVersion,
+      });
       if (networkName === "sepolia" || networkName === "mainnet") {
         await provider.waitForTransaction(transaction_hash);
       }
@@ -167,7 +211,8 @@ const deployContract = async (
   const constructorCalldata = constructorArgs
     ? contractCalldata.compile("constructor", constructorArgs)
     : [];
-  console.log(yellow("Deploying Contract "), contract);
+
+  console.log(yellow("Deploying Contract "), contractName || contract);
 
   let { classHash } = await declareIfNot_NotWait(
     {
@@ -211,15 +256,24 @@ const executeDeployCalls = async (options?: UniversalDetails) => {
   }
 
   try {
-    let { transaction_hash } = await deployer.execute(deployCalls, options);
-    console.log(green("Deploy Calls Executed at "), transaction_hash);
+    const txVersion = await getTxVersion(networks[networkName], feeToken);
+    let { transaction_hash } = await deployer.execute(deployCalls, {
+      ...options,
+      version: txVersion,
+    });
     if (networkName === "sepolia" || networkName === "mainnet") {
-      await provider.waitForTransaction(transaction_hash);
+      const receipt = (await provider.waitForTransaction(
+        transaction_hash
+      )) as TransactionReceipt;
+      if (receipt.execution_status !== "SUCCEEDED") {
+        const revertReason = receipt.revert_reason;
+        throw new Error(red(`Deploy Calls Failed: ${revertReason}`));
+      }
     }
+    console.log(green("Deploy Calls Executed at "), transaction_hash);
   } catch (error) {
-    console.error(red("Error executing deploy calls: "), error);
     // split the calls in half and try again recursively
-    if (deployCalls.length > 1) {
+    if (deployCalls.length > 100) {
       let half = Math.ceil(deployCalls.length / 2);
       let firstHalf = deployCalls.slice(0, half);
       let secondHalf = deployCalls.slice(half);
@@ -227,8 +281,21 @@ const executeDeployCalls = async (options?: UniversalDetails) => {
       await executeDeployCalls(options);
       deployCalls = secondHalf;
       await executeDeployCalls(options);
+    } else {
+      throw error;
     }
   }
+};
+
+const loadExistingDeployments = () => {
+  const networkPath = path.resolve(
+    __dirname,
+    `../deployments/${networkName}_latest.json`
+  );
+  if (fs.existsSync(networkPath)) {
+    return JSON.parse(fs.readFileSync(networkPath, "utf8"));
+  }
+  return {};
 };
 
 const exportDeployments = () => {
@@ -237,12 +304,18 @@ const exportDeployments = () => {
     `../deployments/${networkName}_latest.json`
   );
 
-  if (fs.existsSync(networkPath)) {
+  const resetDeployments: boolean = argv.reset;
+
+  if (!resetDeployments && fs.existsSync(networkPath)) {
     const currentTimestamp = new Date().getTime();
     fs.renameSync(
       networkPath,
       networkPath.replace("_latest.json", `_${currentTimestamp}.json`)
     );
+  }
+
+  if (resetDeployments && fs.existsSync(networkPath)) {
+    fs.unlinkSync(networkPath);
   }
 
   fs.writeFileSync(networkPath, JSON.stringify(deployments, null, 2));
@@ -252,6 +325,8 @@ export {
   deployContract,
   provider,
   deployer,
+  loadExistingDeployments,
   exportDeployments,
   executeDeployCalls,
+  resetDeployments,
 };

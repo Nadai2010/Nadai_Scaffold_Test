@@ -10,7 +10,7 @@ pub trait IPriceFeedExample<TContractState> {
 
 #[starknet::contract]
 mod PriceFeedExample {
-    use openzeppelin::token::erc20::interface::{ERC20ABIDispatcher, ERC20ABIDispatcherTrait};
+    use openzeppelin_token::erc20::interface::{ERC20ABIDispatcher, ERC20ABIDispatcherTrait};
     use pragma_lib::abi::{IPragmaABIDispatcher, IPragmaABIDispatcherTrait};
     use pragma_lib::types::{AggregationMode, DataType, PragmaPricesResponse};
     use starknet::contract_address::contract_address_const;

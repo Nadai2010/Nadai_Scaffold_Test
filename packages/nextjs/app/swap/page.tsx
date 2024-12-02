@@ -6,7 +6,7 @@ import {
   createContractCall,
   useScaffoldMultiWriteContract,
 } from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
-import { Address } from "~~/components/scaffold-stark";
+import { Address } from "../components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
@@ -102,7 +102,7 @@ const Starknet: NextPage = () => {
   });
 
   // Swap 10 USDT for X DAI
-  const { writeAsync: SwapAmmScaffoldUSDT } = useScaffoldMultiWriteContract({
+  const { sendAsync: SwapAmmScaffoldUSDT } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("USDT", "approve", [
         ScaffoldAMM?.address,
@@ -115,7 +115,7 @@ const Starknet: NextPage = () => {
     ],
   });
 
-  const { writeAsync: SwapAmmNadaiUsdt } = useScaffoldMultiWriteContract({
+  const { sendAsync: SwapAmmNadaiUsdt } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("USDT", "approve", [
         NadaiAMM?.address,
@@ -128,7 +128,7 @@ const Starknet: NextPage = () => {
     ],
   });
 
-  const { writeAsync: SwapAmmStarknetUsdt } = useScaffoldMultiWriteContract({
+  const { sendAsync: SwapAmmStarknetUsdt } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("USDT", "approve", [
         StarknetAMM?.address,
@@ -142,36 +142,34 @@ const Starknet: NextPage = () => {
   });
 
   // MultiWrite Cross Swap in 3 AMM
-  const { writeAsync: MultiSwapAmmScaffoldALL } = useScaffoldMultiWriteContract(
-    {
-      calls: [
-        createContractCall("DAI", "approve", [
-          ScaffoldAMM?.address,
-          100000000000000000000,
-        ]),
-        createContractCall("USDT", "approve", [
-          NadaiAMM?.address,
-          100000000000000000000,
-        ]),
-        createContractCall("USDT", "approve", [
-          StarknetAMM?.address,
-          100000000000000000000,
-        ]),
-        createContractCall("ScaffoldAMM", "swap", [
-          contractDai?.address,
-          10000000000000000000,
-        ]),
-        createContractCall("NadaiAMM", "swap", [
-          contractUsdt?.address,
-          10000000000000000000,
-        ]),
-        createContractCall("StarknetAMM", "swap", [
-          contractUsdt?.address,
-          10000000000000000000,
-        ]),
-      ],
-    },
-  );
+  const { sendAsync: MultiSwapAmmScaffoldALL } = useScaffoldMultiWriteContract({
+    calls: [
+      createContractCall("DAI", "approve", [
+        ScaffoldAMM?.address,
+        100000000000000000000,
+      ]),
+      createContractCall("USDT", "approve", [
+        NadaiAMM?.address,
+        100000000000000000000,
+      ]),
+      createContractCall("USDT", "approve", [
+        StarknetAMM?.address,
+        100000000000000000000,
+      ]),
+      createContractCall("ScaffoldAMM", "swap", [
+        contractDai?.address,
+        10000000000000000000,
+      ]),
+      createContractCall("NadaiAMM", "swap", [
+        contractUsdt?.address,
+        10000000000000000000,
+      ]),
+      createContractCall("StarknetAMM", "swap", [
+        contractUsdt?.address,
+        10000000000000000000,
+      ]),
+    ],
+  });
 
   // Manejo de eventos de botones
   const handleSwapScaffoldUSDT = async () => {

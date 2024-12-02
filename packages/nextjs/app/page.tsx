@@ -4,14 +4,14 @@ import React from "react";
 import { NextPage } from "next";
 import { useState } from "react";
 import { useAccount } from "@starknet-react/core";
-import { Address } from "~~/components/scaffold-stark";
+import { Address } from "../app/components/scaffold-stark";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWriteContract";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useTransactor } from "~~/hooks/scaffold-stark/useTransactor";
 import { getAllContracts } from "~~/utils/scaffold-stark/contractsData";
 import { BlockNumber } from "starknet";
-import usdtLogo from "/public/logo-usdt.svg";
+import usdtLogo from "../public/logo-usdt.svg";
 import daiLogo from "/public/logo-dai.svg";
 import strkLogo from "/public/logo-starknet.svg";
 import naiLogo from "/public/logo-nai.png";
@@ -73,31 +73,31 @@ const Starknet: NextPage = () => {
   });
 
   // Faucet
-  const { writeAsync: faucetUSDT } = useScaffoldWriteContract({
+  const { sendAsync: faucetUSDT } = useScaffoldWriteContract({
     contractName: "USDT",
     functionName: "faucet",
     args: [connectedAddress, 100000000000000000000],
   });
 
-  const { writeAsync: faucetDAI } = useScaffoldWriteContract({
+  const { sendAsync: faucetDAI } = useScaffoldWriteContract({
     contractName: "DAI",
     functionName: "faucet",
     args: [connectedAddress, 100000000000000000000],
   });
 
-  const { writeAsync: faucetSTRK } = useScaffoldWriteContract({
+  const { sendAsync: faucetSTRK } = useScaffoldWriteContract({
     contractName: "STRK",
     functionName: "faucet",
     args: [connectedAddress, 100000000000000000000],
   });
 
-  const { writeAsync: faucetNAI } = useScaffoldWriteContract({
+  const { sendAsync: faucetNAI } = useScaffoldWriteContract({
     contractName: "NAI",
     functionName: "faucet",
     args: [connectedAddress, 100000000000000000000],
   });
 
-  const { writeAsync: faucetALL } = useScaffoldMultiWriteContract({
+  const { sendAsync: faucetALL } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("USDT", "faucet", [
         connectedAddress,

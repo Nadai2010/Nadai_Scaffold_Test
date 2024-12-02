@@ -76,31 +76,31 @@ const Home = () => {
     watch: true,
   });
 
-  const { writeAsync: mintnft1 } = useScaffoldMultiWriteContract({
+  const { sendAsync: mintnft1 } = useScaffoldMultiWriteContract({
     calls: [createContractCall("ScaffoldNFT", "mint", [connectedAddress, 1])],
   });
 
-  const { writeAsync: mintnft2 } = useScaffoldMultiWriteContract({
+  const { sendAsync: mintnft2 } = useScaffoldMultiWriteContract({
     calls: [createContractCall("ScaffoldNFT", "mint", [connectedAddress, 2])],
   });
 
-  const { writeAsync: mintnft3 } = useScaffoldMultiWriteContract({
+  const { sendAsync: mintnft3 } = useScaffoldMultiWriteContract({
     calls: [createContractCall("ScaffoldNFT", "mint", [connectedAddress, 3])],
   });
 
-  const { writeAsync: mintnft4 } = useScaffoldMultiWriteContract({
+  const { sendAsync: mintnft4 } = useScaffoldMultiWriteContract({
     calls: [createContractCall("ScaffoldNFT", "mint", [connectedAddress, 4])],
   });
 
-  const { writeAsync: mintnft5 } = useScaffoldMultiWriteContract({
+  const { sendAsync: mintnft5 } = useScaffoldMultiWriteContract({
     calls: [createContractCall("ScaffoldNFT", "mint", [connectedAddress, 5])],
   });
 
-  const { writeAsync: mintnft6 } = useScaffoldMultiWriteContract({
+  const { sendAsync: mintnft6 } = useScaffoldMultiWriteContract({
     calls: [createContractCall("ScaffoldNFT", "mint", [connectedAddress, 6])],
   });
 
-  const { writeAsync: transfer1 } = useScaffoldMultiWriteContract({
+  const { sendAsync: transfer1 } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("ScaffoldNFT", "transferFrom", [
         connectedAddress,
@@ -110,7 +110,7 @@ const Home = () => {
     ],
   });
 
-  const { writeAsync: transfer2 } = useScaffoldMultiWriteContract({
+  const { sendAsync: transfer2 } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("ScaffoldNFT", "transferFrom", [
         connectedAddress,
@@ -120,7 +120,7 @@ const Home = () => {
     ],
   });
 
-  const { writeAsync: transfer3 } = useScaffoldMultiWriteContract({
+  const { sendAsync: transfer3 } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("ScaffoldNFT", "transferFrom", [
         connectedAddress,
@@ -130,7 +130,7 @@ const Home = () => {
     ],
   });
 
-  const { writeAsync: transfer4 } = useScaffoldMultiWriteContract({
+  const { sendAsync: transfer4 } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("ScaffoldNFT", "transferFrom", [
         connectedAddress,
@@ -140,7 +140,7 @@ const Home = () => {
     ],
   });
 
-  const { writeAsync: transfer5 } = useScaffoldMultiWriteContract({
+  const { sendAsync: transfer5 } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("ScaffoldNFT", "transferFrom", [
         connectedAddress,
@@ -150,7 +150,7 @@ const Home = () => {
     ],
   });
 
-  const { writeAsync: transfer6 } = useScaffoldMultiWriteContract({
+  const { sendAsync: transfer6 } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("ScaffoldNFT", "transferFrom", [
         connectedAddress,

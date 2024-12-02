@@ -5,7 +5,7 @@ import {
   createContractCall,
   useScaffoldMultiWriteContract,
 } from "~~/hooks/scaffold-stark/useScaffoldMultiWriteContract";
-import { Address } from "~~/components/scaffold-stark";
+import { Address } from "../components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
@@ -43,7 +43,7 @@ const Starknet: NextPage = () => {
 
   // Obtener contratos
   const { data: StakingContract } = useScaffoldContract({
-    contractName: "StakingContract",
+    contractName: "Staking",
   });
 
   // Leer datos de contratos
@@ -77,40 +77,36 @@ const Starknet: NextPage = () => {
 
   //Balance Reserves
   const { data: balanceStaking } = useScaffoldReadContract({
-    contractName: "StakingContract",
+    contractName: "Staking",
     functionName: "get_stake",
     args: [connectedAddress ?? ""],
   });
 
   // Write datos en Contratos
-  const { writeAsync: StakeRewards } = useScaffoldMultiWriteContract({
+  const { sendAsync: StakeRewards } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("StakingContract", "set_reward_amount", [
+      createContractCall("Staking", "set_reward_amount", [
         toWei(Number(rewardAmount)),
       ]),
-      createContractCall("StakingContract", "set_reward_duration", [
+      createContractCall("Staking", "set_reward_duration", [
         toWei(Number(durationAmount)),
       ]),
     ],
   });
 
-  const { writeAsync: Stake } = useScaffoldMultiWriteContract({
+  const { sendAsync: Stake } = useScaffoldMultiWriteContract({
     calls: [
       createContractCall("NAI", "approve", [
         StakingContract?.address,
         toWei(Number(stakeAmount)),
       ]),
-      createContractCall("StakingContract", "stake", [
-        toWei(Number(stakeAmount)),
-      ]),
+      createContractCall("Staking", "stake", [toWei(Number(stakeAmount))]),
     ],
   });
 
-  const { writeAsync: withdrawStake } = useScaffoldMultiWriteContract({
+  const { sendAsync: withdrawStake } = useScaffoldMultiWriteContract({
     calls: [
-      createContractCall("StakingContract", "withdraw", [
-        toWei(Number(withAmount)),
-      ]),
+      createContractCall("Staking", "withdraw", [toWei(Number(withAmount))]),
     ],
   });
 

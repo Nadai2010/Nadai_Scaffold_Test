@@ -25,6 +25,7 @@ pub trait ISimpleVault<TContractState> {
 
 #[starknet::contract]
 pub mod SimpleVault {
+    use starknet::storage::Map;
     use starknet::{ContractAddress, get_caller_address, get_contract_address};
     use super::{IERC20Dispatcher, IERC20DispatcherTrait};
 
@@ -32,7 +33,7 @@ pub mod SimpleVault {
     struct Storage {
         token: IERC20Dispatcher,
         total_supply: u256,
-        balance_of: LegacyMap<ContractAddress, u256>
+        balance_of: Map<ContractAddress, u256>
     }
 
     #[constructor]
@@ -61,7 +62,7 @@ pub mod SimpleVault {
             // T = total supply
             // s = shares to mint
             //
-            // (T + s) / T = (a + B) / B 
+            // (T + s) / T = (a + B) / B
             //
             // s = aT / B
             let caller = get_caller_address();
@@ -85,7 +86,7 @@ pub mod SimpleVault {
             // T = total supply
             // s = shares to burn
             //
-            // (T - s) / T = (B - a) / B 
+            // (T - s) / T = (B - a) / B
             //
             // a = sB / T
             let caller = get_caller_address();
